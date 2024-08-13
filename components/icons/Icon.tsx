@@ -17,9 +17,9 @@ const Icon = ({ icon, strokeColor }: CustomProps) => {
             viewBox="0 0 24 24"
             fill="none"
             stroke={strokeColor}
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="lucide lucide-mail"
           >
             <rect width="20" height="16" x="2" y="4" rx="2" />
@@ -39,9 +39,9 @@ const Icon = ({ icon, strokeColor }: CustomProps) => {
             viewBox="0 0 24 24"
             fill="none"
             stroke={strokeColor}
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="lucide lucide-lock"
           >
             <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />

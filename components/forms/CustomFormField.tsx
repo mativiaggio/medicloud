@@ -51,6 +51,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
     iconType,
   } = props;
   switch (fieldType) {
+    case FormFieldType.PASSWORD:
     case FormFieldType.INPUT:
       return (
         <div
@@ -68,6 +69,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
           <FormControl>
             <Input
               {...field}
+              type={fieldType}
               placeholder={placeholder}
               className={`shad-input ${inputCustomClasses}`}
             />
