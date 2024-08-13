@@ -8,8 +8,9 @@ const Login = () => {
       <div className="w-full flex justify-center items-center p-5">
         <Image
           src={"/assets/svgs/HMT-Blanco.svg"}
-          height={200}
-          width={200}
+          height={0}
+          width={0}
+          style={{ height: "auto", width: "200px" }}
           alt="Hospice Madre Teresa"
         />
       </div>

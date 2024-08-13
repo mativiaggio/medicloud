@@ -29,14 +29,12 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-light-200 dark:bg-main-login font-sans antialiased remove-scrollbar tracking-wider",
           fontSans.variable
-        )}
-      >
+        )}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
-          disableTransitionOnChange
-        >
+          disableTransitionOnChange>
           {children}
           <Footer />
         </ThemeProvider>

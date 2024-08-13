@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormMessage } from "@/components/ui/form";
 import CustomFormField from "./CustomFormField";
-import { createUser, login } from "@/lib/actions/user.actions";
+import { login } from "@/lib/actions/user.actions";
 export enum FormFieldType {
   INPUT = "input",
   PASSWORD = "password",
@@ -32,11 +32,11 @@ const UserFormValidation = z.object({
   }),
 });
 const LoginForm = () => {
-  // 1. Define your form.
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
       email: "",
+      password: "",
     },
   });
 
@@ -86,8 +86,7 @@ const LoginForm = () => {
         />
         <Button
           className="bg-main-4 hover:bg-main-5 w-full max-w-sm mt-[30px]"
-          type="submit"
-        >
+          type="submit">
           Iniciar sesión
         </Button>
       </form>
