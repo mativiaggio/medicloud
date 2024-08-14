@@ -6,7 +6,11 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormMessage } from "@/components/ui/form";
 import CustomFormField from "./CustomFormField";
-import { login } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase.config";
+import { useEffect, useState } from "react";
+
 export enum FormFieldType {
   INPUT = "input",
   PASSWORD = "password",
@@ -31,7 +35,10 @@ const UserFormValidation = z.object({
     message: "La contraseña no puede estar vacía.",
   }),
 });
+
 const LoginForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
@@ -45,13 +52,11 @@ const LoginForm = () => {
     password,
   }: z.infer<typeof UserFormValidation>) {
     try {
-      const userData = { email, password };
-      const user: any = await login(userData);
-      if (user) {
-        alert("User");
-      }
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/"); // Redirige al home después del login
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      // Puedes mostrar un mensaje de error en la interfaz si lo deseas
     }
   }
 

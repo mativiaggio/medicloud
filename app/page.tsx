@@ -1,12 +1,27 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import LoginForm from "@/components/forms/LoginForm";
-import Login from "@/components/login/Login";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { auth } from "@/lib/firebase.config"; // Importa la instancia de auth
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push("/login");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
   return (
-    <div className="flex h-screen max-h-screen">
-      <Login />
+    <div>
+      <h1>Bienvenido a la página principal</h1>
+      {/* El contenido de tu página principal */}
     </div>
   );
 }

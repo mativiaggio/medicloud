@@ -1,14 +1,18 @@
+"use client";
 import { account } from "../appwrite.config";
 
 export const login = async (user: LoginParams) => {
-  const promise = account.createEmailPasswordSession(user.email, user.password);
+  try {
+    const userCred = await account.createEmailPasswordSession(
+      user.email,
+      user.password
+    );
 
-  promise.then(
-    function (response) {
-      console.log(response);
-    },
-    function (error) {
-      console.log(error);
-    }
-  );
+    console.log("Session created:", userCred); // Verifica si la sesión se crea correctamente
+
+    return userCred;
+  } catch (error) {
+    console.error("Error during login:", error);
+    return null;
+  }
 };

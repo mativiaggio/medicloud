@@ -1,17 +1,9 @@
 import * as sdk from "node-appwrite";
-
-const {
-  NEXT_PUBLIC_PROJECT_ID: PROJECT_ID,
-  API_KEY,
-  DATABASE_ID,
-  GUEST_COLECTION_ID,
-  NURSE_COLECTION_ID,
-  NEXT_PUBLIC_BUCKET_ID: BUCKET_ID,
-  NEXT_PUBLIC_ENDPOINT: ENDPOINT,
-} = process.env;
+import { env } from "./env.config";
 
 const client = new sdk.Client();
-client.setEndpoint(ENDPOINT!).setProject(PROJECT_ID!).setKey(API_KEY!);
+client.setEndpoint(env.endpoint).setProject(env.projectId).setKey(env.apiKey);
+client.setSelfSigned(true);
 
 export const account = new sdk.Account(client);
 export const databases = new sdk.Databases(client);

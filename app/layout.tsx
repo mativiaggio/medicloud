@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-light-200 dark:bg-main-login font-sans antialiased remove-scrollbar tracking-wider",
+          "min-h-screen bg-main-login font-sans antialiased  tracking-wider",
           fontSans.variable
         )}>
         <ThemeProvider
