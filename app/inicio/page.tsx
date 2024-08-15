@@ -16,6 +16,7 @@ const Page = () => {
       try {
         const user = await account.get();
         setUser(user);
+        router.push("/inicio");
       } catch (error) {
         router.push("/ingresar");
       }
@@ -34,7 +35,6 @@ const Page = () => {
 
   return (
     <>
-      <NavigationMenuDemo />
       <div className="min-h-screen bg-main-bg-dark">
         <h1 className="text-4xl font-bold">👋Hola, {user.name}!</h1>
         <Button
@@ -45,7 +45,6 @@ const Page = () => {
           Logout
         </Button>
       </div>
-      <Footer props={{ bg: "bg-main-bg-dark" }} />
     </>
   );
 };
