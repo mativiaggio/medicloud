@@ -1,12 +1,18 @@
-import * as sdk from "node-appwrite";
+// import * as sdk from "appwrite";
+// import { Client, Account } from "appwrite";
+// import { env } from "./env.config";
+
+// const client = new Client();
+// client.setEndpoint(env.endpoint).setProject(env.projectId);
+
+// export const account = new Account(client);
+// export const databases = new sdk.Databases(client);
+// export const storage = new sdk.Storage(client);
+// export const messaging = new sdk.Messaging(client);
+
+import { Client, Account } from "appwrite";
 import { env } from "./env.config";
 
-const client = new sdk.Client();
-client.setEndpoint(env.endpoint).setProject(env.projectId).setKey(env.apiKey);
-client.setSelfSigned(true);
+const client = new Client().setEndpoint(env.endpoint).setProject(env.projectId);
 
-export const account = new sdk.Account(client);
-export const databases = new sdk.Databases(client);
-export const storage = new sdk.Storage(client);
-export const messaging = new sdk.Messaging(client);
-export const users = new sdk.Users(client);
+export const account = new Account(client);

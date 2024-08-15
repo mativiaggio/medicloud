@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-main-login font-sans antialiased  tracking-wider",
+          "min-h-screen font-sans antialiased  tracking-wider",
           fontSans.variable
         )}>
         <ThemeProvider
@@ -36,7 +36,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange>
           {children}
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

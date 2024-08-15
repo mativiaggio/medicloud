@@ -7,9 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Form, FormMessage } from "@/components/ui/form";
 import CustomFormField from "./CustomFormField";
 import { useRouter } from "next/navigation";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/lib/firebase.config";
 import { useEffect, useState } from "react";
+import { login } from "@/lib/actions/user.actions";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -47,16 +46,17 @@ const LoginForm = () => {
     },
   });
 
-  async function onSubmit({
-    email,
-    password,
-  }: z.infer<typeof UserFormValidation>) {
+  async function onSubmit(data: z.infer<typeof UserFormValidation>) {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/"); // Redirige al home después del login
+      const result = await login(data);
+
+      if (result) {
+        router.push("/");
+      } else {
+        console.error("Login failed");
+      }
     } catch (error) {
       console.error(error);
-      // Puedes mostrar un mensaje de error en la interfaz si lo deseas
     }
   }
 
@@ -74,7 +74,9 @@ const LoginForm = () => {
           iconColor={"#013a63"}
           control={form.control}
           fieldCustomClasses={"border border-main-2"}
-          inputCustomClasses={"placeholder:text-main-2"}
+          inputCustomClasses={
+            "placeholder:text-main-2 !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+          }
         />
         <CustomFormField
           fieldType={FormFieldType.PASSWORD}
@@ -87,7 +89,9 @@ const LoginForm = () => {
           iconColor={"#013a63"}
           control={form.control}
           fieldCustomClasses={"border border-main-2 placeholder:text-main-2"}
-          inputCustomClasses={"placeholder:text-main-2"}
+          inputCustomClasses={
+            "placeholder:text-main-2 !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+          }
         />
         <Button
           className="bg-main-4 hover:bg-main-5 w-full max-w-sm mt-[30px]"

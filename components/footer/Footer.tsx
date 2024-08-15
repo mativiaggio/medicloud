@@ -1,9 +1,14 @@
 import Image from "next/image";
 import React from "react";
 
-const Footer = () => {
+interface FooterProps {
+  bg?: string;
+}
+
+const Footer = ({ props }: { props: FooterProps }) => {
+  const { bg } = props;
   return (
-    <div className="h-fit max-h-[40vh] bg-main-1 w-full p-[30px]">
+    <div className={`h-fit max-h-[40vh] ${bg} w-full p-[30px]`}>
       <div className="w-full flex justify-center items-center p-5">
         <Image
           src={"/assets/svgs/HMT-Blanco.svg"}

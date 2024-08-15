@@ -1,27 +1,51 @@
 "use client";
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { account } from "@/lib/appwrite.config";
 import { useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase.config"; // Importa la instancia de auth
-import { onAuthStateChanged } from "firebase/auth";
+import { MoonLoader } from "react-spinners";
+import Footer from "@/components/footer/Footer";
+import { Button } from "@/components/ui/button";
 
-export default function Home() {
+const Page = () => {
+  const [user, setUser] = useState<any | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        router.push("/login");
+    const getUser = async () => {
+      try {
+        const user = await account.get();
+        setUser(user);
+      } catch (error) {
+        router.push("/ingresar");
       }
-    });
+    };
 
-    return () => unsubscribe();
+    getUser();
   }, [router]);
 
+  if (!user) {
+    return (
+      <div className="flex flex-col justify-center items-center h-screen">
+        <MoonLoader color="rgba(255, 255, 255, 1)" />
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h1>Bienvenido a la página principal</h1>
-      {/* El contenido de tu página principal */}
-    </div>
+    <>
+      <div className="min-h-screen bg-main-bg-dark">
+        <h1 className="text-4xl font-bold">👋Hola, {user.name}!</h1>
+        <Button
+          onClick={async () => {
+            await account.deleteSession("current");
+            router.push("/ingresar");
+          }}>
+          Logout
+        </Button>
+      </div>
+      <Footer props={{ bg: "bg-main-bg-dark" }} />
+    </>
   );
-}
+};
+
+export default Page;

@@ -56,9 +56,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
       return (
         <div
           className={`flex items-center ${
-            iconType ? "px-2" : ""
-          } rounded-md ${fieldCustomClasses}`}
-        >
+            iconType ? "pl-2" : ""
+          } rounded-md ${fieldCustomClasses}`}>
           ​
           {iconType && (
             <Icon
