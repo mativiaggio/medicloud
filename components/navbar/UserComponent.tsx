@@ -4,22 +4,22 @@ import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import LogoutButton from "@/components/logout/LogoutButton";
-// import { COLORS } from "@/lib/constants/account.colors";
+import { COLORS } from "@/lib/constants/account.colors";
 
-export const COLORS = [
-  "#aa48b7",
-  "#e13d74",
-  "#4d6dc0",
-  "#0381c7",
-  "#005394",
-  "#01949f",
-  "#03887b",
-  "#69a03a",
-  "#366820",
-  "#ed6c00",
-  "#f3511c",
-  "#502da6",
-];
+// export const COLORS = [
+//   "#aa48b7",
+//   "#e13d74",
+//   "#4d6dc0",
+//   "#0381c7",
+//   "#005394",
+//   "#01949f",
+//   "#03887b",
+//   "#69a03a",
+//   "#366820",
+//   "#ed6c00",
+//   "#f3511c",
+//   "#502da6",
+// ];
 
 import { Button } from "@/components/ui/button";
 import {
