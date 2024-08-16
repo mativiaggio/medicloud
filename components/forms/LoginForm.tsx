@@ -4,11 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormMessage } from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import CustomFormField from "./CustomFormField";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { login } from "@/lib/actions/user.actions";
+import { useState } from "react";
+// import { login } from "@/lib/actions/user.actions";
+import api from "@/appwrite/appwrite";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -36,6 +37,8 @@ const UserFormValidation = z.object({
 });
 
 const LoginForm = () => {
+  const [submiting, setSubmiting] = useState<boolean | false>(false);
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof UserFormValidation>>({
@@ -48,15 +51,19 @@ const LoginForm = () => {
 
   async function onSubmit(data: z.infer<typeof UserFormValidation>) {
     try {
-      const result = await login(data);
+      setSubmiting(true);
+      // const result = await login(data);
+      const result = await api.createSession(data);
 
       if (result) {
-        router.push("/");
+        router.push("/inicio");
       } else {
         console.error("Login failed");
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setSubmiting(false);
     }
   }
 
@@ -95,8 +102,9 @@ const LoginForm = () => {
         />
         <Button
           className="bg-main-4 hover:bg-main-5 w-full max-w-sm mt-[30px]"
-          type="submit">
-          Iniciar sesión
+          type="submit"
+          disabled={submiting}>
+          {submiting ? "Cargando..." : "Iniciar sesión"}
         </Button>
       </form>
     </Form>

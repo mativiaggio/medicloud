@@ -1,11 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { account } from "@/lib/appwrite.config";
 import { useRouter } from "next/navigation";
 import { MoonLoader } from "react-spinners";
-import Footer from "@/components/footer/Footer";
-import { Button } from "@/components/ui/button";
-import { NavigationMenuDemo } from "@/components/navbar/Navbar";
+import api from "@/appwrite/appwrite";
+import Welcome from "@/components/hero/Welcome";
 
 const Page = () => {
   const [user, setUser] = useState<any | null>(null);
@@ -14,11 +12,10 @@ const Page = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const user = await account.get();
+        const user = await api.getAccount();
         setUser(user);
-        router.push("/inicio");
       } catch (error) {
-        router.push("/ingresar");
+        console.error(error);
       }
     };
 
@@ -32,18 +29,10 @@ const Page = () => {
       </div>
     );
   }
-
   return (
     <>
-      <div className="min-h-screen bg-main-bg-dark">
-        <h1 className="text-4xl font-bold">👋Hola, {user.name}!</h1>
-        <Button
-          onClick={async () => {
-            await account.deleteSession("current");
-            router.push("/ingresar");
-          }}>
-          Logout
-        </Button>
+      <div className="min-h-screen bg-main-bg-light dark:bg-main-bg-dark px-10 py-5">
+        <Welcome user={user} />
       </div>
     </>
   );

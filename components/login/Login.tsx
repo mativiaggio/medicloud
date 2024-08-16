@@ -16,7 +16,7 @@ const Login = () => {
       </div>
       <div className="flex w-full px-10  xl:px-80 min-h-[80vh] h-fit mt-[30px]">
         <div className="w-full xl:w-2/4 flex flex-col justify-center items-center xl:items-end pr-5">
-          <h1 className="w-full max-w-sm text-5xl font-bold mb-[20px]">
+          <h1 className="w-full max-w-sm text-5xl font-bold mb-[20px] text-white">
             Inicia sesión en
             <span className="text-main-4"> MediCloud</span> para comenzar.
           </h1>

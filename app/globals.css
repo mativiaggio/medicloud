@@ -348,3 +348,7 @@
 .PhoneInputInput::placeholder {
   color: #1a1d21;
 }
+
+.clean-shadcn {
+  @apply !border-none !outline-none active:!border-none active:!outline-none focus:!border-none focus:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0;
+}
