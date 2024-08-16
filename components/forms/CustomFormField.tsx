@@ -57,7 +57,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         <div
           className={`flex items-center ${
             iconType ? "pl-2" : ""
-          } rounded-md ${fieldCustomClasses}`}>
+          } rounded-md  overflow-hidden ${fieldCustomClasses}`}>
           ​
           {iconType && (
             <Icon
@@ -100,7 +100,7 @@ const CustomFormField = (props: CustomProps) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={formItemCustomClasses}>
+        <FormItem className={`${formItemCustomClasses} text-color-dark`}>
           {fieldType !== FormFieldType.CHECKBOX && label && (
             <FormLabel className={`${labelCustomClasses} text-white`}>
               {label}

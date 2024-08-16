@@ -169,14 +169,16 @@ import Link from "next/link";
 import React from "react";
 import UserComponent from "./UserComponent";
 import { ModeToggle } from "../theme_toggle/ThemeToggle";
+import { Button } from "../ui/button";
+import { Menu } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between items-center h-[10vh] px-10 bg-white dark:bg-main-bg-dark">
+    <div className="flex justify-between items-center h-[10vh] px-4 sm:px-6 md:px-8 lg:px-10 bg-white dark:bg-main-bg-dark">
       <div>
         <h1 className="text-4xl text-main-4 font-bold pr-6">MediCloud</h1>
       </div>
-      <div>
+      <div className="hidden lg:flex">
         <ul className="flex gap-6 items-center">
           <li>
             <Link href={"/"}>Inicio</Link>
@@ -195,8 +197,13 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div>
+      <div className="hidden lg:block">
         <UserComponent />
+      </div>
+      <div className="block lg:hidden">
+        <Button>
+          <Menu/>
+        </Button>
       </div>
     </div>
   );

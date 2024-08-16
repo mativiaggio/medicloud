@@ -62,6 +62,10 @@ const config = {
           6: "#84afc2",
           7: "#b3ecff",
         },
+        color: {
+          light: "#000000",
+          dark: "#ffffff",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
