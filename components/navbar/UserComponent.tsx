@@ -68,8 +68,12 @@ const UserComponent = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center">
-        <UserDropdown user={user} accountColor={accountColor} initials={ initials} />
+      <div className="flex justify-start lg:justify-center items-center">
+        <UserDropdown
+          user={user}
+          accountColor={accountColor}
+          initials={initials}
+        />
       </div>
     </>
   );
@@ -85,12 +89,14 @@ const UserDropdown = ({ user, accountColor, initials }: UserDropdown) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="clean-shadcn" asChild>
-        <Button variant="outline" className="flex gap-2">
-        <Avatar
-          style={{ backgroundColor: accountColor }}
-          className="flex justify-center items-center">
-          <AvatarFallback className="text-white">{initials}</AvatarFallback>
-        </Avatar>
+        <Button
+          variant="outline"
+          className="flex gap-2 mt-6 lg:mt-0 pl-0 lg:px-4">
+          <Avatar
+            style={{ backgroundColor: accountColor }}
+            className="flex justify-center items-center">
+            <AvatarFallback className="text-white">{initials}</AvatarFallback>
+          </Avatar>
           {user?.name ? user.name : "Cargando..."}
         </Button>
       </DropdownMenuTrigger>

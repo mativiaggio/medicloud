@@ -10,12 +10,12 @@ interface WelcomeProps {
 
 const Welcome = ({ user }: WelcomeProps) => {
   return (
-    <>
-      <h1 className="text-4xl font-bold">👋Hola, {user?.name}!</h1>
-      <p className="text-xl text-main-subtitle-light dark:text-main-subtitle-dark  font-semibold">
+    <div className="prose">
+      <h1 className="h1 font-bold">👋Hola, {user?.name}!</h1>
+      <p className=" !text-main-subtitle-light dark:!text-main-subtitle-dark  font-semibold">
         Comienza a gestionar la organización.
       </p>
-    </>
+    </div>
   );
 };
 

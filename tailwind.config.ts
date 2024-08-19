@@ -94,9 +94,37 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: "inherit", // Mantiene el color de texto original
+            a: {
+              color: "inherit", // Mantiene el color de los enlaces original
+            },
+            h1: {
+              color: "inherit",
+            },
+            h2: {
+              color: "inherit",
+            },
+            h3: {
+              color: "inherit",
+            },
+            h4: {
+              color: "inherit",
+            },
+            h5: {
+              color: "inherit",
+            },
+            h6: {
+              color: "inherit",
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
 
 export default config;
