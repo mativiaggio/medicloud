@@ -94,6 +94,11 @@ const config = {
           "contact-light": "#ff9500",
           "contact-dark": "#FFC300",
         },
+        card: {
+          total: "#2491d1",
+          active: "#24AE7C",
+          inactive: "#F37877",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
