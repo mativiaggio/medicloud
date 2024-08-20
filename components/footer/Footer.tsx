@@ -3,12 +3,15 @@ import React from "react";
 
 interface FooterProps {
   bg?: string;
+  colorLight?: string;
+  colorDark?: string;
 }
 
 const Footer = ({ props }: { props: FooterProps }) => {
-  const { bg } = props;
+  const { bg, colorLight = "color-light", colorDark = "color-dark" } = props;
   return (
-    <div className={`h-fit max-h-[40vh] ${bg} w-full p-[30px]`}>
+    <div
+      className={`h-fit max-h-[40vh] w-full p-[30px] ${bg} ${colorLight} ${colorDark}`}>
       <div className="w-full flex justify-center items-center p-5">
         <Image
           src={"/assets/svgs/HMT-Blanco.svg"}

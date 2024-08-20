@@ -348,3 +348,28 @@
 .PhoneInputInput::placeholder {
   color: #1a1d21;
 }
+
+.clean-shadcn {
+  @apply !border-none !outline-none active:!border-none active:!outline-none focus:!border-none focus:!outline-none focus-visible:!ring-0 focus-visible:!ring-offset-0;
+}
+
+/* TABLES STYLES */
+table {
+  @apply overflow-hidden rounded-lg;
+}
+
+thead {
+  @apply bg-table-header-light dark:bg-table-header-dark;
+}
+
+th {
+  @apply !font-extrabold;
+}
+
+tr {
+  @apply !border-b !border-b-table-border-light dark:!border-b-table-border-dark;
+}
+
+tbody tr {
+  @apply odd:bg-table-tr-odd-light dark:odd:bg-table-tr-odd-dark even:bg-table-tr-even-light dark:even:bg-table-tr-even-dark;
+}

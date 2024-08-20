@@ -8,7 +8,13 @@ export default function RootLayout({
   return (
     <div className="bg-main-login">
       {children}
-      <Footer props={{ bg: "bg-main-login" }} />
+      <Footer
+        props={{
+          bg: "bg-main-login",
+          colorLight: "text-color-dark",
+          colorDark: "text-color-dark",
+        }}
+      />
     </div>
   );
 }

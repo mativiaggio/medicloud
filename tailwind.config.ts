@@ -49,6 +49,13 @@ const config = {
           login: "#00121f",
           accent: "#2491d1",
           "bg-dark": "#131619",
+          "bg-light": "#e9ecef",
+          "subtitle-light": "#6c757d ",
+          "subtitle-dark": "#ABB7C3",
+          "border-light": "#dee2e6",
+          "border-dark": "#363A3D",
+          "skeleton-light": "#dee2e6",
+          "skeleton-dark": "#363A3D",
           1: "#00121f",
           2: "#013a63",
           3: "#013a63",
@@ -56,6 +63,36 @@ const config = {
           5: "#5598b5",
           6: "#84afc2",
           7: "#b3ecff",
+        },
+        color: {
+          light: "#000000",
+          dark: "#ffffff",
+        },
+        badge: {
+          "bg-active-light": "#24AE7C",
+          "bg-inactive-light": "#F37877",
+          "bg-pending-light": "#44A4EA",
+          "bg-active-dark": "#0D2A1F",
+          "bg-inactive-dark": "#3E1716",
+          "bg-pending-dark": "#2D4991",
+          "text-active-light": "#58FFC3",
+          "text-inactive-light": "#ffc4c3",
+          "text-pending-light": "#44A4EA",
+          "text-active-dark": "#83CBFF",
+          "text-inactive-dark": "#F37877",
+          "text-pending-dark": "#44A4EA",
+        },
+        table: {
+          "header-light": "#ffffff",
+          "header-dark": "#0d0f10",
+          "border-light": "#d3d6db",
+          "border-dark": "#1a1d21",
+          "tr-odd-dark": "transparent",
+          "tr-even-dark": "#1c2023",
+          "tr-odd-light": "transparent",
+          "tr-even-light": "#f2f4f6",
+          "contact-light": "#ff9500",
+          "contact-dark": "#FFC300",
         },
       },
       fontFamily: {
@@ -85,9 +122,37 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: "inherit", // Mantiene el color de texto original
+            a: {
+              color: "inherit", // Mantiene el color de los enlaces original
+            },
+            h1: {
+              color: "inherit",
+            },
+            h2: {
+              color: "inherit",
+            },
+            h3: {
+              color: "inherit",
+            },
+            h4: {
+              color: "inherit",
+            },
+            h5: {
+              color: "inherit",
+            },
+            h6: {
+              color: "inherit",
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
 
 export default config;
