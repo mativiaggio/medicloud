@@ -39,7 +39,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-main-bg-light dark:bg-main-bg-dark px-10 py-5">
+      <div className="min-h-screen bg-main-bg-light dark:bg-main-bg-dark px-4 sm:px-6 md:px-8 lg:px-10 py-5">
         <Welcome user={user} />
         <div className="flex flex-col lg:flex-row gap-4 mb-5">
           <HomeGuestCard
@@ -49,12 +49,12 @@ const Page = () => {
           />
           <HomeGuestCard
             count={1}
-            subtitle={"Total de huéspedes activos en el mes corriente."}
+            subtitle={"Total de huéspedes activos."}
             type={"active"}
           />
           <HomeGuestCard
             count={1}
-            subtitle={"Total de huéspedes inactivos en el mes corriente."}
+            subtitle={"Total de huéspedes inactivos."}
             type={"inactive"}
           />
         </div>

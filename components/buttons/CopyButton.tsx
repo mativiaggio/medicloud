@@ -40,7 +40,7 @@ const CopyButton = ({ data }: Copy) => {
               onClick={() => copyToClipboard(data)}
               variant="outline"
               size="sm">
-              {copied ? <Check /> : <Copy />}
+              {copied ? <Check size={16} /> : <Copy size={16} />}
             </Button>
           </TooltipTrigger>
           <TooltipContent className="bg-white dark:bg-main-bg-dark text-color-light dark:text-color-dark border-main-border-light dark:border-main-border-dark">

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import UserComponent from "./UserComponent";
 import { ModeToggle } from "../theme_toggle/ThemeToggle";
 import { Button } from "../ui/button";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Navbar: React.FC = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -79,51 +79,11 @@ const Navbar: React.FC = () => {
               className="-m-2.5 rounded-md p-2.5 text-[var(--main-text-light)] dark:text-[var(--main-text-dark)]"
               onClick={handleCloseNavbar}>
               <span className="sr-only">Close menu</span>
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                aria-hidden="true">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <X color="red" />
             </button>
           </div>
           <div className="mt-6 flow-root text-[var(--main-text-light)] dark:text-[var(--main-text-dark)]">
             <div className="-my-6 divide-y divide-gray-500/10">
-              {/* <div className="space-y-2 py-6">
-                <Link
-                  href="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-sm lg:text-base font-medium leading-7 hover:bg-[var(--main-light-accent)] dark:hover:bg-[var(--main-dark-accent)]">
-                  Inicio
-                </Link>
-                <Link
-                  href="/productos"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-sm lg:text-base font-medium leading-7 hover:bg-[var(--main-light-accent)] dark:hover:bg-[var(--main-dark-accent)]">
-                  Productos
-                </Link>
-                <Link
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-sm lg:text-base font-medium leading-7 hover:bg-[var(--main-light-accent)] dark:hover:bg-[var(--main-dark-accent)]">
-                  Sobre Nosotros
-                </Link>
-                <Link
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-sm lg:text-base font-medium leading-7 hover:bg-[var(--main-light-accent)] dark:hover:bg-[var(--main-dark-accent)]">
-                  Contactanos
-                </Link>
-                <Link
-                  href="/carrito"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-sm lg:text-base font-medium leading-7 hover:bg-[var(--main-light-accent)] dark:hover:bg-[var(--main-dark-accent)]">
-                  Carrito
-                </Link>
-              </div> */}
-
               <div className="flex flex-col">
                 <ul className="flex flex-col gap-6 items-left mb-6">
                   <li>
@@ -139,7 +99,7 @@ const Navbar: React.FC = () => {
                     <Link href={"/admin"}>Admin</Link>
                   </li>
                   <li>
-                    <ModeToggle buttonClasses="justfiy-start" />
+                    <ModeToggle buttonClasses="justify-start" />
                   </li>
                 </ul>
               </div>
