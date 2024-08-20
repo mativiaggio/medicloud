@@ -16,6 +16,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ProfileSkeleton } from "./ProfileSkeleton";
+import { Skeleton } from "../ui/skeleton";
 
 interface User {
   name: string;
@@ -92,12 +94,15 @@ const UserDropdown = ({ user, accountColor, initials }: UserDropdown) => {
         <Button
           variant="outline"
           className="flex gap-2 mt-6 lg:mt-0 pl-0 lg:px-4">
-          <Avatar
-            style={{ backgroundColor: accountColor }}
-            className="flex justify-center items-center">
-            <AvatarFallback className="text-white">{initials}</AvatarFallback>
-          </Avatar>
-          {user?.name ? user.name : "Cargando..."}
+          {user?.name ? (
+            <UserCard
+              user={user}
+              accountColor={accountColor}
+              initials={initials}
+            />
+          ) : (
+            <ProfileSkeleton />
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-white dark:bg-main-bg-dark border-main-border-light dark:border-main-border-dark">
@@ -108,6 +113,19 @@ const UserDropdown = ({ user, accountColor, initials }: UserDropdown) => {
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+};
+
+const UserCard = ({ user, accountColor, initials }: UserDropdown) => {
+  return (
+    <>
+      <Avatar
+        style={{ backgroundColor: accountColor }}
+        className="flex justify-center items-center">
+        <AvatarFallback className="text-white">{initials}</AvatarFallback>
+      </Avatar>
+      {user?.name}
+    </>
   );
 };
 

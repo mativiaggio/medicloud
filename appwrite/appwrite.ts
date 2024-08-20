@@ -1,5 +1,5 @@
 import { LoginInterface, RegisterInterface } from "@/interfaces/auth.interface";
-import { Account, Client as Appwrite, ID } from "appwrite";
+import { Account, Client as Appwrite, Databases, ID } from "appwrite";
 import { env } from "@/lib/env.config";
 
 let api: any = {
@@ -12,11 +12,13 @@ let api: any = {
     let appwrite = new Appwrite();
     appwrite.setEndpoint(env.endpoint).setProject(env.projectId);
     const account = new Account(appwrite);
+    const database = new Databases(appwrite);
 
-    api.sdk = { account };
+    api.sdk = { account, database };
     return api.sdk;
   },
 
+  // USER ACTIONS
   createAccount: (registerBody: RegisterInterface) => {
     return api
       .provider()
@@ -41,6 +43,17 @@ let api: any = {
 
   deleteCurrentSession: () => {
     return api.provider().account.deleteSession("current");
+  },
+
+  // DATABASE
+  getAllGuestsDocuments: async (extraParams: string[]) => {
+    return await api
+      .provider()
+      .database.listDocuments(
+        env.databaseId,
+        env.guestCollectionId,
+        extraParams
+      );
   },
 };
 

@@ -1,7 +1,6 @@
 "use client";
 
 import Login from "@/components/login/Login";
-import { account } from "@/lib/appwrite.config";
 import React, { useEffect, useState } from "react";
 import { MoonLoader } from "react-spinners";
 import { useRouter } from "next/navigation";

@@ -40,6 +40,7 @@ export interface Guest extends Models.Document {
   opioid: string;
   non_opioid_treatment: string;
   status: Status;
+  admission_date: Date;
 }
 
 // export interface Appointment extends Models.Document {

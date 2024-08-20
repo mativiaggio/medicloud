@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="z-10 relative">
       <div className="flex justify-between items-center h-[10vh] px-4 sm:px-6 md:px-8 lg:px-10 bg-white dark:bg-main-bg-dark">
         <div>
           <h1 className="text-4xl text-main-4 font-bold pr-6">MediCloud</h1>
@@ -150,7 +150,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

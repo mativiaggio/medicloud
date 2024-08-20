@@ -9,6 +9,9 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
+import { MoonLoader } from "react-spinners";
+import { useTheme } from "next-themes";
+
 interface Props {
   children: React.ReactNode;
 }
@@ -24,6 +27,11 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
   const pathname = usePathname();
   // const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(true);
+
+  const { theme } = useTheme();
+
+  const loaderColor =
+    theme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
 
   useEffect(() => {
     const checkSession = async () => {
@@ -61,7 +69,9 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
             disableTransitionOnChange>
             {loading ? (
               <>
-                <main className="w-screen h-screen fixed flex items-center justify-center"></main>
+                <main className="w-screen h-screen fixed flex items-center justify-center bg-main-bg-light dark:bg-main-bg-dark">
+                  <MoonLoader color={loaderColor} />
+                </main>
               </>
             ) : (
               <>{children}</>
