@@ -19,6 +19,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "../ui/button";
 import CopyButton from "../buttons/CopyButton";
 import TableBodySkeleton from "../skeleton/home/TableBodySkeleton";
+import { Calendar, Filter, RefreshCcw } from "lucide-react";
+import RefreshButton from "../buttons/RefreshButton";
+import FilterDropdown from "./FilterDropdown";
+import Searchbox from "./Searchbox";
+import DinamicButton from "../buttons/DinamicButton";
 
 export function HomeGuestTable() {
   const [guests, setGuests] = useState<Guest[]>([]);
@@ -88,49 +93,56 @@ export function HomeGuestTable() {
   }
 
   return (
-    <Table className="text-nowrap !z-0 !text-xs md:!text-sm lg:!text-base">
-      {/* <TableCaption>Lista de huéspedes.</TableCaption> */}
-      <TableHeader>
-        <TableRow>
-          <TableHead>Huésped</TableHead>
-          <TableHead>Edad</TableHead>
-          <TableHead>Fecha de ingreso</TableHead>
-          <TableHead>Estado</TableHead>
-          <TableHead>Contacto</TableHead>
-        </TableRow>
-      </TableHeader>
-      {guestsLoading ? (
-        <TableBodySkeleton />
-      ) : (
-        <TableBody>
-          {guests.map((guest) => (
-            <TableRow key={guest.guest_id}>
-              <TableCell>{guest.full_name}</TableCell>
-              <TableCell>
-                {calculateAge(String(guest.birthdate))} años
-              </TableCell>
-              <TableCell>
-                {String(formatDateTime(guest.admission_date).dateOnly)}
-              </TableCell>
-              <TableCell>
-                <Badge className={`${badgeColors(guest)}`}>
-                  {badgeValue(guest)}
-                </Badge>
-              </TableCell>
-              <TableCell className="text-table-contact-light dark:text-table-contact-dark font-bold flex items-center">
-                {contactData(guest)}
-                <CopyButton data={contactData(guest)} />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      )}
-      {/* <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter> */}
-    </Table>
+    <div className="flex flex-col gap-4">
+      <div className="w-full flex gap-4 !text-base lg:!text-lg">
+        <FilterDropdown
+          title="Todos los huéspedes"
+          icon={<Filter strokeWidth={2} />}
+        />
+        <Searchbox />
+        <FilterDropdown
+          title="Fecha de Ingreso"
+          icon={<Calendar strokeWidth={2} />}
+        />
+        <DinamicButton icon={<RefreshCcw strokeWidth={2} />} />
+      </div>
+      <Table className="text-nowrap !z-0 !text-sm lg:!text-base">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Huésped</TableHead>
+            <TableHead>Edad</TableHead>
+            <TableHead>Fecha de ingreso</TableHead>
+            <TableHead>Estado</TableHead>
+            <TableHead>Contacto</TableHead>
+          </TableRow>
+        </TableHeader>
+        {guestsLoading ? (
+          <TableBodySkeleton />
+        ) : (
+          <TableBody>
+            {guests.map((guest) => (
+              <TableRow key={guest.guest_id}>
+                <TableCell>{guest.full_name}</TableCell>
+                <TableCell>
+                  {calculateAge(String(guest.birthdate))} años
+                </TableCell>
+                <TableCell>
+                  {String(formatDateTime(guest.admission_date).dateOnly)}
+                </TableCell>
+                <TableCell>
+                  <Badge className={`${badgeColors(guest)}`}>
+                    {badgeValue(guest)}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-table-contact-light dark:text-table-contact-dark font-bold flex items-center">
+                  {contactData(guest)}
+                  <CopyButton data={contactData(guest)} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        )}
+      </Table>
+    </div>
   );
 }

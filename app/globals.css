@@ -277,6 +277,11 @@
   }
 }
 
+/* CUSTOM GLOBAL CLASSES */
+.z-top {
+  z-index: 10000000000;
+}
+
 /* =====  REACT-DATEPICKER OVERRIDES */
 .react-datepicker-wrapper.date-picker {
   display: flex;
