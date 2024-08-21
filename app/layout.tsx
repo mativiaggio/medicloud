@@ -59,7 +59,7 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
       <html lang="en">
         <body
           className={cn(
-            "min-h-screen font-sans antialiased  tracking-wider",
+            "min-h-screen font-sans antialiased  tracking-wider !text-base",
             fontSans.variable
           )}>
           <ThemeProvider

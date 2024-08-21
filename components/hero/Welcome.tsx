@@ -14,7 +14,7 @@ const Welcome = ({ user }: WelcomeProps) => {
       <h1 className="font-bold mb-0 text-3xl md:text-4xl">
         Hola, {user?.name} 👋
       </h1>
-      <p className=" !text-main-subtitle-light dark:!text-main-subtitle-dark  font-semibold mt-0 mb-5 !text-sm lg:!text-base">
+      <p className=" !text-main-subtitle-light dark:!text-main-subtitle-dark  font-semibold mt-0 mb-5 !text-base">
         Comienza a gestionar la organización.
       </p>
     </div>

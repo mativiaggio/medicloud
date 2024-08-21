@@ -44,17 +44,17 @@ const Page = () => {
         <div className="flex flex-col lg:flex-row gap-4 mb-5">
           <HomeGuestCard
             count={2}
-            subtitle={"Total de huéspedes en el mes corriente."}
+            subtitle={"Total de huéspedes."}
             type={"total"}
           />
           <HomeGuestCard
             count={1}
-            subtitle={"Total de huéspedes activos."}
+            subtitle={"Huéspedes activos."}
             type={"active"}
           />
           <HomeGuestCard
             count={1}
-            subtitle={"Total de huéspedes inactivos."}
+            subtitle={"Huéspedes inactivos."}
             type={"inactive"}
           />
         </div>
