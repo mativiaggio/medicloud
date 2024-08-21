@@ -26,7 +26,7 @@ const Searchbox = () => {
           <Input
             type="text"
             placeholder="Escriba su búsqueda aquí"
-            className="clean-shadcn bg-transparent p-0 w-fit max-w-xs"
+            className="clean-shadcn bg-transparent p-0 w-full max-w-xs"
             style={{ width: isOpen ? "100%" : "0" }}
           />
         </div>
@@ -37,11 +37,11 @@ const Searchbox = () => {
           <UserRoundSearch />
         </Button>
         <div
-          className={`transition-all duration-300 ease-in-out overflow-hidden w-60`}>
+          className={`transition-all duration-300 ease-in-out overflow-hidden w-full`}>
           <Input
             type="text"
             placeholder="Escriba su búsqueda aquí"
-            className="clean-shadcn bg-transparent p-0 w-fit max-w-xs"
+            className="clean-shadcn bg-transparent p-0 w-full"
           />
         </div>
       </div>
