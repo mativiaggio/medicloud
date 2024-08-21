@@ -19,11 +19,14 @@ import {
 import { ProfileSkeleton } from "./ProfileSkeleton";
 import { Skeleton } from "../ui/skeleton";
 
+interface UserComponentProps {
+  size?: string;
+}
 interface User {
   name: string;
 }
 
-const UserComponent = () => {
+const UserComponent = ({ size }: UserComponentProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [initials, setInitials] = useState<string | "">("");
   const [accountColor, setAccountColor] = useState<string | "">("");
@@ -75,6 +78,7 @@ const UserComponent = () => {
           user={user}
           accountColor={accountColor}
           initials={initials}
+          size={size}
         />
       </div>
     </>
@@ -85,9 +89,10 @@ interface UserDropdown {
   user: User | null;
   accountColor: string;
   initials: string;
+  size?: string;
 }
 
-const UserDropdown = ({ user, accountColor, initials }: UserDropdown) => {
+const UserDropdown = ({ user, accountColor, initials, size }: UserDropdown) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="clean-shadcn" asChild>
@@ -99,6 +104,7 @@ const UserDropdown = ({ user, accountColor, initials }: UserDropdown) => {
               user={user}
               accountColor={accountColor}
               initials={initials}
+              size={size}
             />
           ) : (
             <ProfileSkeleton />
@@ -116,15 +122,18 @@ const UserDropdown = ({ user, accountColor, initials }: UserDropdown) => {
   );
 };
 
-const UserCard = ({ user, accountColor, initials }: UserDropdown) => {
+const UserCard = ({ user, accountColor, initials, size }: UserDropdown) => {
   return (
     <>
       <Avatar
         style={{ backgroundColor: accountColor }}
-        className="flex justify-center items-center">
-        <AvatarFallback className="text-white">{initials}</AvatarFallback>
+        className={`flex justify-center items-center ${size ? "p-6" : ""}`}>
+        <AvatarFallback className={`text-white ${size ? size : ""}`}>
+          {initials}
+        </AvatarFallback>
       </Avatar>
-      {user?.name}
+
+      <span className={size ? size : ""}>{user?.name}</span>
     </>
   );
 };

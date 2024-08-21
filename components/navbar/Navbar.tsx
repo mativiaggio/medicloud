@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
           <div className="mt-6 flow-root text-[var(--main-text-light)] dark:text-[var(--main-text-dark)]">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="flex flex-col">
-                <ul className="flex flex-col gap-6 items-left mb-6">
+                <ul className="flex flex-col gap-6 items-left mb-6 text-2xl">
                   <li>
                     <Link href={"/"}>Inicio</Link>
                   </li>
@@ -99,12 +99,15 @@ const Navbar: React.FC = () => {
                     <Link href={"/admin"}>Admin</Link>
                   </li>
                   <li>
-                    <ModeToggle buttonClasses="justify-start" />
+                    <ModeToggle
+                      buttonClasses="justify-start"
+                      iconSize="h-[1.8rem] w-[1.8rem]"
+                    />
                   </li>
                 </ul>
               </div>
               <div className="block">
-                <UserComponent />
+                <UserComponent size="text-2xl" />
               </div>
             </div>
           </div>
