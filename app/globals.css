@@ -96,7 +96,7 @@
 
   /* ==== FORM */
   .radio-group {
-    @apply flex h-full flex-1 items-center gap-2 rounded-md border border-dashed border-dark-500 bg-dark-400 p-3;
+    @apply flex h-full flex-1 items-center gap-2 rounded-md border border-dashed !border-input-border-light dark:!border-input-border-dark !bg-input-bg-light dark:!bg-input-bg-dark text-color-light dark:text-color-dark p-3;
   }
 
   .checkbox-label {
@@ -273,7 +273,7 @@
 
   /* =====  REACT DATE PICKER OVERRIDES */
   .date-picker {
-    @apply overflow-hidden border-transparent w-full placeholder:text-dark-600  h-11 text-14-medium rounded-md px-3 outline-none !important;
+    @apply overflow-hidden w-full  h-11 text-14-medium rounded-md px-3 outline-none !important;
   }
 }
 
@@ -317,7 +317,7 @@
 }
 
 .react-datepicker__input-container input {
-  background-color: #1a1d21 !important;
+  background-color: #ffffff00 !important;
   width: 100%;
   outline: none;
 }
@@ -339,6 +339,10 @@
 .react-datepicker__time-list-item {
   display: flex !important;
   align-items: center !important;
+}
+
+.react-datepicker__input-container {
+  @apply text-color-light dark:text-color-dark;
 }
 
 /* =====  REACT PHONE NUMBER INPUT OVERRIDES */

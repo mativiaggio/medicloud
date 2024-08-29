@@ -6,11 +6,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-main-login">
+    <div className="bg-main-bg-dark">
       {children}
       <Footer
         props={{
-          bg: "bg-main-login",
+          bg: "bg-main-bg-dark",
           colorLight: "text-color-dark",
           colorDark: "text-color-dark",
         }}
