@@ -78,7 +78,8 @@ const LoginForm = () => {
           formItemCustomClasses="!mb-[30px]"
           iconType="email"
           iconAlt="Email icon"
-          iconColor={"#FFFFFF"}
+          iconLightColor={"#FFFFFF"}
+          iconDarkColor={"#1a1d21"}
           control={form.control}
           fieldCustomClasses={
             "border border-main-2 !border-input-border-dark bg-input-bg-dark"
@@ -96,7 +97,8 @@ const LoginForm = () => {
           formItemCustomClasses="!mb-[30px]"
           iconType="lock"
           iconAlt="Password icon"
-          iconColor={"#FFFFFF"}
+          iconLightColor={"#FFFFFF"}
+          iconDarkColor={"#1a1d21"}
           control={form.control}
           fieldCustomClasses={
             "border border-main-2 !border-input-border-dark bg-input-bg-dark"
