@@ -7,6 +7,8 @@ import Welcome from "@/components/hero/Welcome";
 import { useTheme } from "next-themes";
 import { HomeGuestTable } from "@/components/tables/HomeGuestsTables";
 import HomeGuestCard from "@/components/cards/HomeGuestCard";
+import MainTitle from "@/components/MainTitle";
+import AddGuestForm from "@/components/forms/AddGuestForm";
 
 const Page = () => {
   const [user, setUser] = useState<any | null>(null);
@@ -59,6 +61,11 @@ const Page = () => {
           />
         </div>
         <HomeGuestTable />
+        <MainTitle
+          title="Agrega un nuevo huésped👨‍⚕️"
+          subtitle="Llena el formulario a continuación para agregar un nuevo huésped."
+        />
+        <AddGuestForm />
       </div>
     </>
   );

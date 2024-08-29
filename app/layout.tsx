@@ -30,8 +30,7 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
 
   const { theme } = useTheme();
 
-  const loaderColor =
-    theme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
+  const loaderColor = "rgba(255, 255, 255, 1)";
 
   useEffect(() => {
     const checkSession = async () => {
@@ -69,7 +68,7 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
             disableTransitionOnChange>
             {loading ? (
               <>
-                <main className="w-screen h-screen fixed flex items-center justify-center bg-main-bg-light dark:bg-main-bg-dark">
+                <main className="w-screen h-screen fixed flex items-center justify-center bg-main-bg-dark">
                   <MoonLoader color={loaderColor} />
                 </main>
               </>

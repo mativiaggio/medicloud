@@ -11,9 +11,22 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
-import { FormFieldType } from "./LoginForm";
-import Image from "next/image";
 import Icon from "../icons/Icon";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
+export enum FormFieldType {
+  INPUT = "input",
+  PASSWORD = "password",
+  TEXTAREA = "textarea",
+  RADIO = "radio",
+  CHECKBOX = "checkbox",
+  PHONE_INPUT = "phoneInput",
+  DATE_PICKER = "datePicker",
+  SELECT = "select",
+  SKELETON = "skeleton",
+}
 
 interface CustomProps {
   control: Control<any>;
@@ -32,7 +45,8 @@ interface CustomProps {
   inputCustomClasses?: string;
   labelCustomClasses?: string;
   iconCustomClasses?: string;
-  iconColor?: string;
+  iconLightColor?: string;
+  iconDarkColor?: string;
   renderSkeleton?: (field: any) => React.ReactNode;
 }
 
@@ -47,8 +61,12 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
     fieldCustomClasses,
     inputCustomClasses,
     iconCustomClasses,
-    iconColor,
+    iconLightColor,
+    iconDarkColor,
     iconType,
+    showTimeSelect,
+    dateFormat,
+    renderSkeleton,
   } = props;
   switch (fieldType) {
     case FormFieldType.PASSWORD:
@@ -62,7 +80,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
           {iconType && (
             <Icon
               icon={iconType}
-              strokeColor={iconColor ? iconColor : "currentColor"}
+              iconLightColor={iconLightColor ? iconLightColor : "currentColor"}
+              iconDarkColor={iconDarkColor ? iconDarkColor : "currentColor"}
             />
           )}
           <FormControl>
@@ -77,6 +96,37 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
       );
       break;
 
+    case FormFieldType.DATE_PICKER:
+      return (
+        <div
+          className={`flex items-center ${
+            iconType ? "pl-2" : ""
+          } rounded-md  overflow-hidden ${fieldCustomClasses}`}>
+          ​
+          {iconType && (
+            <Icon
+              icon={iconType}
+              iconLightColor={iconLightColor ? iconLightColor : "currentColor"}
+              iconDarkColor={iconDarkColor ? iconDarkColor : "currentColor"}
+            />
+          )}
+          <FormControl>
+            <DatePicker
+              selected={field.value}
+              onChange={(date) => field.onChange(date)}
+              dateFormat={dateFormat ?? "dd/MM/yyyy"}
+              showTimeSelect={showTimeSelect ?? false}
+              timeInputLabel="Time:"
+              wrapperClassName="date-picker"
+              placeholderText={"Selecciona la fecha de nacimiento"}
+            />
+          </FormControl>
+        </div>
+      );
+      break;
+
+    case FormFieldType.SKELETON:
+      return renderSkeleton ? renderSkeleton(field) : null;
     default:
       break;
   }
@@ -102,9 +152,7 @@ const CustomFormField = (props: CustomProps) => {
       render={({ field }) => (
         <FormItem className={`${formItemCustomClasses} text-color-dark`}>
           {fieldType !== FormFieldType.CHECKBOX && label && (
-            <FormLabel className={`${labelCustomClasses} text-white`}>
-              {label}
-            </FormLabel>
+            <FormLabel className={`${labelCustomClasses}`}>{label}</FormLabel>
           )}
 
           <RenderField field={field} props={props} />
