@@ -8,23 +8,11 @@ import { Form, FormControl } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "./CustomFormField";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-// import { login } from "@/lib/actions/user.actions";
 import api from "@/appwrite/appwrite";
 import { GenderOptions } from "@/constants";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
-
-// export enum FormFieldType {
-//   INPUT = "input",
-//   PASSWORD = "password",
-//   TEXTAREA = "textarea",
-//   RADIO = "radio",
-//   CHECKBOX = "checkbox",
-//   PHONE_INPUT = "phoneInput",
-//   DATE_PICKER = "datePicker",
-//   SELECT = "select",
-//   SKELETON = "skeleton",
-// }
+import SectionTitle from "../SectionTitle";
 
 const GuestFormValidation = z.object({
   email: z
@@ -62,35 +50,155 @@ const AddGuestForm = () => {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          name="name"
-          label="Nombre Completo"
-          labelCustomClasses="text-color-light dark:text-color-dark"
-          placeholder=""
-          formItemCustomClasses="!mb-[30px]"
-          control={form.control}
-          fieldCustomClasses={
-            "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-          }
-          inputCustomClasses={
-            "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-          }
-        />
-        <div className="flex flex-col gap-6 xl:flex-row">
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+          <SectionTitle title="Información personal" />
           <CustomFormField
-            fieldType={FormFieldType.DATE_PICKER}
-            name="birthDate"
-            label="Fecha de Nacimiento"
+            fieldType={FormFieldType.INPUT}
+            name="full_name"
+            label="Nombre Completo"
             labelCustomClasses="text-color-light dark:text-color-dark"
-            placeholder="Selecciona la fecha de nacimiento"
-            formItemCustomClasses="!mb-[30px] w-full"
-            iconType="calendar"
-            iconAlt="Calendar icon"
-            iconLightColor={"#FFFFFF"}
-            iconDarkColor={"#1a1d21"}
+            placeholder="John Doe"
+            formItemCustomClasses="!mb-[30px]"
+            control={form.control}
+            fieldCustomClasses={
+              "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+            }
+            inputCustomClasses={
+              "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+            }
+          />
+          <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              name="address"
+              label="Dirección"
+              labelCustomClasses="text-color-light dark:text-color-dark"
+              placeholder="Av. Falsa 123, Lújan, Buenos Aires"
+              formItemCustomClasses="!mb-[30px] w-full"
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+            <CustomFormField
+              fieldType={FormFieldType.PHONE_INPUT}
+              formItemCustomClasses="!mb-[30px] w-full"
+              control={form.control}
+              name="phone_number"
+              label="Número de teléfono"
+              placeholder="+54 9 2323 121212"
+            />
+          </div>
+          <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormField
+              fieldType={FormFieldType.DATE_PICKER}
+              name="birthdate"
+              label="Fecha de Nacimiento"
+              labelCustomClasses="text-color-light dark:text-color-dark"
+              placeholder="Selecciona la fecha de nacimiento"
+              formItemCustomClasses="!mb-[30px] w-full"
+              iconType="calendar"
+              iconAlt="Calendar icon"
+              iconLightColor={"#b0b6bf"}
+              iconDarkColor={"#b0b6bf"}
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+            <CustomFormField
+              fieldType={FormFieldType.SKELETON}
+              name="gender"
+              label="Género"
+              labelCustomClasses="text-color-light dark:text-color-dark"
+              placeholder=""
+              formItemCustomClasses="!mb-[30px] w-full"
+              control={form.control}
+              fieldCustomClasses={
+                "w-full border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+              renderSkeleton={(field) => (
+                <FormControl>
+                  <RadioGroup
+                    className="flex h-11 gap-6 xl:justify-between w-fit"
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}>
+                    {GenderOptions.map((option, i) => (
+                      <div key={option + i} className="radio-group !w-fit">
+                        <RadioGroupItem value={option} id={option} />
+                        <Label htmlFor={option} className="cursor-pointer">
+                          {option}
+                        </Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                </FormControl>
+              )}
+            />
+          </div>
+          <SectionTitle title="Información de contacto" />
+          <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            name="contact_full_name"
+            label="Nombre Completo"
+            labelCustomClasses="text-color-light dark:text-color-dark"
+            placeholder="Jane Doe"
+            formItemCustomClasses="!mb-[30px]"
+            control={form.control}
+            fieldCustomClasses={
+              "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+            }
+            inputCustomClasses={
+              "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+            }
+          />
+          <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              name="contact_email"
+              label="Email"
+              labelCustomClasses="text-color-light dark:text-color-dark"
+              placeholder="jane_doe@medicloud-hmt.com"
+              formItemCustomClasses="!mb-[30px] w-full"
+              iconType="email"
+              iconAlt="Email icon"
+              iconLightColor={"#b0b6bf"}
+              iconDarkColor={"#b0b6bf"}
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+            <CustomFormField
+              fieldType={FormFieldType.PHONE_INPUT}
+              formItemCustomClasses="!mb-[30px] w-full"
+              control={form.control}
+              name="contact_phone_number"
+              label="Número de teléfono"
+              placeholder="+54 9 2323 121212"
+            />
+          </div>
+          <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            name="contact_relationship"
+            label="Vínculo con el huésped"
+            labelCustomClasses="text-color-light dark:text-color-dark"
+            placeholder="ej: Hija"
+            formItemCustomClasses="!mb-[30px]"
             control={form.control}
             fieldCustomClasses={
               "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
@@ -100,46 +208,27 @@ const AddGuestForm = () => {
             }
           />
           <CustomFormField
-            fieldType={FormFieldType.SKELETON}
-            name="gender"
-            label="Género"
+            fieldType={FormFieldType.TEXTAREA}
+            name="family_genogram"
+            label="Genograma familiar"
             labelCustomClasses="text-color-light dark:text-color-dark"
             placeholder=""
-            formItemCustomClasses="!mb-[30px] w-full"
+            formItemCustomClasses="!mb-[30px]"
             control={form.control}
-            fieldCustomClasses={
-              "w-full border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-            }
+            fieldCustomClasses={"bg-input-bg-light dark:bg-input-bg-dark"}
             inputCustomClasses={
-              "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border border-main-2 !border-input-border-light dark:!border-input-border-dark"
             }
-            renderSkeleton={(field) => (
-              <FormControl>
-                <RadioGroup
-                  className="flex h-11 gap-6 xl:justify-between w-fit"
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}>
-                  {GenderOptions.map((option, i) => (
-                    <div key={option + i} className="radio-group !w-fit">
-                      <RadioGroupItem value={option} id={option} />
-                      <Label htmlFor={option} className="cursor-pointer">
-                        {option}
-                      </Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </FormControl>
-            )}
           />
-        </div>
-        <Button
-          className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light w-full mt-[30px]"
-          type="submit"
-          disabled={submiting}>
-          {submiting ? "Cargando..." : "Agregar"}
-        </Button>
-      </form>
-    </Form>
+          <Button
+            className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light w-full mt-[30px]"
+            type="submit"
+            disabled={submiting}>
+            {submiting ? "Cargando..." : "Agregar"}
+          </Button>
+        </form>
+      </Form>
+    </>
   );
 };
 
