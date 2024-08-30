@@ -207,7 +207,7 @@
   }
 
   .shad-textArea {
-    @apply focus-visible:ring-0 focus-visible:ring-offset-0 !important;
+    @apply placeholder:text-dark-600  focus-visible:ring-0 focus-visible:ring-offset-0 !important;
   }
 
   .shad-combobox-item {
