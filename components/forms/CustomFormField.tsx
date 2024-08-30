@@ -13,8 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
 import Icon from "../icons/Icon";
 import DatePicker from "react-datepicker";
+import { E164Number } from "libphonenumber-js/core";
+import PhoneInput from "react-phone-number-input";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { Textarea } from "../ui/textarea";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -125,8 +128,40 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
       );
       break;
 
+    case FormFieldType.PHONE_INPUT:
+      return (
+        <FormControl>
+          <PhoneInput
+            defaultCountry="AR"
+            placeholder={props.placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined}
+            onChange={field.onChange}
+            className="input-phone"
+          />
+        </FormControl>
+      );
+
     case FormFieldType.SKELETON:
       return renderSkeleton ? renderSkeleton(field) : null;
+
+    case FormFieldType.TEXTAREA:
+      return (
+        <div
+          className={`flex items-center ${
+            iconType ? "pl-2" : ""
+          } rounded-md  overflow-hidden ${fieldCustomClasses}`}>
+          <FormControl>
+            <Textarea
+              placeholder={props.placeholder}
+              {...field}
+              className={`shad-textArea ${inputCustomClasses}`}
+              disabled={props.disabled}
+            />
+          </FormControl>
+        </div>
+      );
     default:
       break;
   }

@@ -207,7 +207,7 @@
   }
 
   .shad-textArea {
-    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 focus-visible:ring-0 focus-visible:ring-offset-0 !important;
+    @apply focus-visible:ring-0 focus-visible:ring-offset-0 !important;
   }
 
   .shad-combobox-item {
@@ -268,7 +268,23 @@
 
   /* =====  REACT PHONE NUMBER INPUT OVERRIDES */
   .input-phone {
-    @apply mt-2 h-11 rounded-md px-3 text-sm border bg-dark-400 placeholder:text-dark-600 border-dark-500 !important;
+    @apply flex mt-2 h-11 rounded-md pl-3 text-sm border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark !important;
+  }
+
+  .input-phone img {
+    @apply ml-2 h-6 w-6 fill-current ml-0 mr-3;
+  }
+
+  .input-phone div {
+    @apply flex justify-center items-center;
+  }
+
+  .input-phone div select {
+    @apply hidden;
+  }
+
+  .input-phone input {
+    @apply w-full text-color-light dark:text-color-dark bg-transparent;
   }
 
   /* =====  REACT DATE PICKER OVERRIDES */
