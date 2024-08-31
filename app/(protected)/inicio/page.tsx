@@ -18,26 +18,26 @@ const Page = () => {
   const loaderColor =
     theme === "dark" ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)";
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const user = await api.getAccount();
-        setUser(user);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     try {
+  //       const user = await api.getAccount();
+  //       setUser(user);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    getUser();
-  }, [router]);
+  //   getUser();
+  // }, [router]);
 
-  if (!user) {
-    return (
-      <div className="flex flex-col justify-center items-center h-screen">
-        <MoonLoader color={loaderColor} />
-      </div>
-    );
-  }
+  // if (!user) {
+  //   return (
+  //     <div className="flex flex-col justify-center items-center h-screen">
+  //       <MoonLoader color={loaderColor} />
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
@@ -61,11 +61,6 @@ const Page = () => {
           />
         </div>
         <HomeGuestTable />
-        <MainTitle
-          title="Agrega un nuevo huésped👨‍⚕️"
-          subtitle="Llena el formulario a continuación para agregar un nuevo huésped."
-        />
-        <AddGuestForm />
       </div>
     </>
   );

@@ -55,6 +55,27 @@ let api: any = {
         extraParams
       );
   },
+
+  getAllInsuranceDocuments: async (extraParams: string[]) => {
+    return await api
+      .provider()
+      .database.listDocuments(
+        env.databaseId,
+        env.insuranceCollectionId,
+        extraParams
+      );
+  },
+
+  createInsuranceProvider: async (extraParams: string[]) => {
+    return await api
+      .provider()
+      .database.createDocument(
+        env.databaseId,
+        env.insuranceCollectionId,
+        ID.unique(),
+        extraParams
+      );
+  },
 };
 
 export default api;

@@ -4,10 +4,13 @@ import React, { useState } from "react";
 import UserComponent from "./UserComponent";
 import { ModeToggle } from "../theme_toggle/ThemeToggle";
 import { Button } from "../ui/button";
-import { Menu, X } from "lucide-react";
+import { X } from "lucide-react";
+import { Menu, HoveredLink, MenuItem, ProductItem } from "../ui/navbar-menu";
+import NavbarMenuButton from "./NavbarMenuButton";
 
 const Navbar: React.FC = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
 
   const handleToggleNavbar = () => {
     setIsNavbarOpen(!isNavbarOpen);
@@ -23,31 +26,39 @@ const Navbar: React.FC = () => {
         <div>
           <h1 className="text-4xl text-main-4 font-bold pr-6">MediCloud</h1>
         </div>
-        <div className="hidden lg:flex">
-          <ul className="flex gap-6 items-center">
-            <li>
-              <Link href={"/"}>Inicio</Link>
-            </li>
-            <li>
-              <Link href={"/huespedes"}>Huéspedes</Link>
-            </li>
-            <li>
-              <Link href={"/obras-sociales"}>Obras Sociales</Link>
-            </li>
-            <li>
-              <Link href={"/admin"}>Admin</Link>
-            </li>
-            <li>
-              <ModeToggle />
-            </li>
-          </ul>
-        </div>
+        <Menu setActive={setActive}>
+          <div className="hidden lg:flex">
+            <ul className="flex gap-6 items-center">
+              <li>
+                <Link href={"/inicio"}>Inicio</Link>
+              </li>
+              <MenuItem setActive={setActive} active={active} item="Huéspedes">
+                <div className="flex flex-col space-y-4 text-sm">
+                  <HoveredLink href="/agregar-huesped">
+                    Agregar huésped
+                  </HoveredLink>
+                  <HoveredLink href="/huespedes">Ver huéspedes</HoveredLink>
+                </div>
+              </MenuItem>
+              <li>
+                <Link href={"/obras-sociales"}>Obras Sociales</Link>
+              </li>
+              <li>
+                <Link href={"/admin"}>Admin</Link>
+              </li>
+              <li>
+                <ModeToggle />
+              </li>
+            </ul>
+          </div>
+        </Menu>
+
         <div className="hidden lg:block">
           <UserComponent />
         </div>
         <div className="block lg:hidden">
           <Button onClick={handleToggleNavbar} className="px-0">
-            <Menu />
+            <NavbarMenuButton />
           </Button>
         </div>
       </div>

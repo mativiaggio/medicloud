@@ -18,6 +18,12 @@ import PhoneInput from "react-phone-number-input";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { Textarea } from "../ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -162,6 +168,36 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
           </FormControl>
         </div>
       );
+      break;
+    case FormFieldType.SELECT:
+      return (
+        <div
+          className={`flex items-center ${
+            iconType ? "pl-2" : ""
+          } rounded-md  overflow-hidden ${fieldCustomClasses}`}>
+          ​
+          {iconType && (
+            <Icon
+              icon={iconType}
+              iconLightColor={iconLightColor ? iconLightColor : "currentColor"}
+              iconDarkColor={iconDarkColor ? iconDarkColor : "currentColor"}
+            />
+          )}
+          <FormControl>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger className="shad-select-trigger">
+                  <SelectValue placeholder={props.placeholder} />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent className="shad-select-content w-full">
+                {props.children}
+              </SelectContent>
+            </Select>
+          </FormControl>
+        </div>
+      );
+      break;
     default:
       break;
   }
@@ -185,9 +221,13 @@ const CustomFormField = (props: CustomProps) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={`${formItemCustomClasses} text-color-dark`}>
+        <FormItem
+          className={`${formItemCustomClasses} text-color-dark w-full !mb-[30px]`}>
           {fieldType !== FormFieldType.CHECKBOX && label && (
-            <FormLabel className={`${labelCustomClasses}`}>{label}</FormLabel>
+            <FormLabel
+              className={`${labelCustomClasses} text-color-light dark:text-color-dark`}>
+              {label}
+            </FormLabel>
           )}
 
           <RenderField field={field} props={props} />

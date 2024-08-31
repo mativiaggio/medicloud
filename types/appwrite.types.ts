@@ -43,6 +43,11 @@ export interface Guest extends Models.Document {
   admission_date: Date;
 }
 
+export interface InsuranceProviders extends Models.Document {
+  $id: string;
+  name: string;
+}
+
 // export interface Appointment extends Models.Document {
 //   guest: Guest;
 //   schedule: Date;

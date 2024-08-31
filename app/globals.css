@@ -219,15 +219,15 @@
   }
 
   .shad-select-trigger {
-    @apply bg-dark-400  placeholder:text-dark-600 border-dark-500 h-11 focus:ring-0 focus:ring-offset-0 !important;
+    @apply text-[#9ca3af] border-none ring-0 h-11 focus:ring-0 focus:ring-offset-0 !important;
   }
 
   .shad-select-content {
-    @apply bg-dark-400 border-dark-500 !important;
+    @apply border-none bg-white dark:bg-main-bg-dark;
   }
 
   .shad-dialog {
-    @apply bg-dark-400 border-dark-500 !important;
+    @apply bg-white dark:bg-main-bg-dark border-dark-500 !important;
   }
 
   .shad-dialog button {
@@ -362,13 +362,13 @@
 }
 
 /* =====  REACT PHONE NUMBER INPUT OVERRIDES */
-.PhoneInputInput {
+/* .PhoneInputInput {
   outline: none;
   margin-left: 4px;
   background: #1a1d21;
   font-size: 14px;
   font-weight: 500;
-}
+} */
 
 .PhoneInputInput::placeholder {
   color: #1a1d21;
