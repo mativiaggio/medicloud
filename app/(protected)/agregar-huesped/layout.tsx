@@ -14,9 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {children}
-      <Footer props={{ bg: "bg-white dark:bg-main-bg-dark" }} />
+      {/* <Footer props={{ bg: "bg-white dark:bg-main-bg-dark" }} /> */}
     </>
   );
 }

@@ -1,4 +1,17 @@
-export const GenderOptions = ["Masculino", "Femenino"];
+// export const GenderOptions = ["male", "female"];
+
+export const GenderOptions = [
+  {
+    id: 1,
+    value: "male",
+    name: "Masculino",
+  },
+  {
+    id: 2,
+    value: "<female",
+    name: "Femenino",
+  },
+];
 
 export const Informed = [
   {
@@ -67,12 +80,12 @@ export const Religion = [
 export const YesNo = [
   {
     id: 1,
-    value: "Yes",
+    value: "yes",
     name: "Sí",
   },
   {
     id: 2,
-    value: "No",
+    value: "no",
     name: "No",
   },
 ];

@@ -26,16 +26,82 @@ import { InsuranceProviders } from "@/types/appwrite.types";
 import { Query } from "appwrite";
 
 const GuestFormValidation = z.object({
-  email: z
+  full_name: z.string().nonempty("El nombre completo es obligatorio"),
+  birthdate: z.date().refine((val) => !isNaN(val.getTime()), {
+    message: "La fecha de nacimiento es obligatoria",
+  }),
+  phone_number: z.string().optional(),
+  address: z.string().optional(),
+  gender: z.enum(["male", "female"]),
+  contact_full_name: z
     .string()
-    .email({
-      message: "Debe ser un correo electrónico válido.",
+    .nonempty("El nombre completo del contacto es obligatorio"),
+  contact_email: z.string().email("El email del contacto no es válido"),
+  contact_phone_number: z
+    .string()
+    .nonempty("El número de teléfono de contacto es obligatorio"),
+  contact_relationship: z.string().optional(),
+  family_genogram: z.string().optional(),
+  oncological_disease: z.string().optional(),
+  non_oncological_disease: z.string().optional(),
+  referring_physician: z.string().optional(),
+  primary_care_physician: z.string().optional(),
+  health_insurance: z.string().optional(),
+  health_insurance_number: z.string().optional(),
+  allergies: z.string().optional(),
+  current_medication: z.string().optional(),
+  family_medical_history: z.string().optional(),
+  tumor: z.string().optional(),
+  tumor_date: z
+    .date()
+    .refine((val) => !isNaN(val.getTime()), {
+      message: "La fecha de diagnóstico es obligatoria",
     })
-    .min(2, {
-      message: "El correo electrónico debe tener al menos 2 caracteres.",
-    }),
-  password: z.string().min(1, {
-    message: "La contraseña no puede estar vacía.",
+    .optional(),
+  metastasis: z.enum(["yes", "no"]).optional(),
+  metastasis_site: z.string().optional(),
+  ecog: z
+    .enum([
+      "Asymptomatic, normal activity",
+      "Symptomatic, able to carry out daily activities",
+      "Symptomatic, in bed less than 50% of the day",
+      "Symptomatic, in bed more than 50% of the day",
+      "Symptomatic, in bed all day",
+      "Terminal patient",
+    ])
+    .optional(),
+  informed: z
+    .enum(["The guest is informed", "The guest is not informed"])
+    .optional(),
+  informed_level: z
+    .enum([
+      "Totally, knows the diagnosis and prognosis",
+      "Partially, knows the diagnosis but not the prognosis (doesn't know that it is incurable or that they might die)",
+    ])
+    .optional(),
+  religion: z
+    .enum([
+      "None",
+      "Catholic",
+      "Jewish",
+      "Evangelical",
+      "Mormon",
+      "Jehovah's Witness",
+      "Other",
+    ])
+    .optional(),
+  religion_other: z.string().optional(),
+  funeral_service: z.enum(["yes", "no"]).optional(),
+  surgery: z.string().optional(),
+  rt: z.string().optional(),
+  qt: z.string().optional(),
+  ht: z.string().optional(),
+  opioid_treatment: z.enum(["yes", "no"]).optional(),
+  opioid: z.string().optional(),
+  non_opioid_treatment: z.string().optional(),
+  status: z.enum(["active", "inactive", "pending"]).optional(),
+  admission_date: z.date().refine((val) => !isNaN(val.getTime()), {
+    message: "La fecha de admisión es obligatoria",
   }),
 });
 
@@ -50,16 +116,59 @@ const AddGuestForm = () => {
   const form = useForm<z.infer<typeof GuestFormValidation>>({
     resolver: zodResolver(GuestFormValidation),
     defaultValues: {
-      email: "",
-      password: "",
+      full_name: "",
+      birthdate: new Date(),
+      phone_number: "",
+      address: "",
+      gender: "male", // Valor predeterminado
+      contact_full_name: "",
+      contact_email: "",
+      contact_phone_number: "",
+      contact_relationship: "",
+      family_genogram: "",
+      oncological_disease: "",
+      non_oncological_disease: "",
+      referring_physician: "",
+      primary_care_physician: "",
+      health_insurance: "",
+      health_insurance_number: "",
+      allergies: "",
+      current_medication: "",
+      family_medical_history: "",
+      tumor: "",
+      tumor_date: new Date(),
+      metastasis: "no", // Valor predeterminado
+      metastasis_site: "",
+      ecog: "Asymptomatic, normal activity", // Valor predeterminado
+      informed: "The guest is informed", // Valor predeterminado
+      informed_level: "Totally, knows the diagnosis and prognosis", // Valor predeterminado
+      religion: "None", // Valor predeterminado
+      religion_other: "",
+      funeral_service: "no", // Valor predeterminado
+      surgery: "",
+      rt: "",
+      qt: "",
+      ht: "",
+      opioid_treatment: "no", // Valor predeterminado
+      opioid: "",
+      non_opioid_treatment: "",
+      status: "active", // Valor predeterminado
+      admission_date: new Date(),
     },
   });
 
   async function onSubmit(data: z.infer<typeof GuestFormValidation>) {
+    setSubmiting(true);
     try {
-      setSubmiting(true);
+      const result = await api.createGuest(data);
+
+      if (result) {
+        console.log(JSON.stringify(result));
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error durante el envío del formulario:", error);
+    } finally {
+      setSubmiting(false);
     }
   }
 
@@ -82,6 +191,7 @@ const AddGuestForm = () => {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+          {/* {console.log(form.formState.errors)} */}
           <SectionTitle title="Información personal" />
           <section id="personal-info">
             <CustomFormField
@@ -156,10 +266,15 @@ const AddGuestForm = () => {
                       onValueChange={field.onChange}
                       defaultValue={field.value}>
                       {GenderOptions.map((option, i) => (
-                        <div key={option + i} className="radio-group !w-fit">
-                          <RadioGroupItem value={option} id={option} />
-                          <Label htmlFor={option} className="cursor-pointer">
-                            {option}
+                        <div key={option.id} className="radio-group !w-fit">
+                          <RadioGroupItem
+                            value={option.value}
+                            id={option.value}
+                          />
+                          <Label
+                            htmlFor={option.value}
+                            className="cursor-pointer">
+                            {option.name}
                           </Label>
                         </div>
                       ))}
@@ -686,6 +801,17 @@ const AddGuestForm = () => {
               }
             />
           </section>
+          {Object.keys(form.formState.errors).length > 0 && (
+            <div className="border border-red-800 bg-red-300 text-red-800 rounded-md p-2">
+              <span>
+                <ul>
+                  {Object.entries(form.formState.errors).map(([key, error]) => (
+                    <li key={key}>{error.message}</li>
+                  ))}
+                </ul>
+              </span>
+            </div>
+          )}
           <Button
             className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light w-full mt-[30px]"
             type="submit"

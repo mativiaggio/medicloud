@@ -27,7 +27,9 @@ import DinamicButton from "../buttons/DinamicButton";
 
 export function HomeGuestTable() {
   const [guests, setGuests] = useState<Guest[]>([]);
+  const [filteredGuests, setFilteredGuests] = useState<Guest[]>([]);
   const [guestsLoading, setGuestsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const getUser = async () => {
@@ -37,8 +39,8 @@ export function HomeGuestTable() {
         ]);
 
         setGuests(guests.documents);
+        setFilteredGuests(guests.documents);
         setGuestsLoading(false);
-        console.log(guests);
       } catch (error) {
         console.error(error);
       }
@@ -46,6 +48,13 @@ export function HomeGuestTable() {
 
     getUser();
   }, []);
+
+  useEffect(() => {
+    const results = guests.filter((guest) =>
+      guest.full_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredGuests(results);
+  }, [searchTerm, guests]);
 
   function contactData(guest: Guest) {
     if (guest.contact_email !== "") {
@@ -99,7 +108,7 @@ export function HomeGuestTable() {
           title="Todos los huéspedes"
           icon={<Filter strokeWidth={2} />}
         />
-        <Searchbox />
+        <Searchbox onSearchChange={setSearchTerm} />
         <FilterDropdown
           title="Fecha de Ingreso"
           icon={<Calendar strokeWidth={2} />}
@@ -120,7 +129,7 @@ export function HomeGuestTable() {
           <TableBodySkeleton />
         ) : (
           <TableBody>
-            {guests.map((guest) => (
+            {filteredGuests.map((guest) => (
               <TableRow key={guest.guest_id}>
                 <TableCell>{guest.full_name}</TableCell>
                 <TableCell>

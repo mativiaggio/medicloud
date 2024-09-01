@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/appwrite/appwrite";
+import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/footer/Footer";
 
 export default function RootLayout({
   children,
@@ -27,5 +29,11 @@ export default function RootLayout({
     return null;
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer props={{ bg: "bg-white dark:bg-main-bg-dark" }} />
+    </>
+  );
 }

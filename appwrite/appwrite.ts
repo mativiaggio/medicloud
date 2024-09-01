@@ -56,6 +56,17 @@ let api: any = {
       );
   },
 
+  createGuest: async (extraParams: string[]) => {
+    return await api
+      .provider()
+      .database.createDocument(
+        env.databaseId,
+        env.guestCollectionId,
+        ID.unique(),
+        extraParams
+      );
+  },
+
   getAllInsuranceDocuments: async (extraParams: string[]) => {
     return await api
       .provider()
