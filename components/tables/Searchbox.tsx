@@ -1,15 +1,27 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { UserRoundSearch } from "lucide-react";
 import { Input } from "../ui/input";
-import { handleClientScriptLoad } from "next/script";
 
-const Searchbox = () => {
+interface SearchboxProps {
+  onSearchChange: (searchTerm: string) => void;
+}
+
+const Searchbox: React.FC<SearchboxProps> = ({ onSearchChange }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
   const toggleSearchbox = () => {
     setIsOpen((prev) => !prev);
   };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    onSearchChange(value);
+  };
+
   return (
     <>
       <div
@@ -27,7 +39,8 @@ const Searchbox = () => {
             type="text"
             placeholder="Escriba su búsqueda aquí"
             className="clean-shadcn bg-transparent p-0 w-full max-w-xs"
-            style={{ width: isOpen ? "100%" : "0" }}
+            value={searchTerm}
+            onChange={handleInputChange}
           />
         </div>
       </div>
@@ -42,6 +55,8 @@ const Searchbox = () => {
             type="text"
             placeholder="Escriba su búsqueda aquí"
             className="clean-shadcn bg-transparent p-0 w-full"
+            value={searchTerm}
+            onChange={handleInputChange}
           />
         </div>
       </div>
