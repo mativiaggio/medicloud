@@ -24,6 +24,7 @@ import RefreshButton from "../buttons/RefreshButton";
 import FilterDropdown from "./FilterDropdown";
 import Searchbox from "./Searchbox";
 import DinamicButton from "../buttons/DinamicButton";
+import Link from "next/link";
 
 export function HomeGuestTable() {
   const [guests, setGuests] = useState<Guest[]>([]);
@@ -34,7 +35,7 @@ export function HomeGuestTable() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const guests = await api.getAllGuestsDocuments([
+        const guests = await api.guest.getAll([
           // Query.equal("status", ["active"]),
         ]);
 
@@ -130,8 +131,16 @@ export function HomeGuestTable() {
         ) : (
           <TableBody>
             {filteredGuests.map((guest) => (
-              <TableRow key={guest.guest_id}>
-                <TableCell>{guest.full_name}</TableCell>
+              <TableRow key={guest.$id}>
+                <TableCell>
+                  {" "}
+                  <Link
+                    className="hover:underline"
+                    href={`huesped/${guest.$id}`}>
+                    {" "}
+                    {guest.full_name}
+                  </Link>
+                </TableCell>
                 <TableCell>
                   {calculateAge(String(guest.birthdate))} años
                 </TableCell>

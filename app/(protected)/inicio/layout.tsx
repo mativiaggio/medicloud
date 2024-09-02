@@ -13,11 +13,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      {/* <Navbar /> */}
-      {children}
-      {/* <Footer props={{ bg: "bg-white dark:bg-main-bg-dark" }} /> */}
-    </>
-  );
+  return <>{children}</>;
 }

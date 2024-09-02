@@ -160,7 +160,7 @@ const AddGuestForm = () => {
   async function onSubmit(data: z.infer<typeof GuestFormValidation>) {
     setSubmiting(true);
     try {
-      const result = await api.createGuest(data);
+      const result = await api.guest.new(data);
 
       if (result) {
         console.log(JSON.stringify(result));
