@@ -46,25 +46,33 @@ let api: any = {
   },
 
   // DATABASE
-  getAllGuestsDocuments: async (extraParams: string[]) => {
-    return await api
-      .provider()
-      .database.listDocuments(
-        env.databaseId,
-        env.guestCollectionId,
-        extraParams
-      );
-  },
+  guest: {
+    getAll: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.listDocuments(
+          env.databaseId,
+          env.guestCollectionId,
+          extraParams
+        );
+    },
 
-  createGuest: async (extraParams: string[]) => {
-    return await api
-      .provider()
-      .database.createDocument(
-        env.databaseId,
-        env.guestCollectionId,
-        ID.unique(),
-        extraParams
-      );
+    findById: async (guestId: string) => {
+      return await api
+        .provider()
+        .database.getDocument(env.databaseId, env.guestCollectionId, guestId);
+    },
+
+    new: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.createDocument(
+          env.databaseId,
+          env.guestCollectionId,
+          ID.unique(),
+          extraParams
+        );
+    },
   },
 
   getAllInsuranceDocuments: async (extraParams: string[]) => {

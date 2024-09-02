@@ -54,31 +54,29 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
     checkSession();
   }, [router, pathname]);
   return (
-    <>
-      <html lang="en">
-        <body
-          className={cn(
-            "min-h-screen font-sans antialiased  tracking-wider !text-base",
-            fontSans.variable
-          )}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange>
-            {loading ? (
-              <>
-                <main className="w-screen h-screen fixed flex items-center justify-center bg-main-bg-dark">
-                  <MoonLoader color={loaderColor} />
-                </main>
-              </>
-            ) : (
-              <>{children}</>
-            )}
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen font-sans antialiased  tracking-wider !text-base",
+          fontSans.variable
+        )}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
+          {loading ? (
+            <>
+              <main className="w-screen h-screen fixed flex items-center justify-center bg-main-bg-dark">
+                <MoonLoader color={loaderColor} />
+              </main>
+            </>
+          ) : (
+            <>{children}</>
+          )}
+        </ThemeProvider>
+      </body>
+    </html>
   );
 };
 
