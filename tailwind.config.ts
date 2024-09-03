@@ -4,12 +4,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 
 const config = {
   darkMode: ["class"],
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
@@ -68,6 +63,8 @@ const config = {
           5: "#5598b5",
           6: "#84afc2",
           7: "#b3ecff",
+          "workspace-light": "#f8f9fa",
+          "workspace-dark": "#1A1D21",
         },
         color: {
           light: "#000000",
@@ -130,6 +127,8 @@ const config = {
           "active-light": "#cdd1d5",
           "active-dark": "#4a4d51",
         },
+        destructive: "#c1121f",
+        "bg-destructive": "#ffccd5",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
