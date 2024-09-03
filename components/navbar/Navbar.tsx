@@ -78,6 +78,9 @@ const Navbar: React.FC = () => {
                 </div>
               </MenuItem>
               <li>
+                <Link href={"/farmacia"}>Farmacia</Link>
+              </li>
+              <li>
                 <Link href={"/obras-sociales"}>Obras Sociales</Link>
               </li>
               <li>

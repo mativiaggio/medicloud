@@ -412,3 +412,21 @@ tr {
 tbody tr {
   @apply odd:bg-table-tr-odd-light dark:odd:bg-table-tr-odd-dark even:bg-table-tr-even-light dark:even:bg-table-tr-even-dark;
 }
+
+.guest-dashboard-container {
+  overflow-y: auto;
+  padding-right: 10px; /* Ajusta el valor según sea necesario */
+}
+
+.guest-dashboard-container::-webkit-scrollbar {
+  width: 2px;
+}
+
+.guest-dashboard-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.guest-dashboard-container::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
