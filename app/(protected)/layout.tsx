@@ -1,32 +1,31 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import api from "@/appwrite/appwrite";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import { useAuth } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { MoonLoader } from "react-spinners";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [user, setUser] = useState<any | null>(null);
   const router = useRouter();
+  const { auth, authLoading } = useAuth();
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const user = await api.getAccount();
-        setUser(user);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getUser();
-  }, [router]);
+    if (!authLoading && !auth) {
+      router.push("/ingresar");
+    }
+  }, [auth, authLoading, router]);
 
-  if (!user) {
-    return null;
+  if (authLoading || (!auth && typeof window !== "undefined")) {
+    return (
+      <main className="w-screen h-screen fixed flex items-center justify-center bg-main-bg-dark">
+        <MoonLoader color={"rgba(255, 255, 255, 1)"} />
+      </main>
+    );
   }
 
   return (

@@ -96,8 +96,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
 const Content: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="flex flex-1 w-full bg-white dark:bg-main-bg-dark">
-      <div className="p-2 md:p-10 rounded-tl-2xl bg-main-workspace-light dark:bg-main-workspace-dark flex flex-col gap-2 flex-1 w-full h-full">
+    <div className="flex flex-1 w-full bg-white dark:bg-main-bg-dark border-l border-main-border-light dark:border-main-border-dark">
+      <div className="p-2 md:p-10 bg-main-workspace-light dark:bg-main-workspace-dark flex flex-col gap-2 flex-1 w-full h-full">
         {children}
       </div>
     </div>
