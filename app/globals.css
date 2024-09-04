@@ -123,13 +123,13 @@
   }
 
   /* Data Table */
-  .data-table {
+  /* .data-table {
     @apply z-10 w-full overflow-hidden rounded-lg border border-dark-400 shadow-lg;
   }
 
   .table-actions {
     @apply flex w-full items-center justify-between space-x-2 p-4;
-  }
+  } */
 
   /* ===== ALIGNMENTS */
   .flex-center {
@@ -406,11 +406,11 @@ th {
 }
 
 tr {
-  @apply !border-b !border-b-table-border-light dark:!border-b-table-border-dark;
+  @apply !border-b !border-main-border-light dark:!border-main-border-dark;
 }
 
-tbody tr {
-  @apply odd:bg-table-tr-odd-light dark:odd:bg-table-tr-odd-dark even:bg-table-tr-even-light dark:even:bg-table-tr-even-dark;
+tbody tr:hover {
+  @apply bg-white dark:bg-main-bg-dark;
 }
 
 .guest-dashboard-container {

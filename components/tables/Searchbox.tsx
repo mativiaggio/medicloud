@@ -25,14 +25,14 @@ const Searchbox: React.FC<SearchboxProps> = ({ onSearchChange }) => {
   return (
     <>
       <div
-        className={`clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex lg:hidden ${
+        className={`hover:!shadow-xl !transition !duration-200 !shadow-input rounded-md bg-table-header-light dark:bg-table-header-dark flex lg:hidden ${
           isOpen ? "gap-4" : ""
         } items-center px-4`}>
         <Button className="p-0" onClick={toggleSearchbox}>
           <UserRoundSearch strokeWidth={2} />
         </Button>
         <div
-          className={`transition-all duration-300 ease-in-out overflow-hidden ${
+          className={`hover:shadow-xl transition duration-200 shadow-input ease-in-out overflow-hidden ${
             isOpen ? "w-60" : "w-0"
           }`}>
           <Input

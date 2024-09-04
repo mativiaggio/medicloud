@@ -1,8 +1,13 @@
+"use client";
+import api from "@/appwrite/appwrite";
+import { Query } from "appwrite";
 import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -12,9 +17,11 @@ import { Guest } from "@/types/appwrite.types";
 
 import { calculateAge, formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "../ui/button";
 import CopyButton from "../buttons/CopyButton";
 import TableBodySkeleton from "../skeleton/home/TableBodySkeleton";
 import { Calendar, Filter, RefreshCcw } from "lucide-react";
+import RefreshButton from "../buttons/RefreshButton";
 import FilterDropdown from "./FilterDropdown";
 import Searchbox from "./Searchbox";
 import DinamicButton from "../buttons/DinamicButton";
@@ -22,20 +29,20 @@ import Link from "next/link";
 import { useGuest } from "@/context/GuestContext";
 import { useRouter } from "next/navigation";
 
-export function HomeGuestTable() {
+export function GuestTable() {
   const [guests, setGuests] = useState<Guest[]>([]);
   const [filteredGuests, setFilteredGuests] = useState<Guest[]>([]);
   const [guestsLoading, setGuestsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const { activeGuests, activeGuestsLoading } = useGuest();
+  const { allGuests, allGuestsLoading } = useGuest();
   const router = useRouter();
 
   useEffect(() => {
-    if (!activeGuestsLoading && activeGuests) {
-      setGuests(activeGuests.documents);
+    if (!allGuestsLoading && allGuests) {
+      setGuests(allGuests.documents);
       setGuestsLoading(false);
     }
-  }, [activeGuests, activeGuestsLoading]);
+  }, [allGuests, allGuestsLoading]);
 
   useEffect(() => {
     const results = guests.filter((guest) =>

@@ -4,7 +4,12 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 
 const config = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -52,8 +57,8 @@ const config = {
           "bg-light": "#e9ecef",
           "subtitle-light": "#6c757d ",
           "subtitle-dark": "#ABB7C3",
-          "border-light": "#000000",
-          "border-dark": "#363A3D",
+          "border-light": "#dee2e6",
+          "border-dark": "#495057",
           "skeleton-light": "#dee2e6",
           "skeleton-dark": "#363A3D",
           1: "#00121f",

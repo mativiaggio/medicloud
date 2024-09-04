@@ -20,7 +20,7 @@ const FilterDropdown = ({ title, icon }: FilterDropdownProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="clean-shadcn bg-table-header-light dark:bg-table-header-dark"
+        className="hover:shadow-xl transition duration-200 shadow-input clean-shadcn bg-table-header-light dark:bg-table-header-dark"
         asChild>
         <Button variant="outline" className="flex gap-4 py-6">
           {icon}
