@@ -1,5 +1,3 @@
-"use client";
-
 import { ThemeProvider } from "@/components/theme-provider";
 import React from "react";
 
@@ -8,6 +6,12 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 
 import { AuthProvider } from "@/context/UserContext";
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "MediCloud por Hospice Madre Teresa",
+  description:
+    "La aplicación de gestion de huéspedes del Hospice Madre Teresa.",
+};
 
 interface Props {
   children: React.ReactNode;
