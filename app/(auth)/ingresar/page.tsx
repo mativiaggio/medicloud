@@ -1,64 +1,11 @@
-// "use client";
-
-// import Login from "@/components/login/Login";
-// import React, { useEffect, useState } from "react";
-// import { MoonLoader } from "react-spinners";
-// import { useRouter } from "next/navigation";
-// import api from "@/appwrite/appwrite";
-
-// const Page = () => {
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     const getUser = async () => {
-//       try {
-//         const user = await api.getAccount();
-//         router.push("/inicio");
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     };
-
-//     getUser();
-//   }, [router]);
-
-//   return (
-//     <div className="flex h-screen max-h-screen">
-//       <Login />
-//     </div>
-//   );
-// };
-
-// export default Page;
-
 "use client";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { AppleIcon, HeartPulse, Mail } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowLeft, HeartPulse } from "lucide-react";
 import LoginForm from "@/components/forms/LoginForm";
+import Link from "next/link";
 
 export default function Component() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle login logic here
-    console.log("Login submitted", { email, password, rememberMe });
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-main-bg-dark flex items-center justify-center p-4">
       <Card className="w-full max-w-md border-main-border-light dark:border-main-border-dark">
@@ -66,22 +13,22 @@ export default function Component() {
           <div className="flex items-center justify-center mb-4">
             <HeartPulse size={42} />
           </div>
-          <CardTitle className="text-2xl text-center">
-            Ingresa a MediCloud
-          </CardTitle>
-          <CardDescription className="text-center">
-            por Hospice Madre Teresa
-          </CardDescription>
+          <CardTitle className="text-2xl text-center">Ingresa a MediCloud</CardTitle>
+          <CardDescription className="text-center">por Hospice Madre Teresa</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <LoginForm />
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              <a
-                href="#"
-                className="font-semibold text-primary hover:text-primary/80">
+              <Link href="#" className="font-semibold text-primary hover:text-primary/80 hover:underline">
                 Olvidaste tu contraseña?
-              </a>
+              </Link>
+            </div>
+            <div className="text-sm">
+              <Link href="/" className="font-semibold text-primary hover:text-primary/80 hover:underline flex items-center">
+                <ArrowLeft size={18} />
+                Volver
+              </Link>
             </div>
           </div>
         </CardContent>

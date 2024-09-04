@@ -1,8 +1,7 @@
 import React from "react";
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
 import { Error } from "../alerts/Error";
-
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import MedCard from "../cards/MedCard";
 import { PillBottle } from "lucide-react";
 
 export function BentoGridDemo() {
@@ -30,21 +29,51 @@ const items = [
     description: "Medicamentos que el huésped está tomando.",
     header: (
       <div className="guest-dashboard-container h-full overflow-auto flex flex-col gap-2">
-        <Alert>
+        {/* <Card>
           <PillBottle className="h-4 w-4" />
-          <AlertTitle>Morfina</AlertTitle>
-          <AlertDescription>2mg / 8hs.</AlertDescription>
-        </Alert>
-        <Alert>
+          <CardTitle>Morfina</CardTitle>
+          <CardDescription>2mg / 8hs.</CardDescription>
+        </Card>
+        <Card>
           <PillBottle className="h-4 w-4" />
-          <AlertTitle>Morfina</AlertTitle>
-          <AlertDescription>2mg / 8hs.</AlertDescription>
-        </Alert>
-        <Alert>
+          <CardTitle>Morfina</CardTitle>
+          <CardDescription>2mg / 8hs.</CardDescription>
+        </Card>
+        <Card>
           <PillBottle className="h-4 w-4" />
-          <AlertTitle>Morfina</AlertTitle>
-          <AlertDescription>2mg / 8hs.</AlertDescription>
-        </Alert>
+          <CardTitle>Morfina</CardTitle>
+          <CardDescription>2mg / 8hs.</CardDescription>
+        </Card> */}
+        <MedCard
+          icon={<PillBottle size={16} />}
+          title="Prueba"
+          description="Descripción"
+        />
+        <MedCard
+          icon={<PillBottle size={16} />}
+          title="Prueba"
+          description="Descripción"
+        />
+        <MedCard
+          icon={<PillBottle size={16} />}
+          title="Prueba"
+          description="Descripción"
+        />
+        <MedCard
+          icon={<PillBottle size={16} />}
+          title="Prueba"
+          description="Descripción"
+        />
+        <MedCard
+          icon={<PillBottle size={16} />}
+          title="Prueba"
+          description="Descripción"
+        />
+        <MedCard
+          icon={<PillBottle size={16} />}
+          title="Prueba"
+          description="Descripción"
+        />
       </div>
     ),
     // icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,

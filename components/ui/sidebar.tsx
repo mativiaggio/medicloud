@@ -4,6 +4,7 @@ import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import { ChevronRight } from "lucide-react";
 
 interface Links {
   label: string;
@@ -117,8 +118,8 @@ export const MobileSidebar = ({
           "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
         )}
         {...props}>
-        <div className="flex justify-end z-20 w-full">
-          <IconMenu2
+        <div className="flex justify-end z-1 w-full cursor-pointer">
+          <ChevronRight
             className="text-neutral-800 dark:text-neutral-200"
             onClick={() => setOpen(!open)}
           />
@@ -138,7 +139,7 @@ export const MobileSidebar = ({
                 className
               )}>
               <div
-                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
+                className="cursor-pointer absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
                 onClick={() => setOpen(!open)}>
                 <IconX />
               </div>

@@ -54,17 +54,17 @@ export default function Page() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                <h1 className="text-color-light text-4xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                   Bienvenido a MediCloud
                 </h1>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                <p className="text-color-light mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                   Software de gestión médica segura, eficiente y compasiva por
                   Hospice Madre Teresa.
                 </p>
               </div>
               <div className="space-x-4">
                 <Link href={"/inicio"}>
-                  <Button className="bg-main-bg-dark text-color-dark dark:bg-main-bg-light dark:text-color-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light">
+                  <Button className="bg-main-bg-dark text-color-dark  hover:bg-button-hover-dark dark:hover:bg-button-hover-light">
                     Ingresar
                   </Button>
                 </Link>
@@ -79,7 +79,7 @@ export default function Page() {
               <div className="flex flex-col items-center space-y-4 text-center">
                 <ShieldCheck className="h-12 w-12 text-primary" />
                 <h2 className="text-xl font-bold">
-                  Protección de Datos Segura
+                  Protección de Datos
                 </h2>
                 <p className="text-muted-foreground">
                   MediCloud garantiza que los datos de los huéspedes estén
@@ -90,7 +90,7 @@ export default function Page() {
               <div className="flex flex-col items-center space-y-4 text-center">
                 <Users className="h-12 w-12 text-primary" />
                 <h2 className="text-xl font-bold">
-                  Colaboración en el Cuidado
+                  Especialización en el Cuidado
                 </h2>
                 <p className="text-muted-foreground">
                   Facilita la colaboración entre el equipo para brindar la mejor
