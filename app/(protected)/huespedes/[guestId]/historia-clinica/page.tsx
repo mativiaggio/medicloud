@@ -64,11 +64,11 @@ const Page = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <Link href="/huesped">Huéspedes</Link>
+            <Link href="/huespedes">Huéspedes</Link>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <Link href={`/huesped/${guest?.$id}`}>
+            <Link href={`/huespedes/${guest?.$id}`}>
               {guestLoading ? (
                 <LineSkeleton height={16} width={100} />
               ) : (
@@ -78,7 +78,7 @@ const Page = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Estudios complementarios</BreadcrumbPage>
+            <BreadcrumbPage>Historia clínica</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

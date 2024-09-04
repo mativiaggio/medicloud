@@ -1,35 +1,46 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import api from "@/appwrite/appwrite";
-import { Guest } from "@/types/appwrite.types";
-import { useParams } from "next/navigation";
+
+interface User {
+  name: string;
+}
 
 interface AuthContextProps {
-  auth: Guest | null;
-  authLoading: Boolean;
+  auth: User | null;
+  authLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [auth, setUser] = useState<Guest | null>(null);
-  const [authLoading, setUserLoading] = useState<Boolean>(true);
-  const { userId } = useParams();
+  const [auth, setUser] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getUser = async () => {
       try {
         const response = await api.getAccount();
         setUser(response);
-        setUserLoading(false);
+        setAuthLoading(false);
       } catch (error) {
         console.error(error);
-        setUserLoading(false);
+        setAuthLoading(false);
       }
     };
     getUser();
-  }, [userId]);
+  }, []);
 
-  return <AuthContext.Provider value={{ auth, authLoading }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ auth, authLoading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {

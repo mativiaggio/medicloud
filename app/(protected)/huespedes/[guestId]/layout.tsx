@@ -41,28 +41,28 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const links = [
     {
       label: "Dashboard",
-      href: `/huesped/${guestId}`,
+      href: `/huespedes/${guestId}`,
       icon: (
         <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
       label: "Evolución diaria",
-      href: `/huesped/${guestId}/evolucion-diaria`,
+      href: `/huespedes/${guestId}/evolucion-diaria`,
       icon: (
         <CalendarPlus className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
       label: "Estudios complementarios",
-      href: `/huesped/${guestId}/estudios-complementarios`,
+      href: `/huespedes/${guestId}/estudios-complementarios`,
       icon: (
         <Library className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),
     },
     {
       label: "Historia clínica",
-      href: `/huesped/${guestId}/historia-clinica`,
+      href: `/huespedes/${guestId}/historia-clinica`,
       icon: (
         <FileSpreadsheet className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
       ),

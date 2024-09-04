@@ -52,10 +52,10 @@ const LoginForm = () => {
   async function onSubmit(data: z.infer<typeof UserFormValidation>) {
     try {
       setSubmiting(true);
-      // const result = await login(data);
       const result = await api.createSession(data);
       if (result) {
-        router.push("/inicio");
+        const user = await api.getAccount();
+        router.replace("/inicio");
       } else {
         console.error("Login failed");
       }
@@ -73,42 +73,34 @@ const LoginForm = () => {
           fieldType={FormFieldType.INPUT}
           name="email"
           label="Email"
-          labelCustomClasses="text-color-dark"
-          placeholder="Email"
+          labelCustomClasses="text-color-light dark:text-color-dark"
+          placeholder="prueba@mail.com"
           formItemCustomClasses="!mb-[30px]"
-          iconType="email"
-          iconAlt="Email icon"
-          iconLightColor={"#FFFFFF"}
-          iconDarkColor={"#1a1d21"}
           control={form.control}
           fieldCustomClasses={
-            "border border-main-2 !border-input-border-dark bg-input-bg-dark"
+            "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
           }
           inputCustomClasses={
-            "text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+            "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:bg-transparent"
           }
         />
         <CustomFormField
           fieldType={FormFieldType.PASSWORD}
           name="password"
           label="Contraseña"
-          labelCustomClasses="text-color-dark"
+          labelCustomClasses="text-color-light dark:text-color-dark"
           placeholder="Contraseña"
           formItemCustomClasses="!mb-[30px]"
-          iconType="lock"
-          iconAlt="Password icon"
-          iconLightColor={"#FFFFFF"}
-          iconDarkColor={"#1a1d21"}
           control={form.control}
           fieldCustomClasses={
-            "border border-main-2 !border-input-border-dark bg-input-bg-dark"
+            "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
           }
           inputCustomClasses={
-            "text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+            "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:bg-transparent"
           }
         />
         <Button
-          className="text-color-dark bg-button-bg-dark hover:bg-button-hover-dark w-full max-w-sm mt-[30px]"
+          className="text-color-dark dark:text-color-light bg-button-bg-dark hover:bg-button-hover-dark dark:bg-button-bg-light hover:dark:bg-button-hover-light w-full max-w-sm mt-[30px]"
           type="submit"
           disabled={submiting}>
           {submiting ? "Cargando..." : "Iniciar sesión"}

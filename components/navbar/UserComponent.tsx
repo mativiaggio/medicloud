@@ -1,48 +1,54 @@
 import React from "react";
 import api from "@/appwrite/appwrite";
 import { useEffect, useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import LogoutButton from "@/components/logout/LogoutButton";
 import { COLORS } from "@/lib/constants/account.colors";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuLabel,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { ProfileSkeleton } from "./ProfileSkeleton";
-import { Skeleton } from "../ui/skeleton";
+import { useAuth } from "@/context/UserContext";
 
 interface UserComponentProps {
   size?: string;
 }
 interface User {
   name: string;
+  email?: string;
 }
 
 const UserComponent = ({ size }: UserComponentProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [initials, setInitials] = useState<string | "">("");
   const [accountColor, setAccountColor] = useState<string | "">("");
+  const { auth, authLoading } = useAuth();
+
+  //   useEffect(() => {
+  //     const getUser = async () => {
+  //       try {
+  //         const user = ;
+  //         setUser(user);
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     };
+
+  //     getUser();
+  //   }, []);
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const user = await api.getAccount();
-        setUser(user);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getUser();
-  }, []);
+    if (!authLoading && auth) {
+      setUser(auth);
+    }
+  }, [auth, authLoading]);
 
   useEffect(() => {
     const getUserInitials = () => {
@@ -98,22 +104,23 @@ const UserDropdown = ({ user, accountColor, initials, size }: UserDropdown) => {
       <DropdownMenuTrigger className="clean-shadcn" asChild>
         <Button
           variant="outline"
-          className="flex gap-2 mt-6 lg:mt-0 pl-0 lg:px-4">
-          {user?.name ? (
-            <UserCard
-              user={user}
-              accountColor={accountColor}
-              initials={initials}
-              size={size}
-            />
-          ) : (
-            <ProfileSkeleton />
-          )}
+          className="flex gap-2 mt-6 lg:mt-0 pl-0 lg:px-4 !pr-0">
+          <UserCard
+            user={user}
+            accountColor={accountColor}
+            initials={initials}
+            size={size}
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-white dark:bg-main-bg-dark border-main-border-light dark:border-main-border-dark">
+        <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
+        <DropdownMenuItem>
+          <span className="text-xs">{user?.email}</span>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator className="bg-main-border-light dark:bg-main-border-dark" />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem className={"w-full"}>
             <LogoutButton />
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -133,7 +140,7 @@ const UserCard = ({ user, accountColor, initials, size }: UserDropdown) => {
         </AvatarFallback>
       </Avatar>
 
-      <span className={size ? size : ""}>{user?.name}</span>
+      {/* <span className={size ? size : ""}>{user?.name}</span> */}
     </>
   );
 };
