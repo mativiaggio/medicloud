@@ -8,6 +8,7 @@ import { ModeToggle } from "@/components/theme_toggle/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { HeartPulse, ShieldCheck, Users } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Page() {
@@ -40,7 +41,16 @@ export default function Page() {
         </nav>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-main-workspace-light dark:bg-main-workspace-dark">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-main-workspace-light dark:bg-main-workspace-dark relative">
+          <Image
+            src={
+              "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
+            alt="Landing Image"
+            width={100000}
+            height={100000}
+            className="absolute w-full h-full top-0 object-cover"
+          />
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
