@@ -9,8 +9,7 @@ import { AuthProvider } from "@/context/UserContext";
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "MediCloud por Hospice Madre Teresa",
-  description:
-    "La aplicación de gestion de huéspedes del Hospice Madre Teresa.",
+  description: "La aplicación de gestion de huéspedes del Hospice Madre Teresa.",
 };
 
 interface Props {
@@ -26,16 +25,11 @@ const fontSans = Plus_Jakarta_Sans({
 const ProtectedLayout: React.FC<Props> = ({ children }) => {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen font-sans antialiased  tracking-wider !text-base",
-          fontSans.variable
-        )}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
+      <head>
+        <meta name="google-site-verification" content="1I5vN8XfzHo9awJVBZa30hiGiyayFTx9_EoB8QtzLsg" />
+      </head>
+      <body className={cn("min-h-screen font-sans antialiased  tracking-wider !text-base", fontSans.variable)}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <>
             <AuthProvider>{children}</AuthProvider>
           </>
