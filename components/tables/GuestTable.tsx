@@ -20,7 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "../ui/button";
 import CopyButton from "../buttons/CopyButton";
 import TableBodySkeleton from "../skeleton/home/TableBodySkeleton";
-import { Calendar, Filter, RefreshCcw } from "lucide-react";
+import { Calendar, Filter, PlusIcon, RefreshCcw } from "lucide-react";
 import RefreshButton from "../buttons/RefreshButton";
 import FilterDropdown from "./FilterDropdown";
 import Searchbox from "./Searchbox";
@@ -109,6 +109,9 @@ export function GuestTable() {
           icon={<Calendar strokeWidth={2} />}
         />
         <DinamicButton icon={<RefreshCcw strokeWidth={2} />} />
+        <Link href={"huespedes/agregar-huesped"}>
+          <DinamicButton icon={<PlusIcon strokeWidth={2} />} />
+        </Link>
       </div>
       <Table className="text-nowrap !z-0 !text-sm lg:!text-base">
         <TableHeader>

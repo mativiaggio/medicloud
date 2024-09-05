@@ -14,7 +14,7 @@ import { calculateAge, formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import CopyButton from "../buttons/CopyButton";
 import TableBodySkeleton from "../skeleton/home/TableBodySkeleton";
-import { Calendar, Filter, RefreshCcw } from "lucide-react";
+import { Calendar, Filter, RefreshCcw, Plus } from "lucide-react";
 import FilterDropdown from "./FilterDropdown";
 import Searchbox from "./Searchbox";
 import DinamicButton from "../buttons/DinamicButton";
@@ -101,7 +101,12 @@ export function HomeGuestTable() {
           title="Fecha de Ingreso"
           icon={<Calendar strokeWidth={2} />}
         />
-        <DinamicButton icon={<RefreshCcw strokeWidth={2} />} />
+        <span>
+          <DinamicButton icon={<RefreshCcw strokeWidth={2} />} />
+        </span>
+        <Link href={"/huespedes/agregar-huesped"}>
+          <DinamicButton icon={<Plus strokeWidth={2} />} />
+        </Link>
       </div>
       <Table className="text-nowrap !z-0 !text-sm lg:!text-base">
         <TableHeader>

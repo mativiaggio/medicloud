@@ -3,8 +3,8 @@ import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 
 export const metadata: Metadata = {
-  title: "MediCloud",
-  description: "Aquí podrás agregar un nuevo huésped.",
+  title: "MediCloud | Huéspedes",
+  description: "Visualiza, crea, edita, elimina huéspedes.",
 };
 
 export default function RootLayout({

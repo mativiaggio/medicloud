@@ -48,6 +48,11 @@ export interface InsuranceProviders extends Models.Document {
   name: string;
 }
 
+export interface Medication extends Models.Document {
+  $id: string;
+  name: string;
+}
+
 // export interface Appointment extends Models.Document {
 //   guest: Guest;
 //   schedule: Date;
