@@ -73,27 +73,94 @@ let api: any = {
           extraParams
         );
     },
+
+    update: async (id: string, extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.updateDocument(
+          env.databaseId,
+          env.guestCollectionId,
+          id,
+          extraParams
+        );
+    },
   },
 
-  getAllInsuranceDocuments: async (extraParams: string[]) => {
-    return await api
-      .provider()
-      .database.listDocuments(
-        env.databaseId,
-        env.insuranceCollectionId,
-        extraParams
-      );
+  medication: {
+    getAll: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.listDocuments(
+          env.databaseId,
+          env.medicationsCollectionId,
+          extraParams
+        );
+    },
+
+    findById: async (medicationId: string) => {
+      return await api
+        .provider()
+        .database.getDocument(
+          env.databaseId,
+          env.medicationsCollectionId,
+          medicationId
+        );
+    },
+
+    new: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.createDocument(
+          env.databaseId,
+          env.medicationsCollectionId,
+          ID.unique(),
+          extraParams
+        );
+    },
+
+    update: async (id: string, extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.updateDocument(
+          env.databaseId,
+          env.medicationsCollectionId,
+          id,
+          extraParams
+        );
+    },
+
+    delete: async (id: string) => {
+      return await api
+        .provider()
+        .database.deleteDocument(
+          env.databaseId,
+          env.medicationsCollectionId,
+          id
+        );
+    },
   },
 
-  createInsuranceProvider: async (extraParams: string[]) => {
-    return await api
-      .provider()
-      .database.createDocument(
-        env.databaseId,
-        env.insuranceCollectionId,
-        ID.unique(),
-        extraParams
-      );
+  insuranceProvider: {
+    getAll: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.listDocuments(
+          env.databaseId,
+          env.insuranceCollectionId,
+          extraParams
+        );
+    },
+
+    new: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.createDocument(
+          env.databaseId,
+          env.insuranceCollectionId,
+          ID.unique(),
+          extraParams
+        );
+    },
   },
 };
 

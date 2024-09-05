@@ -68,7 +68,7 @@ const LoginForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-sm">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           name="email"
@@ -100,7 +100,7 @@ const LoginForm = () => {
           }
         />
         <Button
-          className="text-color-dark dark:text-color-light bg-button-bg-dark hover:bg-button-hover-dark dark:bg-button-bg-light hover:dark:bg-button-hover-light w-full max-w-sm mt-[30px]"
+          className="text-color-dark dark:text-color-light bg-button-bg-dark hover:bg-button-hover-dark dark:bg-button-bg-light hover:dark:bg-button-hover-light w-full mt-[30px]"
           type="submit"
           disabled={submiting}>
           {submiting ? "Cargando..." : "Iniciar sesión"}

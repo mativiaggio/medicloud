@@ -21,31 +21,31 @@ import { useState } from "react";
 
 type OnSuccessCallback = () => void;
 
-interface AddNewInsuranceProps {
-  onSuccess?: OnSuccessCallback; // define onSuccess as a prop
+interface AddNewMedicationProps {
+  onSuccess?: OnSuccessCallback;
 }
 
-export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
+export function AddNewMedication({ onSuccess }: AddNewMedicationProps) {
   const [submiting, setSubmiting] = useState<boolean | false>(false);
   const [open, setOpen] = useState(false);
 
-  const InsuranceFormValidation = z.object({
+  const MedicationFormValidation = z.object({
     name: z.string().min(2, {
       message: "El nombre debe tener al menos 2 caracteres.",
     }),
   });
 
-  const form = useForm<z.infer<typeof InsuranceFormValidation>>({
-    resolver: zodResolver(InsuranceFormValidation),
+  const form = useForm<z.infer<typeof MedicationFormValidation>>({
+    resolver: zodResolver(MedicationFormValidation),
     defaultValues: {
       name: "",
     },
   });
 
-  async function onSubmit(data: z.infer<typeof InsuranceFormValidation>) {
+  async function onSubmit(data: z.infer<typeof MedicationFormValidation>) {
     try {
       setSubmiting(true);
-      const response = await api.insuranceProvider.new(data);
+      const response = await api.medication.new(data);
 
       if (response) {
         setSubmiting(false);
@@ -62,17 +62,18 @@ export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          className="aspect-square p-0 ring-1 ring-input-border-light dark:ring-input-border-dark ml-1 mt-[2px] h-[45px]"
-          variant="default">
-          <Plus />
-        </Button>
+        <div
+          className={`hover:shadow-xl transition duration-200 shadow-input clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex items-center h-full`}>
+          <Button className="px-4">
+            <Plus />
+          </Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] shad-dialog">
         <DialogHeader>
-          <DialogTitle>Obra social</DialogTitle>
+          <DialogTitle>Nuevo medicamento</DialogTitle>
           <DialogDescription>
-            Completa todos los campos y agrega una nueva obra social.
+            Completa todos los campos y agrega un nuevo medicamento.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -81,7 +82,7 @@ export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
               fieldType={FormFieldType.INPUT}
               name="name"
               label="Nombre"
-              placeholder="Swiss Medical Medicina Privada"
+              placeholder="Morfina"
               control={form.control}
               fieldCustomClasses={
                 "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"

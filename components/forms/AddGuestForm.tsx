@@ -174,7 +174,7 @@ const AddGuestForm = () => {
 
   const updateInsuranceProviders = useCallback(async () => {
     try {
-      const insuranceProviders = await api.getAllInsuranceDocuments([
+      const insuranceProviders = await api.insuranceProvider.getAll([
         Query.orderAsc("name"),
       ]);
       setInsuranceProviders(insuranceProviders.documents);

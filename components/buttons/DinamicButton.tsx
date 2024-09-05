@@ -7,8 +7,8 @@ interface DinamicProps {
 const DinamicButton = ({ title, icon }: DinamicProps) => {
   return (
     <div
-      className={`hover:shadow-xl transition duration-200 shadow-input clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex items-center px-4`}>
-      <Button className="p-0">
+      className={`hover:shadow-xl transition duration-200 shadow-input clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex items-center h-full`}>
+      <Button className="px-4">
         {icon}
         {title}
       </Button>
