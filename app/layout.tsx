@@ -21,12 +21,6 @@ export const metadata: Metadata = {
     "MediCloud"
   ],
   authors: [{ name: "Hospice Madre Teresa" }],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
   robots: {
     index: true,
     follow: true,
@@ -35,10 +29,10 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://medicloud-hmt.vercel.app/",
     title: "MediCloud por Hospice Madre Teresa",
-    description: "La aplicación de gestión médica segura y eficiente de Hospice Madre Teresa.",
+    description: "La aplicación de gestión médica segura y eficiente del Hospice Madre Teresa.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        url: "https://hospicemadreteresa.org.ar/wp-content/uploads/2017/07/bg-frente-casa-hospice.jpg",
         width: 1200,
         height: 630,
         alt: "MediCloud por Hospice Madre Teresa",
@@ -49,8 +43,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "MediCloud por Hospice Madre Teresa",
-    description: "La aplicación de gestión médica segura y eficiente de Hospice Madre Teresa.",
-    images: ["https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"],
+    description: "La aplicación de gestión médica segura y eficiente del Hospice Madre Teresa.",
+    images: ["https://hospicemadreteresa.org.ar/wp-content/uploads/2017/07/bg-frente-casa-hospice.jpg"],
   },
   icons: {
     icon: "/favicon.ico",

@@ -38,7 +38,7 @@ const Page = () => {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="prose my-12">
-          <LineSkeleton height={36} width={200} />
+          <LineSkeleton height={40} width={400} />
         </div>
       </>
     );
@@ -76,7 +76,7 @@ const Page = () => {
         </BreadcrumbList>
       </Breadcrumb>
       {/* <MainTitle title={guest ? guest.full_name : ""} /> */}
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         <MainTitle title={guest ? guest.full_name : ""} />
         {guest.status === "active" ? <Check size={38} color="#24ae7c" /> : ""}
         {guest.status === "inactive" ? <X size={38} color="#f37877" /> : ""}
