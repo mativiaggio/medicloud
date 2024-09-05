@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import { BentoGridDemo } from "@/components/grids/BentoGridDemo";
+import { Check, Hourglass, X } from "lucide-react";
 
 // Dashboard
 const Page = () => {
@@ -74,7 +75,17 @@ const Page = () => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <MainTitle title={guest ? guest.full_name : ""} />
+      {/* <MainTitle title={guest ? guest.full_name : ""} /> */}
+      <div className="flex items-center">
+        <MainTitle title={guest ? guest.full_name : ""} />
+        {guest.status === "active" ? <Check size={38} color="#24ae7c" /> : ""}
+        {guest.status === "inactive" ? <X size={38} color="#f37877" /> : ""}
+        {guest.status === "pending" ? (
+          <Hourglass className="animate-swing" size={38} color="#44a4ea" />
+        ) : (
+          ""
+        )}
+      </div>
       <BentoGridDemo />
     </>
   );
