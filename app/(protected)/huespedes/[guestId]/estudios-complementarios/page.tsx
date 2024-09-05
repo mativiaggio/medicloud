@@ -4,15 +4,9 @@ import MainTitle from "@/components/MainTitle";
 import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import { useGuest } from "@/context/GuestContext";
 import React from "react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import { Check, Hourglass, X } from "lucide-react";
 
 // Dashboard
 const Page = () => {
@@ -41,7 +35,7 @@ const Page = () => {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="prose my-12">
-          <LineSkeleton height={36} width={200} />
+          <LineSkeleton height={40} width={400} />
         </div>
       </>
     );
@@ -68,13 +62,7 @@ const Page = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <Link href={`/huespedes/${guest?.$id}`}>
-              {guestLoading ? (
-                <LineSkeleton height={16} width={100} />
-              ) : (
-                guest?.full_name
-              )}
-            </Link>
+            <Link href={`/huespedes/${guest?.$id}`}>{guestLoading ? <LineSkeleton height={16} width={100} /> : guest?.full_name}</Link>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -82,7 +70,12 @@ const Page = () => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <MainTitle title={guest ? guest.full_name : ""} />
+      <div className="flex items-center gap-2">
+        <MainTitle title={guest ? guest.full_name : ""} />
+        {guest.status === "active" ? <Check size={38} color="#24ae7c" /> : ""}
+        {guest.status === "inactive" ? <X size={38} color="#f37877" /> : ""}
+        {guest.status === "pending" ? <Hourglass className="animate-swing" size={38} color="#44a4ea" /> : ""}
+      </div>
     </>
   );
 };

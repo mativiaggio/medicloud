@@ -44,7 +44,7 @@ export default function Page() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-main-workspace-light dark:bg-main-workspace-dark relative">
           <Image
             src={
-              "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              "https://hospicemadreteresa.org.ar/wp-content/uploads/2017/07/bg-frente-casa-hospice.jpg"
             }
             alt="Landing Image"
             width={100000}
