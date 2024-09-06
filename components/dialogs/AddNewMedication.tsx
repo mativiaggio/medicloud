@@ -22,10 +22,14 @@ import { useState } from "react";
 type OnSuccessCallback = () => void;
 
 interface AddNewMedicationProps {
+  className?: string;
   onSuccess?: OnSuccessCallback;
 }
 
-export function AddNewMedication({ onSuccess }: AddNewMedicationProps) {
+export function AddNewMedication({
+  className,
+  onSuccess,
+}: AddNewMedicationProps) {
   const [submiting, setSubmiting] = useState<boolean | false>(false);
   const [open, setOpen] = useState(false);
 
@@ -63,7 +67,7 @@ export function AddNewMedication({ onSuccess }: AddNewMedicationProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div
-          className={`hover:shadow-xl transition duration-200 shadow-input clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex items-center h-full`}>
+          className={`hover:shadow-xl transition duration-200 shadow-input clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex items-center h-full ${className}`}>
           <Button className="px-4">
             <Plus />
           </Button>
@@ -71,8 +75,8 @@ export function AddNewMedication({ onSuccess }: AddNewMedicationProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] shad-dialog">
         <DialogHeader>
-          <DialogTitle>Nuevo medicamento</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl">Nuevo medicamento</DialogTitle>
+          <DialogDescription className="text-base">
             Completa todos los campos y agrega un nuevo medicamento.
           </DialogDescription>
         </DialogHeader>
@@ -82,13 +86,14 @@ export function AddNewMedication({ onSuccess }: AddNewMedicationProps) {
               fieldType={FormFieldType.INPUT}
               name="name"
               label="Nombre"
+              labelCustomClasses="text-base"
               placeholder="Morfina"
               control={form.control}
               fieldCustomClasses={
                 "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent text-base"
               }
             />
             <DialogFooter className="flex items-center">
@@ -96,7 +101,7 @@ export function AddNewMedication({ onSuccess }: AddNewMedicationProps) {
                 {submiting ? <MoonLoader size={20} color="#9ca3af" /> : ""}
               </div>
               <Button
-                className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light"
+                className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light text-base"
                 type="submit">
                 Guardar
               </Button>

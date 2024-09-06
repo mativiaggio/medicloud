@@ -1,44 +1,25 @@
 "use client";
 import { Error } from "@/components/alerts/Error";
-import MainTitle from "@/components/MainTitle";
 import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import { useGuest } from "@/context/GuestContext";
 import React from "react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import Link from "next/link";
-import { Check, Hourglass, X } from "lucide-react";
+import NameAndIcon from "@/components/guest/NameAndIcon";
+import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
 
 // Dashboard
 const Page = () => {
   const { guest, guestLoading } = useGuest();
 
   if (guestLoading) {
-    return (
-      <>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <LineSkeleton height={14} width={100} />
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <LineSkeleton height={14} width={100} />
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <LineSkeleton height={14} width={100} />
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <LineSkeleton height={14} width={100} />
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <div className="prose my-12">
-          <LineSkeleton height={40} width={400} />
-        </div>
-      </>
-    );
+    return <DashboardSkeleton />;
   }
 
   if (!guest) {
@@ -62,7 +43,13 @@ const Page = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <Link href={`/huespedes/${guest?.$id}`}>{guestLoading ? <LineSkeleton height={16} width={100} /> : guest?.full_name}</Link>
+            <Link href={`/huespedes/${guest?.$id}`}>
+              {guestLoading ? (
+                <LineSkeleton height={16} width={100} />
+              ) : (
+                guest?.full_name
+              )}
+            </Link>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -70,12 +57,7 @@ const Page = () => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="flex items-center gap-2">
-        <MainTitle title={guest ? guest.full_name : ""} />
-        {guest.status === "active" ? <Check size={38} color="#24ae7c" /> : ""}
-        {guest.status === "inactive" ? <X size={38} color="#f37877" /> : ""}
-        {guest.status === "pending" ? <Hourglass className="animate-swing" size={38} color="#44a4ea" /> : ""}
-      </div>
+      <NameAndIcon data={guest} />
     </>
   );
 };
