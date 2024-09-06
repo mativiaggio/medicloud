@@ -1,18 +1,10 @@
 "use client";
 import { Error } from "@/components/alerts/Error";
-import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import { useGuest } from "@/context/GuestContext";
 import React from "react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import Link from "next/link";
 import NameAndIcon from "@/components/guest/NameAndIcon";
 import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
+import HCBreadcrumbs from "../_components/HCBreadcrumbs";
 
 // Dashboard
 const Page = () => {
@@ -32,31 +24,7 @@ const Page = () => {
 
   return (
     <>
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <Link href="/inicio">Inicio</Link>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <Link href="/huespedes">Huéspedes</Link>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <Link href={`/huespedes/${guest?.$id}`}>
-              {guestLoading ? (
-                <LineSkeleton height={40} width={400} />
-              ) : (
-                guest?.full_name
-              )}
-            </Link>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Historia clínica</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <HCBreadcrumbs guest={guest} guestLoading={guestLoading} />
       <NameAndIcon data={guest} />
     </>
   );

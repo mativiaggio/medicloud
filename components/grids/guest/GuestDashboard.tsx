@@ -3,6 +3,7 @@ import GuestMedication from "./GuestMedication";
 import { useGuest } from "@/context/GuestContext";
 import { Error } from "@/components/alerts/Error";
 import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
+import GuestProgressNotes from "./GuestProgressNotes";
 
 const GuestDashboard = () => {
   const { guest, guestLoading } = useGuest();
@@ -23,6 +24,8 @@ const GuestDashboard = () => {
     <>
       <div className="w-full h-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
         <GuestMedication data={guest} />
+        <div></div>
+        <GuestProgressNotes />
       </div>
     </>
   );
