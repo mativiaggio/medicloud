@@ -69,7 +69,7 @@ const config = {
           6: "#84afc2",
           7: "#b3ecff",
           "workspace-light": "#f8f9fa",
-          "workspace-dark": "#1A1D21",
+          "workspace-dark": "#131619",
         },
         color: {
           light: "#000000",

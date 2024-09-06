@@ -86,6 +86,29 @@ let api: any = {
     },
   },
 
+  guest_medication: {
+    new: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.createDocument(
+          env.databaseId,
+          env.guestMedicationsCollectionId,
+          ID.unique(),
+          extraParams
+        );
+    },
+
+    delete: async (id: string) => {
+      return await api
+        .provider()
+        .database.deleteDocument(
+          env.databaseId,
+          env.guestMedicationsCollectionId,
+          id
+        );
+    },
+  },
+
   medication: {
     getAll: async (extraParams: string[]) => {
       return await api

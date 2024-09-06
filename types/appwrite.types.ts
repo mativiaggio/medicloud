@@ -41,6 +41,13 @@ export interface Guest extends Models.Document {
   non_opioid_treatment: string;
   status: Status;
   admission_date: Date;
+  guestMedications: GuestMedications[];
+}
+
+export interface GuestMedications {
+  $id: string;
+  name: string;
+  description: string;
 }
 
 export interface InsuranceProviders extends Models.Document {
