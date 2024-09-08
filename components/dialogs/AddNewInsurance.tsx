@@ -18,14 +18,19 @@ import CustomFormField, { FormFieldType } from "../forms/CustomFormField";
 import { MoonLoader } from "react-spinners";
 import api from "@/appwrite/appwrite";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 type OnSuccessCallback = () => void;
 
 interface AddNewInsuranceProps {
-  onSuccess?: OnSuccessCallback; // define onSuccess as a prop
+  onSuccess?: OnSuccessCallback;
+  className?: string;
 }
 
-export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
+export function AddNewInsurance({
+  onSuccess,
+  className,
+}: AddNewInsuranceProps) {
   const [submiting, setSubmiting] = useState<boolean | false>(false);
   const [open, setOpen] = useState(false);
 
@@ -63,7 +68,10 @@ export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="aspect-square p-0 ring-1 ring-input-border-light dark:ring-input-border-dark ml-1 mt-[2px] h-[45px]"
+          className={cn(
+            "hover:shadow-xl transition duration-200 shadow-input clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex items-center h-full",
+            className
+          )}
           variant="default">
           <Plus />
         </Button>

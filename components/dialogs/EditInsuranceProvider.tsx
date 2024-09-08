@@ -18,39 +18,46 @@ import CustomFormField, { FormFieldType } from "../forms/CustomFormField";
 import { MoonLoader } from "react-spinners";
 import api from "@/appwrite/appwrite";
 import { useState } from "react";
-import { Medication } from "@/types/appwrite.types";
+import { InsuranceProviders } from "@/types/appwrite.types";
 
 type OnSuccessCallback = () => void;
 
-interface AddNewMedicationProps {
-  medication: Medication;
+interface EditInsuranceProviderProps {
+  insuranceProvider: InsuranceProviders;
   onSuccess?: OnSuccessCallback;
 }
 
-export function EditMedication({
-  medication,
+export function EditInsuranceProvider({
+  insuranceProvider,
   onSuccess,
-}: AddNewMedicationProps) {
+}: EditInsuranceProviderProps) {
   const [submiting, setSubmiting] = useState<boolean | false>(false);
   const [open, setOpen] = useState(false);
 
-  const MedicationFormValidation = z.object({
+  const InsuranceProviderFormValidation = z.object({
     name: z.string().min(2, {
       message: "El nombre debe tener al menos 2 caracteres.",
     }),
+    private: z.boolean(),
   });
 
-  const form = useForm<z.infer<typeof MedicationFormValidation>>({
-    resolver: zodResolver(MedicationFormValidation),
+  const form = useForm<z.infer<typeof InsuranceProviderFormValidation>>({
+    resolver: zodResolver(InsuranceProviderFormValidation),
     defaultValues: {
-      name: medication.name,
+      name: insuranceProvider.name,
+      private: insuranceProvider.private,
     },
   });
 
-  async function onSubmit(data: z.infer<typeof MedicationFormValidation>) {
+  async function onSubmit(
+    data: z.infer<typeof InsuranceProviderFormValidation>
+  ) {
     try {
       setSubmiting(true);
-      const response = await api.medication.update(medication.$id, data);
+      const response = await api.insuranceProvider.update(
+        insuranceProvider.$id,
+        data
+      );
 
       if (response) {
         setSubmiting(false);
@@ -73,9 +80,9 @@ export function EditMedication({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] shad-dialog">
         <DialogHeader>
-          <DialogTitle>Nuevo medicamento</DialogTitle>
+          <DialogTitle>Editar obra social</DialogTitle>
           <DialogDescription>
-            Completa todos los campos y agrega un nuevo medicamento.
+            Completa todos los campos y edita la obra social.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -84,7 +91,6 @@ export function EditMedication({
               fieldType={FormFieldType.INPUT}
               name="name"
               label="Nombre"
-              placeholder="Morfina"
               control={form.control}
               fieldCustomClasses={
                 "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
@@ -92,6 +98,12 @@ export function EditMedication({
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
               }
+            />
+            <CustomFormField
+              fieldType={FormFieldType.CHECKBOX}
+              name="private"
+              label="Institucion privada"
+              control={form.control}
             />
             <DialogFooter className="flex items-center">
               <div className="mr-1">

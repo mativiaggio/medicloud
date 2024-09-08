@@ -53,6 +53,7 @@ export interface GuestMedications {
 export interface InsuranceProviders extends Models.Document {
   $id: string;
   name: string;
+  private: boolean;
 }
 
 export interface Medication extends Models.Document {

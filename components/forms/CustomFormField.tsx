@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { Checkbox } from "../ui/checkbox";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -198,6 +199,21 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         </div>
       );
       break;
+    case FormFieldType.CHECKBOX:
+      return (
+        <FormControl>
+          <div className="flex items-center gap-4">
+            <Checkbox
+              id={props.name}
+              checked={field.value}
+              onCheckedChange={field.onChange}
+            />
+            <label htmlFor={props.name} className="checkbox-label">
+              {props.label}
+            </label>
+          </div>
+        </FormControl>
+      );
     default:
       break;
   }
@@ -223,7 +239,7 @@ const CustomFormField = (props: CustomProps) => {
       render={({ field }) => (
         <FormItem
           className={`${formItemCustomClasses} text-color-dark w-full !mb-[30px]`}>
-          {fieldType !== FormFieldType.CHECKBOX && label && (
+          {props.fieldType !== FormFieldType.CHECKBOX && label && (
             <FormLabel
               className={`${labelCustomClasses} text-color-light dark:text-color-dark`}>
               {label}

@@ -78,7 +78,7 @@ export function MedicationTable() {
         ) : (
           <TableBody>
             {filteredMedications.map((medication) => (
-              <TableRow className="cursor-pointer" key={medication.$id}>
+              <TableRow key={medication.$id}>
                 <TableCell className="w-[90%]">{medication.name}</TableCell>
                 <TableCell>
                   <div className="flex justify-between">

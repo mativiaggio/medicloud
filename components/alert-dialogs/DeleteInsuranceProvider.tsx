@@ -11,23 +11,23 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
-import { Medication } from "@/types/appwrite.types";
+import { InsuranceProviders } from "@/types/appwrite.types";
 import api from "@/appwrite/appwrite";
 
 type OnSuccessCallback = () => void;
 
-interface AddNewMedicationProps {
-  medication: Medication;
+interface DeleteInsuranceProviderProps {
+  insuranceProvider: InsuranceProviders;
   onSuccess?: OnSuccessCallback;
 }
 
-export function DeleteMedication({
-  medication,
+export function DeleteInsuranceProvider({
+  insuranceProvider,
   onSuccess,
-}: AddNewMedicationProps) {
-  const deleteMedication = async () => {
+}: DeleteInsuranceProviderProps) {
+  const deleteInsuranceProvider = async () => {
     try {
-      const result = await api.medication.delete(medication.$id);
+      const result = await api.insuranceProvider.delete(insuranceProvider.$id);
 
       if (result) {
         if (onSuccess) {
@@ -59,7 +59,7 @@ export function DeleteMedication({
           </AlertDialogCancel>
           <AlertDialogAction
             className="text-red-700 font-bold"
-            onClick={deleteMedication}>
+            onClick={deleteInsuranceProvider}>
             Eliminar
           </AlertDialogAction>
         </AlertDialogFooter>

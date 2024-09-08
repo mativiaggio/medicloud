@@ -430,7 +430,10 @@ const AddGuestForm = () => {
                     </SelectItem>
                   ))}
                 </CustomFormField>
-                <AddNewInsurance onSuccess={updateInsuranceProviders} />
+                <AddNewInsurance
+                  className="aspect-square p-0 ring-1 !ring-input-border-light dark:!ring-input-border-dark ml-1 mt-[2px] h-[45px] !bg-transparent"
+                  onSuccess={updateInsuranceProviders}
+                />
               </span>
               <CustomFormField
                 fieldType={FormFieldType.INPUT}
