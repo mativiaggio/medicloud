@@ -76,7 +76,7 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >

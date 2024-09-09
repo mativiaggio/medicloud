@@ -98,7 +98,7 @@ export default function GuestProgressNotes({ data }: GuestProp) {
               <ClipboardList className="mr-2" />
               Evolución Diaria{" "}
               <div className="flex h-full items-end">
-                <span className="pb-[0.20em] text-xs text-[#b1b1b1]">
+                <span className="pb-[0.20em] text-xs text-[#b1b1b1] pl-2">
                   (ultimos 3 registros)
                 </span>
               </div>
