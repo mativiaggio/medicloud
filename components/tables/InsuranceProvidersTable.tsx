@@ -14,16 +14,10 @@ import TableBodySkeleton from "../skeleton/home/TableBodySkeleton";
 import Searchbox from "./Searchbox";
 import { useInsuranceProvider } from "@/context/InsuranceProvidersContext";
 import { useRouter } from "next/navigation";
-import { AddNewMedication } from "../dialogs/AddNewMedication";
 import api from "@/appwrite/appwrite";
 import { Query } from "appwrite";
-import Link from "next/link";
-import { Filter, Pencil, Trash } from "lucide-react";
-import { EditMedication } from "../dialogs/EditMedication";
-import { DeleteMedication } from "../alert-dialogs/DeleteMedication";
 import { AddNewInsurance } from "../dialogs/AddNewInsurance";
 import { DeleteInsuranceProvider } from "../alert-dialogs/DeleteInsuranceProvider";
-import FilterDropdown from "./FilterDropdown";
 import { EditInsuranceProvider } from "../dialogs/EditInsuranceProvider";
 
 export function InsuranceProvidersTable() {
@@ -43,7 +37,7 @@ export function InsuranceProvidersTable() {
   useEffect(() => {
     if (!allInsuranceProvidersLoading && allInsuranceProviders) {
       const sortedInsuranceProviders = allInsuranceProviders.documents.sort(
-        (a, b) => a.name.localeCompare(b.name)
+        (a, b) => a.name.localeCompare(b.name),
       );
       setInsuranceProviders(sortedInsuranceProviders);
       setInsuranceProvidersLoading(false);
@@ -52,7 +46,7 @@ export function InsuranceProvidersTable() {
 
   useEffect(() => {
     const results = insuranceProviders.filter((insuranceProvider) =>
-      insuranceProvider.name.toLowerCase().includes(searchTerm.toLowerCase())
+      insuranceProvider.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setFilteredInsuranceProviders(results);
   }, [searchTerm, insuranceProviders]);
@@ -70,16 +64,16 @@ export function InsuranceProvidersTable() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="w-full flex gap-4 !text-base lg:!text-lg">
+      <div className="flex w-full gap-4 !text-base lg:!text-lg">
         <Searchbox onSearchChange={setSearchTerm} />
         <span>
           <AddNewInsurance
-            className="hover:shadow-xl transition duration-200 shadow-input"
+            className="shadow-input transition duration-200 hover:shadow-xl"
             onSuccess={updateInsuranceProviders}
           />
         </span>
       </div>
-      <Table className="text-nowrap !z-0 !text-sm lg:!text-base">
+      <Table className="!z-0 text-nowrap !text-sm lg:!text-base">
         <TableHeader>
           <TableRow>
             <TableHead>Nombre</TableHead>

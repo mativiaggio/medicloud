@@ -22,10 +22,16 @@ const GuestDashboard = () => {
 
   return (
     <>
-      <div className="w-full h-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-        <GuestMedication data={guest} />
-        <div></div>
-        <GuestProgressNotes />
+      <div className="grid h-full w-full grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-2">
+        <div className="flex flex-col gap-4">
+          <GuestMedication data={guest} />
+          {/* <div></div> */}
+          <GuestProgressNotes />
+        </div>
+        <div className="flex flex-col gap-4">
+          <GuestProgressNotes data={guest} />
+          <GuestMedication data={guest} />
+        </div>
       </div>
     </>
   );

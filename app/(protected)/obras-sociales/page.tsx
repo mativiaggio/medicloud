@@ -12,8 +12,8 @@ const page = () => {
         containerClasses="mt-0"
       />
 
-      <div className="flex flex-col-reverse md:flex-row gap-4">
-        <div className="w-full flex flex-col">
+      <div className="flex flex-col-reverse gap-4 md:flex-row">
+        <div className="flex w-full flex-col">
           <InsuranceProvidersTable />
         </div>
       </div>

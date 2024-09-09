@@ -57,23 +57,32 @@ export function AddNewMedication({
           onSuccess();
         }
         setOpen(false);
+        form.reset();
       }
     } catch (error) {
       console.error(error);
     }
   }
 
+  function handleDialogClose(openState: boolean) {
+    if (!openState) {
+      form.reset();
+    }
+    setOpen(openState);
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogTrigger asChild>
         <div
-          className={`hover:shadow-xl transition duration-200 shadow-input clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex items-center h-full ${className}`}>
+          className={`shadow-input clean-shadcn flex h-full items-center rounded-md bg-table-header-light transition duration-200 hover:shadow-xl dark:bg-table-header-dark ${className}`}
+        >
           <Button className="px-4">
             <Plus />
           </Button>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] shad-dialog">
+      <DialogContent className="shad-dialog sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-2xl">Nuevo medicamento</DialogTitle>
           <DialogDescription className="text-base">
@@ -101,8 +110,9 @@ export function AddNewMedication({
                 {submiting ? <MoonLoader size={20} color="#9ca3af" /> : ""}
               </div>
               <Button
-                className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light text-base"
-                type="submit">
+                className="bg-button-bg-dark text-base text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light dark:hover:bg-button-hover-light"
+                type="submit"
+              >
                 Guardar
               </Button>
             </DialogFooter>

@@ -85,7 +85,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         <div
           className={`flex items-center ${
             iconType ? "pl-2" : ""
-          } rounded-md  overflow-hidden ${fieldCustomClasses}`}>
+          } overflow-hidden rounded-md ${fieldCustomClasses}`}
+        >
           ​
           {iconType && (
             <Icon
@@ -111,7 +112,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         <div
           className={`flex items-center ${
             iconType ? "pl-2" : ""
-          } rounded-md  overflow-hidden ${fieldCustomClasses}`}>
+          } overflow-hidden rounded-md ${fieldCustomClasses}`}
+        >
           ​
           {iconType && (
             <Icon
@@ -158,7 +160,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         <div
           className={`flex items-center ${
             iconType ? "pl-2" : ""
-          } rounded-md  overflow-hidden ${fieldCustomClasses}`}>
+          } overflow-hidden rounded-md ${fieldCustomClasses}`}
+        >
           <FormControl>
             <Textarea
               placeholder={props.placeholder}
@@ -175,7 +178,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         <div
           className={`flex items-center ${
             iconType ? "pl-2" : ""
-          } rounded-md  overflow-hidden ${fieldCustomClasses}`}>
+          } overflow-hidden rounded-md ${fieldCustomClasses}`}
+        >
           ​
           {iconType && (
             <Icon
@@ -198,7 +202,6 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
           </FormControl>
         </div>
       );
-      break;
     case FormFieldType.CHECKBOX:
       return (
         <FormControl>
@@ -220,28 +223,18 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
 };
 
 const CustomFormField = (props: CustomProps) => {
-  const {
-    control,
-    fieldType,
-    name,
-    label,
-    placeholder,
-    formItemCustomClasses,
-    iconType,
-    iconAlt,
-    fieldCustomClasses,
-    labelCustomClasses,
-  } = props;
+  const { control, name, label, formItemCustomClasses, labelCustomClasses } =
+    props;
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem
-          className={`${formItemCustomClasses} text-color-dark w-full !mb-[30px]`}>
+        <FormItem className={`${formItemCustomClasses} !mb-[30px] w-full`}>
           {props.fieldType !== FormFieldType.CHECKBOX && label && (
             <FormLabel
-              className={`${labelCustomClasses} text-color-light dark:text-color-dark`}>
+              className={`${labelCustomClasses} text-color-light dark:text-color-dark`}
+            >
               {label}
             </FormLabel>
           )}
