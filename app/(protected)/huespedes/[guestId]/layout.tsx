@@ -8,6 +8,7 @@ import {
   FileSpreadsheet,
   LayoutDashboard,
   Library,
+  User,
 } from "lucide-react";
 import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import { useParams } from "next/navigation";
@@ -43,28 +44,35 @@ export default function RootLayout({ children }: RootLayoutProps) {
       label: "Dashboard",
       href: `/huespedes/${guestId}`,
       icon: (
-        <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+        <LayoutDashboard className="h-6 w-6 flex-shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Planilla completa",
+      href: `/huespedes/${guestId}/planilla`,
+      icon: (
+        <User className="h-6 w-6 flex-shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Evolución diaria",
       href: `/huespedes/${guestId}/evolucion-diaria`,
       icon: (
-        <CalendarPlus className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+        <CalendarPlus className="h-6 w-6 flex-shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Estudios complementarios",
       href: `/huespedes/${guestId}/estudios-complementarios`,
       icon: (
-        <Library className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+        <Library className="h-6 w-6 flex-shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Historia clínica",
       href: `/huespedes/${guestId}/historia-clinica`,
       icon: (
-        <FileSpreadsheet className="text-neutral-700 dark:text-neutral-200 h-6 w-6 flex-shrink-0" />
+        <FileSpreadsheet className="h-6 w-6 flex-shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
   ];
@@ -73,12 +81,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <GuestProvider>
       <div
         className={cn(
-          "rounded-none flex flex-col md:flex-row  w-full flex-1 mx-auto overflow-hidden",
-          "min-h-screen h-fit"
-        )}>
+          "mx-auto flex w-full flex-1 flex-col overflow-hidden rounded-none md:flex-row",
+          "h-fit min-h-screen",
+        )}
+      >
         <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
-            <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+            <div className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
               <div className="flex flex-col gap-2">
                 {links.map((link, idx) => (
                   <SidebarLink key={idx} link={link} />
@@ -96,8 +105,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
 const Content: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="flex flex-1 w-full bg-white dark:bg-main-bg-dark border-l border-main-border-light dark:border-main-border-dark">
-      <div className="p-2 md:p-10 bg-main-workspace-light dark:bg-main-workspace-dark flex flex-col gap-2 flex-1 w-full h-full">
+    <div className="flex w-full flex-1 border-l border-main-border-light bg-white dark:border-main-border-dark dark:bg-main-bg-dark">
+      <div className="flex h-full w-full flex-1 flex-col gap-2 bg-main-workspace-light p-2 dark:bg-main-workspace-dark md:p-10">
         {children}
       </div>
     </div>

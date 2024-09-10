@@ -8,7 +8,7 @@ export const GenderOptions = [
   },
   {
     id: 2,
-    value: "<female",
+    value: "female",
     name: "Femenino",
   },
 ];
