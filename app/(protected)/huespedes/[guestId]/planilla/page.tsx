@@ -4,7 +4,8 @@ import { useGuest } from "@/context/GuestContext";
 import React from "react";
 import NameAndIcon from "@/components/guest/NameAndIcon";
 import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
-import HCBreadcrumbs from "../_components/HCBreadcrumbs";
+import PlanillaBreadcrumbs from "../_components/PlanillaBreadcrumbs copy";
+import ViewGuestForm from "@/components/forms/ViewGuestForm";
 
 // Dashboard
 const Page = () => {
@@ -24,8 +25,9 @@ const Page = () => {
 
   return (
     <>
-      <HCBreadcrumbs guest={guest} guestLoading={guestLoading} />
+      <PlanillaBreadcrumbs guest={guest} guestLoading={guestLoading} />
       <NameAndIcon data={guest} />
+      <ViewGuestForm />
     </>
   );
 };

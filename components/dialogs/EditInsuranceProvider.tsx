@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import { Form } from "../ui/form";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -18,38 +18,46 @@ import CustomFormField, { FormFieldType } from "../forms/CustomFormField";
 import { MoonLoader } from "react-spinners";
 import api from "@/appwrite/appwrite";
 import { useState } from "react";
+import { InsuranceProviders } from "@/types/appwrite.types";
 
 type OnSuccessCallback = () => void;
 
-interface AddNewMedicationProps {
-  className?: string;
+interface EditInsuranceProviderProps {
+  insuranceProvider: InsuranceProviders;
   onSuccess?: OnSuccessCallback;
 }
 
-export function AddNewMedication({
-  className,
+export function EditInsuranceProvider({
+  insuranceProvider,
   onSuccess,
-}: AddNewMedicationProps) {
+}: EditInsuranceProviderProps) {
   const [submiting, setSubmiting] = useState<boolean | false>(false);
   const [open, setOpen] = useState(false);
 
-  const MedicationFormValidation = z.object({
+  const InsuranceProviderFormValidation = z.object({
     name: z.string().min(2, {
       message: "El nombre debe tener al menos 2 caracteres.",
     }),
+    private: z.boolean(),
   });
 
-  const form = useForm<z.infer<typeof MedicationFormValidation>>({
-    resolver: zodResolver(MedicationFormValidation),
+  const form = useForm<z.infer<typeof InsuranceProviderFormValidation>>({
+    resolver: zodResolver(InsuranceProviderFormValidation),
     defaultValues: {
-      name: "",
+      name: insuranceProvider.name,
+      private: insuranceProvider.private,
     },
   });
 
-  async function onSubmit(data: z.infer<typeof MedicationFormValidation>) {
+  async function onSubmit(
+    data: z.infer<typeof InsuranceProviderFormValidation>,
+  ) {
     try {
       setSubmiting(true);
-      const response = await api.medication.new(data);
+      const response = await api.insuranceProvider.update(
+        insuranceProvider.$id,
+        data,
+      );
 
       if (response) {
         setSubmiting(false);
@@ -74,19 +82,15 @@ export function AddNewMedication({
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogTrigger asChild>
-        <div
-          className={`shadow-input clean-shadcn flex h-full items-center rounded-md bg-table-header-light transition duration-200 hover:shadow-xl dark:bg-table-header-dark ${className}`}
-        >
-          <Button className="px-4">
-            <Plus />
-          </Button>
+        <div className="flex transform cursor-pointer items-center gap-2 rounded-md p-2 transition-all hover:bg-main-bg-dark hover:text-color-dark dark:hover:bg-main-bg-light dark:hover:text-color-light">
+          <Pencil size={18} /> Editar
         </div>
       </DialogTrigger>
       <DialogContent className="shad-dialog sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Nuevo medicamento</DialogTitle>
+          <DialogTitle className="text-2xl">Editar obra social</DialogTitle>
           <DialogDescription className="text-base">
-            Completa todos los campos y agrega un nuevo medicamento.
+            Completa todos los campos y edita la obra social.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -95,22 +99,26 @@ export function AddNewMedication({
               fieldType={FormFieldType.INPUT}
               name="name"
               label="Nombre"
-              labelCustomClasses="text-base"
-              placeholder="Morfina"
               control={form.control}
               fieldCustomClasses={
                 "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent text-base"
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
               }
+            />
+            <CustomFormField
+              fieldType={FormFieldType.CHECKBOX}
+              name="private"
+              label="Institucion privada"
+              control={form.control}
             />
             <DialogFooter className="flex items-center">
               <div className="mr-1">
                 {submiting ? <MoonLoader size={20} color="#9ca3af" /> : ""}
               </div>
               <Button
-                className="bg-button-bg-dark text-base text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light dark:hover:bg-button-hover-light"
+                className="bg-button-bg-dark text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light dark:hover:bg-button-hover-light"
                 type="submit"
               >
                 Guardar

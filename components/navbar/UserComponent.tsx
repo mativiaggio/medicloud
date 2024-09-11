@@ -5,17 +5,10 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import LogoutButton from "@/components/logout/LogoutButton";
 import { COLORS } from "@/lib/constants/account.colors";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { ProfileSkeleton } from "./ProfileSkeleton";
 import { useAuth } from "@/context/UserContext";
+import Link from "next/link";
 
 interface UserComponentProps {
   size?: string;
@@ -80,12 +73,7 @@ const UserComponent = ({ size }: UserComponentProps) => {
   return (
     <>
       <div className="flex justify-start lg:justify-center items-center">
-        <UserDropdown
-          user={user}
-          accountColor={accountColor}
-          initials={initials}
-          size={size}
-        />
+        <UserDropdown user={user} accountColor={accountColor} initials={initials} size={size} />
       </div>
     </>
   );
@@ -102,15 +90,8 @@ const UserDropdown = ({ user, accountColor, initials, size }: UserDropdown) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="clean-shadcn" asChild>
-        <Button
-          variant="outline"
-          className="flex gap-2 mt-6 lg:mt-0 pl-0 lg:px-4 !pr-0">
-          <UserCard
-            user={user}
-            accountColor={accountColor}
-            initials={initials}
-            size={size}
-          />
+        <Button variant="outline" className="flex gap-2 mt-6 lg:mt-0 pl-0 lg:px-4 !pr-0">
+          <UserCard user={user} accountColor={accountColor} initials={initials} size={size} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-white dark:bg-main-bg-dark border-main-border-light dark:border-main-border-dark">
@@ -123,6 +104,9 @@ const UserDropdown = ({ user, accountColor, initials, size }: UserDropdown) => {
           <DropdownMenuItem className={"w-full"}>
             <LogoutButton />
           </DropdownMenuItem>
+          <DropdownMenuItem className={"w-full flex justify-center text-[11px] hover:underline"}>
+            <Link href={"/"}>Pagina principal</Link>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -132,12 +116,8 @@ const UserDropdown = ({ user, accountColor, initials, size }: UserDropdown) => {
 const UserCard = ({ user, accountColor, initials, size }: UserDropdown) => {
   return (
     <>
-      <Avatar
-        style={{ backgroundColor: accountColor }}
-        className={`flex justify-center items-center ${size ? "p-6" : ""}`}>
-        <AvatarFallback className={`text-white ${size ? size : ""}`}>
-          {initials}
-        </AvatarFallback>
+      <Avatar style={{ backgroundColor: accountColor }} className={`flex justify-center items-center ${size ? "p-6" : ""}`}>
+        <AvatarFallback className={`text-white ${size ? size : ""}`}>{initials}</AvatarFallback>
       </Avatar>
 
       {/* <span className={size ? size : ""}>{user?.name}</span> */}

@@ -18,14 +18,19 @@ import CustomFormField, { FormFieldType } from "../forms/CustomFormField";
 import { MoonLoader } from "react-spinners";
 import api from "@/appwrite/appwrite";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 type OnSuccessCallback = () => void;
 
 interface AddNewInsuranceProps {
-  onSuccess?: OnSuccessCallback; // define onSuccess as a prop
+  onSuccess?: OnSuccessCallback;
+  className?: string;
 }
 
-export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
+export function AddNewInsurance({
+  onSuccess,
+  className,
+}: AddNewInsuranceProps) {
   const [submiting, setSubmiting] = useState<boolean | false>(false);
   const [open, setOpen] = useState(false);
 
@@ -33,12 +38,14 @@ export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
     name: z.string().min(2, {
       message: "El nombre debe tener al menos 2 caracteres.",
     }),
+    private: z.boolean(),
   });
 
   const form = useForm<z.infer<typeof InsuranceFormValidation>>({
     resolver: zodResolver(InsuranceFormValidation),
     defaultValues: {
       name: "",
+      private: false,
     },
   });
 
@@ -53,25 +60,37 @@ export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
           onSuccess();
         }
         setOpen(false);
+        form.reset();
       }
     } catch (error) {
       console.error(error);
     }
   }
 
+  function handleDialogClose(openState: boolean) {
+    if (!openState) {
+      form.reset();
+    }
+    setOpen(openState);
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogTrigger asChild>
         <Button
-          className="aspect-square p-0 ring-1 ring-input-border-light dark:ring-input-border-dark ml-1 mt-[2px] h-[45px]"
-          variant="default">
+          className={cn(
+            "shadow-input clean-shadcn flex h-full items-center rounded-md bg-table-header-light transition duration-200 hover:shadow-xl dark:bg-table-header-dark",
+            className,
+          )}
+          variant="default"
+        >
           <Plus />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] shad-dialog">
+      <DialogContent className="shad-dialog sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Obra social</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl">Obra social</DialogTitle>
+          <DialogDescription className="text-base">
             Completa todos los campos y agrega una nueva obra social.
           </DialogDescription>
         </DialogHeader>
@@ -90,13 +109,20 @@ export function AddNewInsurance({ onSuccess }: AddNewInsuranceProps) {
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
               }
             />
+            <CustomFormField
+              fieldType={FormFieldType.CHECKBOX}
+              name="private"
+              label="Institucion privada"
+              control={form.control}
+            />
             <DialogFooter className="flex items-center">
               <div className="mr-1">
                 {submiting ? <MoonLoader size={20} color="#9ca3af" /> : ""}
               </div>
               <Button
-                className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light"
-                type="submit">
+                className="bg-button-bg-dark text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light dark:hover:bg-button-hover-light"
+                type="submit"
+              >
                 Guardar
               </Button>
             </DialogFooter>

@@ -9,6 +9,7 @@ import { GuestProvider } from "@/context/GuestContext";
 import api from "@/appwrite/appwrite";
 import { useTheme } from "next-themes";
 import { MedicationProvider } from "@/context/MedicationsContext";
+import { MainInsuranceProvider } from "@/context/InsuranceProvidersContext";
 
 export default function RootLayout({
   children,
@@ -61,10 +62,12 @@ export default function RootLayout({
       <AuthProvider>
         <GuestProvider>
           <MedicationProvider>
-            <Navbar />
-            {children}
+            <MainInsuranceProvider>
+              <Navbar />
+              {children}
 
-            <Footer props={{ bg: "bg-white dark:bg-main-bg-dark" }} />
+              <Footer props={{ bg: "bg-white dark:bg-main-bg-dark" }} />
+            </MainInsuranceProvider>
           </MedicationProvider>
         </GuestProvider>
       </AuthProvider>

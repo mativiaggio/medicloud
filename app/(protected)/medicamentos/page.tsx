@@ -9,6 +9,7 @@ const page = () => {
       <MainTitle
         title="Medicamentos"
         subtitle="Visualiza, crea, edita, borra medicamentos."
+        containerClasses="mt-0"
       />
 
       <div className="flex flex-col-reverse md:flex-row gap-4">

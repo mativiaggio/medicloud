@@ -174,6 +174,12 @@ let api: any = {
         );
     },
 
+    findById: async (id: string) => {
+      return await api
+        .provider()
+        .database.getDocument(env.databaseId, env.insuranceCollectionId, id);
+    },
+
     new: async (extraParams: string[]) => {
       return await api
         .provider()
@@ -183,6 +189,23 @@ let api: any = {
           ID.unique(),
           extraParams
         );
+    },
+
+    update: async (id: string, extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.updateDocument(
+          env.databaseId,
+          env.insuranceCollectionId,
+          id,
+          extraParams
+        );
+    },
+
+    delete: async (id: string) => {
+      return await api
+        .provider()
+        .database.deleteDocument(env.databaseId, env.insuranceCollectionId, id);
     },
   },
 };

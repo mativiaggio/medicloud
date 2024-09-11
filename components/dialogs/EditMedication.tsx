@@ -58,23 +58,31 @@ export function EditMedication({
           onSuccess();
         }
         setOpen(false);
+        form.reset();
       }
     } catch (error) {
       console.error(error);
     }
   }
 
+  function handleDialogClose(openState: boolean) {
+    if (!openState) {
+      form.reset();
+    }
+    setOpen(openState);
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogTrigger asChild>
-        <div className="flex items-center gap-2 hover:bg-main-bg-dark hover:text-color-dark dark:hover:bg-main-bg-light dark:hover:text-color-light p-2 rounded-md transform transition-all">
+        <div className="flex transform cursor-pointer items-center gap-2 rounded-md p-2 transition-all hover:bg-main-bg-dark hover:text-color-dark dark:hover:bg-main-bg-light dark:hover:text-color-light">
           <Pencil size={18} /> Editar
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] shad-dialog">
+      <DialogContent className="shad-dialog sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Nuevo medicamento</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl">Nuevo medicamento</DialogTitle>
+          <DialogDescription className="text-base">
             Completa todos los campos y agrega un nuevo medicamento.
           </DialogDescription>
         </DialogHeader>
@@ -98,8 +106,9 @@ export function EditMedication({
                 {submiting ? <MoonLoader size={20} color="#9ca3af" /> : ""}
               </div>
               <Button
-                className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light"
-                type="submit">
+                className="bg-button-bg-dark text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light dark:hover:bg-button-hover-light"
+                type="submit"
+              >
                 Guardar
               </Button>
             </DialogFooter>

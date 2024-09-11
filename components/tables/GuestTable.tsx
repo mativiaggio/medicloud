@@ -108,7 +108,9 @@ export function GuestTable() {
           title="Fecha de Ingreso"
           icon={<Calendar strokeWidth={2} />}
         />
-        <DinamicButton icon={<RefreshCcw strokeWidth={2} />} />
+        <span>
+          <DinamicButton icon={<RefreshCcw strokeWidth={2} />} />
+        </span>
         <Link href={"huespedes/agregar-huesped"}>
           <DinamicButton icon={<PlusIcon strokeWidth={2} />} />
         </Link>
@@ -129,7 +131,6 @@ export function GuestTable() {
           <TableBody>
             {filteredGuests.map((guest) => (
               <TableRow
-                className="cursor-pointer"
                 key={guest.$id}
                 onClick={() => router.push(`/huespedes/${guest.$id}`)}>
                 <TableCell>

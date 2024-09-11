@@ -6,7 +6,6 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "./CustomFormField";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import api from "@/appwrite/appwrite";
 import {
@@ -24,6 +23,7 @@ import { SelectItem } from "../ui/select";
 import { AddNewInsurance } from "../dialogs/AddNewInsurance";
 import { InsuranceProviders } from "@/types/appwrite.types";
 import { Query } from "appwrite";
+import { useGuest } from "@/context/GuestContext";
 
 const GuestFormValidation = z.object({
   full_name: z.string().nonempty("El nombre completo es obligatorio"),
@@ -46,7 +46,7 @@ const GuestFormValidation = z.object({
   non_oncological_disease: z.string().optional(),
   referring_physician: z.string().optional(),
   primary_care_physician: z.string().optional(),
-  health_insurance: z.string().optional(),
+  insuranceProvider: z.string().nonempty("La obra social es obligatoria"),
   health_insurance_number: z.string().optional(),
   allergies: z.string().optional(),
   current_medication: z.string().optional(),
@@ -105,62 +105,65 @@ const GuestFormValidation = z.object({
   }),
 });
 
-const AddGuestForm = () => {
-  const [submiting, setSubmiting] = useState<boolean | false>(false);
+const ViewGuestForm = () => {
+  const [submiting, setSubmiting] = useState<boolean>(false);
   const [insuranceProviders, setInsuranceProviders] = useState<
     InsuranceProviders[]
   >([]);
 
-  const router = useRouter();
+  const { guest, guestLoading } = useGuest(); // Get guest and loading status from the context
 
   const form = useForm<z.infer<typeof GuestFormValidation>>({
     resolver: zodResolver(GuestFormValidation),
     defaultValues: {
-      full_name: "",
-      birthdate: new Date(),
-      phone_number: "",
-      address: "",
-      gender: "male", // Valor predeterminado
-      contact_full_name: "",
-      contact_email: "",
-      contact_phone_number: "",
-      contact_relationship: "",
-      family_genogram: "",
-      oncological_disease: "",
-      non_oncological_disease: "",
-      referring_physician: "",
-      primary_care_physician: "",
-      health_insurance: "",
-      health_insurance_number: "",
-      allergies: "",
-      current_medication: "",
-      family_medical_history: "",
-      tumor: "",
-      tumor_date: new Date(),
-      metastasis: "no", // Valor predeterminado
-      metastasis_site: "",
-      ecog: "Asymptomatic, normal activity", // Valor predeterminado
-      informed: "The guest is informed", // Valor predeterminado
-      informed_level: "Totally, knows the diagnosis and prognosis", // Valor predeterminado
-      religion: "None", // Valor predeterminado
-      religion_other: "",
-      funeral_service: "no", // Valor predeterminado
-      surgery: "",
-      rt: "",
-      qt: "",
-      ht: "",
-      opioid_treatment: "no", // Valor predeterminado
-      opioid: "",
-      non_opioid_treatment: "",
-      status: "active", // Valor predeterminado
-      admission_date: new Date(),
+      full_name: guest?.full_name || "",
+      birthdate: guest?.birthdate ? new Date(guest.birthdate) : new Date(),
+      phone_number: guest?.phone_number || "",
+      address: guest?.address || "",
+      gender: guest?.gender || "male", // Valor predeterminado
+      contact_full_name: guest?.contact_full_name || "",
+      contact_email: guest?.contact_email || "",
+      contact_phone_number: guest?.contact_phone_number || "",
+      contact_relationship: guest?.contact_relationship || "",
+      family_genogram: guest?.family_genogram || "",
+      oncological_disease: guest?.oncological_disease || "",
+      non_oncological_disease: guest?.non_oncological_disease || "",
+      referring_physician: guest?.referring_physician || "",
+      primary_care_physician: guest?.primary_care_physician || "",
+      insuranceProvider: guest?.insuranceProvider?.$id || "",
+      health_insurance_number: guest?.health_insurance_number || "",
+      allergies: guest?.allergies || "",
+      current_medication: guest?.current_medication || "",
+      family_medical_history: guest?.family_medical_history || "",
+      tumor: guest?.tumor || "",
+      tumor_date: guest?.tumor_date ? new Date(guest.tumor_date) : new Date(),
+      metastasis: guest?.metastasis || "no", // Valor predeterminado
+      metastasis_site: guest?.metastasis_site || "",
+      ecog: guest?.ecog || "Asymptomatic, normal activity", // Valor predeterminado
+      informed: guest?.informed || "The guest is informed", // Valor predeterminado
+      informed_level:
+        guest?.informed_level || "Totally, knows the diagnosis and prognosis", // Valor predeterminado
+      religion: guest?.religion || "None", // Valor predeterminado
+      religion_other: guest?.religion_other || "",
+      funeral_service: guest?.funeral_service || "no", // Valor predeterminado
+      surgery: guest?.surgery || "",
+      rt: guest?.rt || "",
+      qt: guest?.qt || "",
+      ht: guest?.ht || "",
+      opioid_treatment: guest?.opioid_treatment || "no", // Valor predeterminado
+      opioid: guest?.opioid || "",
+      non_opioid_treatment: guest?.non_opioid_treatment || "",
+      status: guest?.status || "active", // Valor predeterminado
+      admission_date: guest?.admission_date
+        ? new Date(guest.admission_date)
+        : new Date(),
     },
   });
 
   async function onSubmit(data: z.infer<typeof GuestFormValidation>) {
     setSubmiting(true);
     try {
-      const result = await api.guest.new(data);
+      const result = await api.guest.update(guest?.$id || "", data); // Update guest data
 
       if (result) {
         console.log(JSON.stringify(result));
@@ -187,11 +190,14 @@ const AddGuestForm = () => {
     updateInsuranceProviders();
   }, [updateInsuranceProviders]);
 
+  if (guestLoading) {
+    return <div>Cargando información del huésped...</div>;
+  }
+
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-          {/* {console.log(form.formState.errors)} */}
           <SectionTitle title="Información personal" />
           <section id="personal-info">
             <CustomFormField
@@ -262,9 +268,10 @@ const AddGuestForm = () => {
                 renderSkeleton={(field) => (
                   <FormControl>
                     <RadioGroup
-                      className="flex h-11 gap-6 xl:justify-between w-fit"
+                      className="flex h-11 w-fit gap-6 xl:justify-between"
                       onValueChange={field.onChange}
-                      defaultValue={field.value}>
+                      defaultValue={field.value}
+                    >
                       {GenderOptions.map((option, i) => (
                         <div key={option.id} className="radio-group !w-fit">
                           <RadioGroupItem
@@ -273,7 +280,8 @@ const AddGuestForm = () => {
                           />
                           <Label
                             htmlFor={option.value}
-                            className="cursor-pointer">
+                            className="cursor-pointer"
+                          >
                             {option.name}
                           </Label>
                         </div>
@@ -405,10 +413,10 @@ const AddGuestForm = () => {
               }
             />
             <div className="flex flex-col gap-6 xl:flex-row">
-              <span className="flex w-full justify-center items-center">
+              <span className="flex w-full items-center justify-center">
                 <CustomFormField
                   fieldType={FormFieldType.SELECT}
-                  name="health_insurance"
+                  name="insuranceProvider"
                   label="Obra social"
                   iconType="square-activity"
                   iconAlt="Calendar icon"
@@ -421,7 +429,8 @@ const AddGuestForm = () => {
                   }
                   inputCustomClasses={
                     "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                  }>
+                  }
+                >
                   {insuranceProviders.map((index, i) => (
                     <SelectItem key={index.$id} value={index.$id}>
                       <div className="flex cursor-pointer items-center gap-2">
@@ -431,7 +440,7 @@ const AddGuestForm = () => {
                   ))}
                 </CustomFormField>
                 <AddNewInsurance
-                  className="aspect-square p-0 ring-1 !ring-input-border-light dark:!ring-input-border-dark ml-1 mt-[2px] h-[45px] !bg-transparent"
+                  className="ml-1 mt-[2px] aspect-square h-[45px] !bg-transparent p-0 ring-1 !ring-input-border-light dark:!ring-input-border-dark"
                   onSuccess={updateInsuranceProviders}
                 />
               </span>
@@ -485,327 +494,9 @@ const AddGuestForm = () => {
               }
             />
           </section>
-          <SectionTitle title="Información sensible" />
-          <section id="sensitive-information">
-            <div className="flex flex-col gap-6 xl:flex-row">
-              <CustomFormField
-                fieldType={FormFieldType.SELECT}
-                name="informed"
-                label="Informado"
-                iconType="info"
-                iconAlt="Info icon"
-                iconLightColor={"#b0b6bf"}
-                iconDarkColor={"#b0b6bf"}
-                placeholder="¿El huésped está informado?"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
-                {Informed.map((level, i) => (
-                  <SelectItem key={level.id + i} value={level.value}>
-                    <div className="flex cursor-pointer items-center gap-2">
-                      <p>{level.name}</p>
-                    </div>
-                  </SelectItem>
-                ))}
-              </CustomFormField>
-              <CustomFormField
-                fieldType={FormFieldType.SELECT}
-                name="informed_level"
-                label="Tipo de información"
-                iconType="info"
-                iconAlt="Info icon"
-                iconLightColor={"#b0b6bf"}
-                iconDarkColor={"#b0b6bf"}
-                placeholder="¿Cuánto sabe?"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
-                {InformedLevel.map((level, i) => (
-                  <SelectItem key={level.id + i} value={level.value}>
-                    <div className="flex cursor-pointer items-center gap-2">
-                      <p>{level.name}</p>
-                    </div>
-                  </SelectItem>
-                ))}
-              </CustomFormField>
-            </div>
-            <div className="flex flex-col gap-6 xl:flex-row">
-              <CustomFormField
-                fieldType={FormFieldType.SELECT}
-                name="religion"
-                label="Religión"
-                iconType="religion"
-                iconAlt="Religion icon"
-                iconLightColor={"#b0b6bf"}
-                iconDarkColor={"#b0b6bf"}
-                placeholder="¿El huésped tiene religión?"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
-                {Religion.map((index, i) => (
-                  <SelectItem key={index.id + i} value={index.value}>
-                    <div className="flex cursor-pointer items-center gap-2">
-                      <p>{index.name}</p>
-                    </div>
-                  </SelectItem>
-                ))}
-              </CustomFormField>
-              <CustomFormField
-                fieldType={FormFieldType.SELECT}
-                name="funeral_service"
-                label="Servicio funerario"
-                iconType="bed"
-                iconAlt="Bed icon"
-                iconLightColor={"#b0b6bf"}
-                iconDarkColor={"#b0b6bf"}
-                placeholder="¿El huésped tiene servicio funerario?"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
-                {YesNo.map((index, i) => (
-                  <SelectItem key={index.id + i} value={index.value}>
-                    <div className="flex cursor-pointer items-center gap-2">
-                      <p>{index.name}</p>
-                    </div>
-                  </SelectItem>
-                ))}
-              </CustomFormField>
-            </div>
-          </section>
-          <SectionTitle title="Información de diagnóstico" />
-          <section id="diagnosis-information">
-            <div className="flex flex-col gap-6 xl:flex-row">
-              <CustomFormField
-                fieldType={FormFieldType.INPUT}
-                name="tumor"
-                label="Tumor"
-                placeholder="ej: Tumor en la cabeza"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }
-              />
-              <CustomFormField
-                fieldType={FormFieldType.DATE_PICKER}
-                name="tumor_date"
-                label="Fecha de diagnóstico"
-                placeholder="Selecciona la fecha de nacimiento"
-                iconType="calendar"
-                iconAlt="Calendar icon"
-                iconLightColor={"#b0b6bf"}
-                iconDarkColor={"#b0b6bf"}
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }
-              />
-            </div>
-            <div className="flex flex-col gap-6 xl:flex-row">
-              <CustomFormField
-                fieldType={FormFieldType.SELECT}
-                name="metastasis"
-                label="Metástasis"
-                iconType="info"
-                iconAlt="Info icon"
-                iconLightColor={"#b0b6bf"}
-                iconDarkColor={"#b0b6bf"}
-                placeholder="¿El túmor hizo metástasis?"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
-                {YesNo.map((index, i) => (
-                  <SelectItem key={index.id + i} value={index.value}>
-                    <div className="flex cursor-pointer items-center gap-2">
-                      <p>{index.name}</p>
-                    </div>
-                  </SelectItem>
-                ))}
-              </CustomFormField>
-              <CustomFormField
-                fieldType={FormFieldType.INPUT}
-                name="metastasis_site"
-                label="Lugar de metástasis"
-                placeholder="ej: Cerebro"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }
-              />
-            </div>
-            <CustomFormField
-              fieldType={FormFieldType.SELECT}
-              name="ecog"
-              label="ECOG (Escala de capacidad funcional)"
-              iconType="info"
-              iconAlt="Info icon"
-              iconLightColor={"#b0b6bf"}
-              iconDarkColor={"#b0b6bf"}
-              placeholder="Estado de salud del huésped"
-              control={form.control}
-              fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-              }
-              inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-              }>
-              {Ecog.map((index, i) => (
-                <SelectItem key={index.id + i} value={index.value}>
-                  <div className="flex cursor-pointer items-center gap-2">
-                    <p>{index.name}</p>
-                  </div>
-                </SelectItem>
-              ))}
-            </CustomFormField>
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              name="surgery"
-              label="Realizado"
-              placeholder="Escribe aquí"
-              iconType="surgery"
-              iconAlt="Surgery icon"
-              iconLightColor={"#b0b6bf"}
-              iconDarkColor={"#b0b6bf"}
-              control={form.control}
-              fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-              }
-              inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-              }
-            />
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              name="rt"
-              // label="RT"
-              placeholder="Escribe aquí"
-              iconType="rt"
-              iconAlt="rt icon"
-              iconLightColor={"#b0b6bf"}
-              iconDarkColor={"#b0b6bf"}
-              control={form.control}
-              fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-              }
-              inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-              }
-            />
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              name="qt"
-              // label="QT"
-              placeholder="Escribe aquí"
-              iconType="qt"
-              iconAlt="qt icon"
-              iconLightColor={"#b0b6bf"}
-              iconDarkColor={"#b0b6bf"}
-              control={form.control}
-              fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-              }
-              inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-              }
-            />
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              name="ht"
-              // label="HT"
-              placeholder="Escribe aquí"
-              iconType="ht"
-              iconAlt="ht icon"
-              iconLightColor={"#b0b6bf"}
-              iconDarkColor={"#b0b6bf"}
-              control={form.control}
-              fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-              }
-              inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-              }
-            />
-            <div className="flex flex-col gap-6 xl:flex-row">
-              <CustomFormField
-                fieldType={FormFieldType.SELECT}
-                name="opioid_treatment"
-                label="Tratamiento opioide"
-                iconType="info"
-                iconAlt="Info icon"
-                iconLightColor={"#b0b6bf"}
-                iconDarkColor={"#b0b6bf"}
-                placeholder="¿Está recibiendo tratamiento con opioides?"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
-                {YesNo.map((index, i) => (
-                  <SelectItem key={index.id + i} value={index.value}>
-                    <div className="flex cursor-pointer items-center gap-2">
-                      <p>{index.name}</p>
-                    </div>
-                  </SelectItem>
-                ))}
-              </CustomFormField>
-              <CustomFormField
-                fieldType={FormFieldType.INPUT}
-                name="opioid"
-                label="Opioide"
-                placeholder="ej: Morfina"
-                control={form.control}
-                fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
-                }
-                inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }
-              />
-            </div>
-            <CustomFormField
-              fieldType={FormFieldType.TEXTAREA}
-              name="non_opioid_treatment"
-              label="Tratamiento no opioide"
-              placeholder=""
-              control={form.control}
-              fieldCustomClasses={"bg-input-bg-light dark:bg-input-bg-dark"}
-              inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border border-main-2 !border-input-border-light dark:!border-input-border-dark"
-              }
-            />
-          </section>
+
           {Object.keys(form.formState.errors).length > 0 && (
-            <div className="border border-red-800 bg-red-300 text-red-800 rounded-md p-2">
+            <div className="rounded-md border border-red-800 bg-red-300 p-2 text-red-800">
               <span>
                 <ul>
                   {Object.entries(form.formState.errors).map(([key, error]) => (
@@ -816,10 +507,11 @@ const AddGuestForm = () => {
             </div>
           )}
           <Button
-            className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light w-full mt-[30px]"
+            className="mt-[30px] w-full bg-button-bg-dark text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light dark:hover:bg-button-hover-light"
             type="submit"
-            disabled={submiting}>
-            {submiting ? "Cargando..." : "Agregar"}
+            disabled={submiting}
+          >
+            {submiting ? "Cargando..." : "Guardar cambios"}
           </Button>
         </form>
       </Form>
@@ -827,4 +519,4 @@ const AddGuestForm = () => {
   );
 };
 
-export default AddGuestForm;
+export default ViewGuestForm;
