@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CustomFormField, { FormFieldType } from "../forms/CustomFormField";
 import { MoonLoader } from "react-spinners";
 import api from "@/appwrite/appwrite";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InsuranceProviders } from "@/types/appwrite.types";
 
 type OnSuccessCallback = () => void;
@@ -78,6 +78,15 @@ export function EditInsuranceProvider({
     }
     setOpen(openState);
   }
+
+  useEffect(() => {
+    if (open) {
+      form.reset({
+        name: insuranceProvider.name,
+        private: insuranceProvider.private,
+      });
+    }
+  }, [insuranceProvider, open, form]);
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>

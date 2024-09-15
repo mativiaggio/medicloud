@@ -163,11 +163,7 @@ const ViewGuestForm = () => {
   async function onSubmit(data: z.infer<typeof GuestFormValidation>) {
     setSubmiting(true);
     try {
-      const result = await api.guest.update(guest?.$id || "", data); // Update guest data
-
-      if (result) {
-        console.log(JSON.stringify(result));
-      }
+      const result = await api.guest.update(guest?.$id || "", data);
     } catch (error) {
       console.error("Error durante el envío del formulario:", error);
     } finally {
