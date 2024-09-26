@@ -1,14 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl } from "@/components/ui/form";
-import CustomFormField, { FormFieldType } from "./CustomFormField";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import api from "@/appwrite/appwrite";
 import {
   Ecog,
   GenderOptions,
@@ -17,13 +10,20 @@ import {
   Religion,
   YesNo,
 } from "@/constants";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Label } from "../ui/label";
-import SectionTitle from "../SectionTitle";
-import { SelectItem } from "../ui/select";
-import { AddNewInsurance } from "../dialogs/AddNewInsurance";
+import api from "@/lib/appwrite";
 import { InsuranceProviders } from "@/types/appwrite.types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Query } from "appwrite";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { AddNewInsurance } from "../dialogs/AddNewInsurance";
+import SectionTitle from "../SectionTitle";
+import { Label } from "../ui/label";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { SelectItem } from "../ui/select";
+import CustomFormField, { FormFieldType } from "./CustomFormField";
 
 const GuestFormValidation = z.object({
   full_name: z.string().nonempty("El nombre completo es obligatorio"),
@@ -262,9 +262,10 @@ const AddGuestForm = () => {
                 renderSkeleton={(field) => (
                   <FormControl>
                     <RadioGroup
-                      className="flex h-11 gap-6 xl:justify-between w-fit"
+                      className="flex h-11 w-fit gap-6 xl:justify-between"
                       onValueChange={field.onChange}
-                      defaultValue={field.value}>
+                      defaultValue={field.value}
+                    >
                       {GenderOptions.map((option, i) => (
                         <div key={option.id} className="radio-group !w-fit">
                           <RadioGroupItem
@@ -273,7 +274,8 @@ const AddGuestForm = () => {
                           />
                           <Label
                             htmlFor={option.value}
-                            className="cursor-pointer">
+                            className="cursor-pointer"
+                          >
                             {option.name}
                           </Label>
                         </div>
@@ -405,7 +407,7 @@ const AddGuestForm = () => {
               }
             />
             <div className="flex flex-col gap-6 xl:flex-row">
-              <span className="flex w-full justify-center items-center">
+              <span className="flex w-full items-center justify-center">
                 <CustomFormField
                   fieldType={FormFieldType.SELECT}
                   name="health_insurance"
@@ -421,7 +423,8 @@ const AddGuestForm = () => {
                   }
                   inputCustomClasses={
                     "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                  }>
+                  }
+                >
                   {insuranceProviders.map((index, i) => (
                     <SelectItem key={index.$id} value={index.$id}>
                       <div className="flex cursor-pointer items-center gap-2">
@@ -431,7 +434,7 @@ const AddGuestForm = () => {
                   ))}
                 </CustomFormField>
                 <AddNewInsurance
-                  className="aspect-square p-0 ring-1 !ring-input-border-light dark:!ring-input-border-dark ml-1 mt-[2px] h-[45px] !bg-transparent"
+                  className="ml-1 mt-[2px] aspect-square h-[45px] !bg-transparent p-0 ring-1 !ring-input-border-light dark:!ring-input-border-dark"
                   onSuccess={updateInsuranceProviders}
                 />
               </span>
@@ -503,7 +506,8 @@ const AddGuestForm = () => {
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
+                }
+              >
                 {Informed.map((level, i) => (
                   <SelectItem key={level.id + i} value={level.value}>
                     <div className="flex cursor-pointer items-center gap-2">
@@ -527,7 +531,8 @@ const AddGuestForm = () => {
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
+                }
+              >
                 {InformedLevel.map((level, i) => (
                   <SelectItem key={level.id + i} value={level.value}>
                     <div className="flex cursor-pointer items-center gap-2">
@@ -553,7 +558,8 @@ const AddGuestForm = () => {
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
+                }
+              >
                 {Religion.map((index, i) => (
                   <SelectItem key={index.id + i} value={index.value}>
                     <div className="flex cursor-pointer items-center gap-2">
@@ -577,7 +583,8 @@ const AddGuestForm = () => {
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
+                }
+              >
                 {YesNo.map((index, i) => (
                   <SelectItem key={index.id + i} value={index.value}>
                     <div className="flex cursor-pointer items-center gap-2">
@@ -638,7 +645,8 @@ const AddGuestForm = () => {
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
+                }
+              >
                 {YesNo.map((index, i) => (
                   <SelectItem key={index.id + i} value={index.value}>
                     <div className="flex cursor-pointer items-center gap-2">
@@ -676,7 +684,8 @@ const AddGuestForm = () => {
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-              }>
+              }
+            >
               {Ecog.map((index, i) => (
                 <SelectItem key={index.id + i} value={index.value}>
                   <div className="flex cursor-pointer items-center gap-2">
@@ -769,7 +778,8 @@ const AddGuestForm = () => {
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
-                }>
+                }
+              >
                 {YesNo.map((index, i) => (
                   <SelectItem key={index.id + i} value={index.value}>
                     <div className="flex cursor-pointer items-center gap-2">
@@ -805,7 +815,7 @@ const AddGuestForm = () => {
             />
           </section>
           {Object.keys(form.formState.errors).length > 0 && (
-            <div className="border border-red-800 bg-red-300 text-red-800 rounded-md p-2">
+            <div className="rounded-md border border-red-800 bg-red-300 p-2 text-red-800">
               <span>
                 <ul>
                   {Object.entries(form.formState.errors).map(([key, error]) => (
@@ -816,9 +826,10 @@ const AddGuestForm = () => {
             </div>
           )}
           <Button
-            className="text-color-dark dark:text-color-light bg-button-bg-dark dark:bg-button-bg-light hover:bg-button-hover-dark dark:hover:bg-button-hover-light w-full mt-[30px]"
+            className="mt-[30px] w-full bg-button-bg-dark text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light dark:hover:bg-button-hover-light"
             type="submit"
-            disabled={submiting}>
+            disabled={submiting}
+          >
             {submiting ? "Cargando..." : "Agregar"}
           </Button>
         </form>

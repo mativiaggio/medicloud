@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, ReactNode, useEffect } from "react";
-import { GuestProvider, useGuest } from "@/context/GuestContext";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
+import { GuestProvider } from "@/context/GuestContext";
+import api from "@/lib/appwrite";
 import { cn } from "@/lib/utils";
+import { Guest } from "@/types/appwrite.types";
 import {
   CalendarPlus,
   FileSpreadsheet,
@@ -10,10 +11,8 @@ import {
   Library,
   User,
 } from "lucide-react";
-import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import { useParams } from "next/navigation";
-import api from "@/appwrite/appwrite";
-import { Guest } from "@/types/appwrite.types";
+import React, { ReactNode, useEffect, useState } from "react";
 
 interface RootLayoutProps {
   children: React.ReactNode;

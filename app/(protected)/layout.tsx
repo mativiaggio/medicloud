@@ -1,15 +1,15 @@
 "use client";
-import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-import { AuthProvider, useAuth } from "@/context/UserContext";
+import Navbar from "@/components/navbar/Navbar";
+import { GuestProvider } from "@/context/GuestContext";
+import { MainInsuranceProvider } from "@/context/InsuranceProvidersContext";
+import { MedicationProvider } from "@/context/MedicationsContext";
+import { AuthProvider } from "@/context/UserContext";
+import api from "@/lib/appwrite";
+import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
-import { GuestProvider } from "@/context/GuestContext";
-import api from "@/appwrite/appwrite";
-import { useTheme } from "next-themes";
-import { MedicationProvider } from "@/context/MedicationsContext";
-import { MainInsuranceProvider } from "@/context/InsuranceProvidersContext";
 
 export default function RootLayout({
   children,
@@ -51,7 +51,7 @@ export default function RootLayout({
 
   if (!user) {
     return (
-      <main className="w-screen h-screen fixed flex items-center justify-center bg-white dark:bg-main-bg-dark">
+      <main className="fixed flex h-screen w-screen items-center justify-center bg-white dark:bg-main-bg-dark">
         <BarLoader color={spinnerColor} />
       </main>
     );

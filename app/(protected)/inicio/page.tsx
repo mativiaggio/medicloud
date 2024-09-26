@@ -1,14 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import api from "@/appwrite/appwrite";
 import Welcome from "@/components/hero/Welcome";
-import { useTheme } from "next-themes";
 import { HomeGuestTable } from "@/components/tables/HomeGuestsTables";
-import HomeGuestCard from "@/components/cards/HomeGuestCard";
-import { Guest } from "@/types/appwrite.types";
-import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import { useAuth } from "@/context/UserContext";
+import api from "@/lib/appwrite";
+import { Guest } from "@/types/appwrite.types";
+import { useEffect, useState } from "react";
 
 const Page = () => {
   const [userResponse, setUserResponse] = useState<any | null>(null);
@@ -48,7 +44,7 @@ const Page = () => {
   return (
     <div>
       <Welcome user={userResponse} loading={authLoading} />
-      {/* <div className="flex flex-col lg:flex-row gap-4 mb-5">
+      {/* <div className="mb-5 flex flex-col gap-4 lg:flex-row">
         <HomeGuestCard
           count={
             loadingGuest ? (

@@ -1,12 +1,12 @@
 "use client";
-import React, {
+import api from "@/lib/appwrite";
+import {
   createContext,
-  useContext,
-  useState,
-  useEffect,
   ReactNode,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
-import api from "@/appwrite/appwrite";
 
 interface User {
   name: string;

@@ -1,5 +1,4 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,24 +7,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useCallback, useEffect, useState } from "react";
 
+import { useMedication } from "@/context/MedicationsContext";
+import api from "@/lib/appwrite";
 import { Medication } from "@/types/appwrite.types";
+import { Query } from "appwrite";
+import { useRouter } from "next/navigation";
+import { DeleteMedication } from "../alert-dialogs/DeleteMedication";
+import { AddNewMedication } from "../dialogs/AddNewMedication";
+import { EditMedication } from "../dialogs/EditMedication";
 import TableBodySkeleton from "../skeleton/home/TableBodySkeleton";
 import Searchbox from "./Searchbox";
-import { useMedication } from "@/context/MedicationsContext";
-import { useRouter } from "next/navigation";
-import { AddNewMedication } from "../dialogs/AddNewMedication";
-import api from "@/appwrite/appwrite";
-import { Query } from "appwrite";
-import Link from "next/link";
-import { Pencil, Trash } from "lucide-react";
-import { EditMedication } from "../dialogs/EditMedication";
-import { DeleteMedication } from "../alert-dialogs/DeleteMedication";
 
 export function MedicationTable() {
   const [medications, setMedications] = useState<Medication[]>([]);
   const [filteredMedications, setFilteredMedications] = useState<Medication[]>(
-    []
+    [],
   );
   const [medicationsLoading, setMedicationsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -35,7 +33,7 @@ export function MedicationTable() {
   useEffect(() => {
     if (!allMedicationsLoading && allMedications) {
       const sortedMedications = allMedications.documents.sort((a, b) =>
-        a.name.localeCompare(b.name)
+        a.name.localeCompare(b.name),
       );
       setMedications(sortedMedications);
       setMedicationsLoading(false);
@@ -44,7 +42,7 @@ export function MedicationTable() {
 
   useEffect(() => {
     const results = medications.filter((medication) =>
-      medication.name.toLowerCase().includes(searchTerm.toLowerCase())
+      medication.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setFilteredMedications(results);
   }, [searchTerm, medications]);
@@ -60,13 +58,13 @@ export function MedicationTable() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="w-full flex gap-4 !text-base lg:!text-lg">
+      <div className="flex w-full gap-4 !text-base lg:!text-lg">
         <Searchbox onSearchChange={setSearchTerm} />
         <span>
           <AddNewMedication onSuccess={updateMedications} />
         </span>
       </div>
-      <Table className="text-nowrap !z-0 !text-sm lg:!text-base">
+      <Table className="!z-0 text-nowrap !text-sm lg:!text-base">
         <TableHeader>
           <TableRow>
             <TableHead>Nombre</TableHead>

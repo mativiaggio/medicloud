@@ -1,15 +1,15 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import CustomFormField from "./CustomFormField";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import CustomFormField from "./CustomFormField";
 // import { login } from "@/lib/actions/user.actions";
-import api from "@/appwrite/appwrite";
+import api from "@/lib/appwrite";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -100,9 +100,10 @@ const LoginForm = () => {
           }
         />
         <Button
-          className="text-color-dark dark:text-color-light bg-button-bg-dark hover:bg-button-hover-dark dark:bg-button-bg-light hover:dark:bg-button-hover-light w-full mt-[30px]"
+          className="mt-[30px] w-full bg-button-bg-dark text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light hover:dark:bg-button-hover-light"
           type="submit"
-          disabled={submiting}>
+          disabled={submiting}
+        >
           {submiting ? "Cargando..." : "Iniciar sesión"}
         </Button>
       </form>

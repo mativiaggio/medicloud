@@ -1,14 +1,14 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
-import api from "@/appwrite/appwrite";
+import api from "@/lib/appwrite";
 import { Guest } from "@/types/appwrite.types";
-import { useParams } from "next/navigation";
 import { Query } from "appwrite";
+import { useParams } from "next/navigation";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface GuestResponse {
   total: number;
@@ -94,7 +94,8 @@ export const GuestProvider = ({ children }: { children: ReactNode }) => {
         allGuestsLoading,
         activeGuests,
         activeGuestsLoading,
-      }}>
+      }}
+    >
       {children}
     </GuestContext.Provider>
   );

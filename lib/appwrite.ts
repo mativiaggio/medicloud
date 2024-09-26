@@ -1,6 +1,6 @@
 import { LoginInterface, RegisterInterface } from "@/interfaces/auth.interface";
-import { Account, Client as Appwrite, Databases, ID } from "appwrite";
 import { env } from "@/lib/env.config";
+import { Account, Client as Appwrite, Databases, ID } from "appwrite";
 
 let api: any = {
   sdk: null,
@@ -26,7 +26,7 @@ let api: any = {
         ID.unique(),
         registerBody.email,
         registerBody.password,
-        registerBody.fullName
+        registerBody.fullName,
       );
   },
 
@@ -53,7 +53,7 @@ let api: any = {
         .database.listDocuments(
           env.databaseId,
           env.guestCollectionId,
-          extraParams
+          extraParams,
         );
     },
 
@@ -70,7 +70,7 @@ let api: any = {
           env.databaseId,
           env.guestCollectionId,
           ID.unique(),
-          extraParams
+          extraParams,
         );
     },
 
@@ -81,7 +81,7 @@ let api: any = {
           env.databaseId,
           env.guestCollectionId,
           id,
-          extraParams
+          extraParams,
         );
     },
   },
@@ -94,7 +94,7 @@ let api: any = {
           env.databaseId,
           env.guestMedicationsCollectionId,
           ID.unique(),
-          extraParams
+          extraParams,
         );
     },
 
@@ -104,7 +104,7 @@ let api: any = {
         .database.deleteDocument(
           env.databaseId,
           env.guestMedicationsCollectionId,
-          id
+          id,
         );
     },
   },
@@ -116,7 +116,7 @@ let api: any = {
         .database.listDocuments(
           env.databaseId,
           env.medicationsCollectionId,
-          extraParams
+          extraParams,
         );
     },
 
@@ -126,7 +126,7 @@ let api: any = {
         .database.getDocument(
           env.databaseId,
           env.medicationsCollectionId,
-          medicationId
+          medicationId,
         );
     },
 
@@ -137,7 +137,7 @@ let api: any = {
           env.databaseId,
           env.medicationsCollectionId,
           ID.unique(),
-          extraParams
+          extraParams,
         );
     },
 
@@ -148,7 +148,7 @@ let api: any = {
           env.databaseId,
           env.medicationsCollectionId,
           id,
-          extraParams
+          extraParams,
         );
     },
 
@@ -158,7 +158,7 @@ let api: any = {
         .database.deleteDocument(
           env.databaseId,
           env.medicationsCollectionId,
-          id
+          id,
         );
     },
   },
@@ -170,7 +170,7 @@ let api: any = {
         .database.listDocuments(
           env.databaseId,
           env.insuranceCollectionId,
-          extraParams
+          extraParams,
         );
     },
 
@@ -187,7 +187,7 @@ let api: any = {
           env.databaseId,
           env.insuranceCollectionId,
           ID.unique(),
-          extraParams
+          extraParams,
         );
     },
 
@@ -198,7 +198,7 @@ let api: any = {
           env.databaseId,
           env.insuranceCollectionId,
           id,
-          extraParams
+          extraParams,
         );
     },
 

@@ -1,5 +1,5 @@
-import api from "@/appwrite/appwrite";
 import { LoginInterface, RegisterInterface } from "@/interfaces/auth.interface";
+import api from "@/lib/appwrite";
 
 export const register = async (registerBody: RegisterInterface) => {
   try {
