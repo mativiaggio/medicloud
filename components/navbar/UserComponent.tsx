@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuth } from "@/context/UserContext";
+import { useAuth } from "@/context/AuthProvider";
 import { COLORS } from "@/lib/constants/account.colors";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -24,16 +24,16 @@ interface User {
 }
 
 const UserComponent = ({ size }: UserComponentProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<User | null>(null);
   const [initials, setInitials] = useState<string | "">("");
   const [accountColor, setAccountColor] = useState<string | "">("");
-  const { auth, authLoading } = useAuth();
+  const { user, loadingUser } = useAuth();
 
   //   useEffect(() => {
   //     const getUser = async () => {
   //       try {
   //         const user = ;
-  //         setUser(user);
+  //         setUserData(user);
   //       } catch (error) {
   //         console.error(error);
   //       }
@@ -43,17 +43,17 @@ const UserComponent = ({ size }: UserComponentProps) => {
   //   }, []);
 
   useEffect(() => {
-    if (!authLoading && auth) {
-      setUser(auth);
+    if (!loadingUser && user) {
+      setUserData(user);
     }
-  }, [auth, authLoading]);
+  }, [user, loadingUser]);
 
   useEffect(() => {
     const getUserInitials = () => {
       try {
-        if (user?.name) {
+        if (userData?.name) {
           const res: string =
-            user.name
+            userData.name
               .split(" ")
               .map((palabra) => palabra.charAt(0).toUpperCase())
               .join("") ?? "";
@@ -73,13 +73,13 @@ const UserComponent = ({ size }: UserComponentProps) => {
     };
 
     getUserInitials();
-  }, [user]);
+  }, [userData]);
 
   return (
     <>
       <div className="flex items-center justify-start lg:justify-center">
         <UserDropdown
-          user={user}
+          user={userData}
           accountColor={accountColor}
           initials={initials}
           size={size}

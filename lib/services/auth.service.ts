@@ -3,7 +3,7 @@ import api from "@/lib/appwrite";
 
 export const register = async (registerBody: RegisterInterface) => {
   try {
-    const user = await api.createAccount(registerBody);
+    const user = await api.auth.createAccount(registerBody);
   } catch (error) {
     console.error("Error occurred during registration:", error);
     throw error;
@@ -12,9 +12,9 @@ export const register = async (registerBody: RegisterInterface) => {
 
 export const login = async (loginBody: LoginInterface) => {
   try {
-    const session = await api.createSession(loginBody);
+    const session = await api.auth.createSession(loginBody);
     if (session) {
-      const account = await api.getAccount();
+      const account = await api.auth.getCurrentSession();
       return account;
     }
   } catch (error) {
@@ -25,7 +25,7 @@ export const login = async (loginBody: LoginInterface) => {
 
 export const getSession = async () => {
   try {
-    const account = await api.getAccount();
+    const account = await api.auth.getCurrentSession();
     return account;
   } catch (error) {
     console.error("Error occurred during getSession:", error);

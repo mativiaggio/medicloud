@@ -1,24 +1,25 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import React from "react";
 
+import { cn } from "@/lib/utils";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 
-import { AuthProvider } from "@/context/UserContext";
+import { AuthProvider } from "@/context/AuthProvider";
 import type { Metadata } from "next";
 
 // Define metadata for the page
 export const metadata: Metadata = {
   title: "MediCloud por Hospice Madre Teresa",
-  description: "La aplicación de gestion de huéspedes del Hospice Madre Teresa.",
+  description:
+    "La aplicación de gestion de huéspedes del Hospice Madre Teresa.",
   keywords: [
     "gestión médica",
     "software",
     "salud",
     "cuidado paliativo",
     "Hospice Madre Teresa",
-    "MediCloud"
+    "MediCloud",
   ],
   authors: [{ name: "Hospice Madre Teresa" }],
   robots: {
@@ -29,7 +30,8 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://medicloud-hmt.vercel.app/",
     title: "MediCloud por Hospice Madre Teresa",
-    description: "La aplicación de gestión médica segura y eficiente del Hospice Madre Teresa.",
+    description:
+      "La aplicación de gestión médica segura y eficiente del Hospice Madre Teresa.",
     images: [
       {
         url: "https://hospicemadreteresa.org.ar/wp-content/uploads/2017/07/bg-frente-casa-hospice.jpg",
@@ -43,8 +45,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "MediCloud por Hospice Madre Teresa",
-    description: "La aplicación de gestión médica segura y eficiente del Hospice Madre Teresa.",
-    images: ["https://hospicemadreteresa.org.ar/wp-content/uploads/2017/07/bg-frente-casa-hospice.jpg"],
+    description:
+      "La aplicación de gestión médica segura y eficiente del Hospice Madre Teresa.",
+    images: [
+      "https://hospicemadreteresa.org.ar/wp-content/uploads/2017/07/bg-frente-casa-hospice.jpg",
+    ],
   },
   icons: {
     icon: "/favicon.ico",
@@ -70,8 +75,8 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
     <html lang="es" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen font-sans antialiased tracking-wider !text-base",
-          fontSans.variable
+          "min-h-screen font-sans !text-base tracking-wider antialiased",
+          fontSans.variable,
         )}
       >
         <ThemeProvider

@@ -1,6 +1,6 @@
 "use client";
 import Footer from "@/components/footer/Footer";
-import { useAuth } from "@/context/UserContext";
+import { useAuth } from "@/context/AuthProvider";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -12,22 +12,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
-  const { auth, authLoading } = useAuth();
+  const { user, loadingUser } = useAuth();
   const theme = useTheme();
 
   const spinnerColor = theme.theme === "light" ? "black" : "white";
 
   useEffect(() => {
-    if (!authLoading) {
-      if (auth) {
+    if (!loadingUser) {
+      if (user) {
         router.replace("/inicio");
       }
     }
-  }, [auth, authLoading, router]);
+  }, [user, loadingUser, router]);
 
-  if (authLoading || (auth && typeof window !== "undefined")) {
+  if (loadingUser || (user && typeof window !== "undefined")) {
     return (
-      <main className="w-screen h-screen fixed flex items-center justify-center bg-white dark:bg-main-bg-dark">
+      <main className="fixed flex h-screen w-screen items-center justify-center bg-white dark:bg-main-bg-dark">
         <BarLoader color={spinnerColor} />
       </main>
     );

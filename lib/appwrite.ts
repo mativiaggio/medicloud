@@ -19,33 +19,55 @@ let api: any = {
   },
 
   // USER ACTIONS
-  createAccount: (registerBody: RegisterInterface) => {
-    return api
-      .provider()
-      .account.create(
-        ID.unique(),
-        registerBody.email,
-        registerBody.password,
-        registerBody.fullName,
-      );
-  },
+  auth: {
+    createAccount: (registerBody: RegisterInterface) => {
+      return api
+        .provider()
+        .account.create(
+          ID.unique(),
+          registerBody.email,
+          registerBody.password,
+          registerBody.fullName,
+        );
+    },
 
-  getAccount: () => {
-    let account = api.provider().account;
-    return account.get();
-  },
+    getCurrentSession: () => {
+      let account = api.provider().account;
+      return account.get();
+    },
 
-  createSession: (loginBody: LoginInterface) => {
-    return api
-      .provider()
-      .account.createEmailPasswordSession(loginBody.email, loginBody.password);
-  },
+    createSession: (loginBody: LoginInterface) => {
+      return api
+        .provider()
+        .account.createEmailPasswordSession(
+          loginBody.email,
+          loginBody.password,
+        );
+    },
 
-  deleteCurrentSession: () => {
-    return api.provider().account.deleteSession("current");
+    deleteCurrentSession: () => {
+      return api.provider().account.deleteSession("current");
+    },
   },
 
   // DATABASE
+
+  // Developers
+  tickets: {
+    getAll: async (extraParams: string[]) => {
+      return api
+        .provider()
+        .database.listDocuments(env.databaseId, env.devTicketsId, extraParams);
+    },
+  },
+
+  // Client
+  users: {
+    findById: (id: string) => {
+      return api.provider().account.get(id);
+    },
+  },
+
   guest: {
     getAll: async (extraParams: string[]) => {
       return await api

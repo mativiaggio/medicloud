@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useAuth } from "@/context/AuthProvider";
+import api from "@/lib/appwrite";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import CustomFormField from "./CustomFormField";
-// import { login } from "@/lib/actions/user.actions";
-import api from "@/lib/appwrite";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -38,7 +38,7 @@ const UserFormValidation = z.object({
 
 const LoginForm = () => {
   const [submiting, setSubmiting] = useState<boolean | false>(false);
-
+  const { setUser } = useAuth();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof UserFormValidation>>({
@@ -52,10 +52,15 @@ const LoginForm = () => {
   async function onSubmit(data: z.infer<typeof UserFormValidation>) {
     try {
       setSubmiting(true);
-      const result = await api.createSession(data);
+      const result = await api.auth.createSession(data);
+      console.log("result: " + JSON.stringify(result));
       if (result) {
-        const user = await api.getAccount();
-        router.replace("/inicio");
+        const user = await api.auth.getCurrentSession();
+        console.log("user: " + JSON.stringify(user));
+        if (user) {
+          setUser(user);
+          router.push("/inicio");
+        }
       } else {
         console.error("Login failed");
       }
