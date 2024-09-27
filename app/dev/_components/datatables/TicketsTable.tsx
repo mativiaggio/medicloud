@@ -66,7 +66,7 @@ export function TicketsTable() {
   }, [tickets]);
 
   const enterTicket = (ticketId: string) => () => {
-    router.push(`/staff/tickets/${ticketId}`);
+    router.push(`/dev/tickets/${ticketId}`);
   };
 
   return (

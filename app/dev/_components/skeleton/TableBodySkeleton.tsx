@@ -7,19 +7,22 @@ export const TableBodySkeleton = () => {
       <TableBody>
         <TableRow key={1}>
           <TableCell>
-            <Skeleton className="bg-main-skeleton-light dark:bg-main-skeleton-dark h-6 w-full" />
+            <Skeleton className="h-6 w-full bg-main-skeleton-light dark:bg-main-skeleton-dark" />
           </TableCell>
           <TableCell>
-            <Skeleton className="bg-main-skeleton-light dark:bg-main-skeleton-dark h-6 w-full" />
+            <Skeleton className="h-6 w-full bg-main-skeleton-light dark:bg-main-skeleton-dark" />
           </TableCell>
           <TableCell>
-            <Skeleton className="bg-main-skeleton-light dark:bg-main-skeleton-dark h-6 w-full" />
+            <Skeleton className="h-6 w-full bg-main-skeleton-light dark:bg-main-skeleton-dark" />
           </TableCell>
           <TableCell>
-            <Skeleton className="bg-main-skeleton-light dark:bg-main-skeleton-dark h-6 w-full" />
+            <Skeleton className="h-6 w-full bg-main-skeleton-light dark:bg-main-skeleton-dark" />
           </TableCell>
           <TableCell>
-            <Skeleton className="bg-main-skeleton-light dark:bg-main-skeleton-dark h-6 w-full" />
+            <Skeleton className="h-6 w-full bg-main-skeleton-light dark:bg-main-skeleton-dark" />
+          </TableCell>
+          <TableCell>
+            <Skeleton className="h-6 w-full bg-main-skeleton-light dark:bg-main-skeleton-dark" />
           </TableCell>
         </TableRow>
       </TableBody>
@@ -31,7 +34,7 @@ export const TableCellSkeleton = () => {
   return (
     <>
       <TableCell>
-        <Skeleton className="bg-main-skeleton-light dark:bg-main-skeleton-dark h-6 w-full" />
+        <Skeleton className="h-6 w-full bg-main-skeleton-light dark:bg-main-skeleton-dark" />
       </TableCell>
     </>
   );

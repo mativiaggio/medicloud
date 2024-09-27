@@ -1,4 +1,4 @@
-import { TicketsTable } from "../../_components/datatables/TicketsTable";
+import { TicketsTable } from "../_components/datatables/TicketsTable";
 
 const page = () => {
   return (
