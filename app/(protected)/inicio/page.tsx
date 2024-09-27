@@ -1,7 +1,7 @@
 "use client";
 import Welcome from "@/components/hero/Welcome";
 import { HomeGuestTable } from "@/components/tables/HomeGuestsTables";
-import { useAuth } from "@/context/UserContext";
+import { useAuth } from "@/context/AuthProvider";
 import api from "@/lib/appwrite";
 import { Guest } from "@/types/appwrite.types";
 import { useEffect, useState } from "react";
@@ -11,12 +11,12 @@ const Page = () => {
   const [guestResponse, setGuestResponse] = useState<Guest | null>(null);
   const [loadingGuest, setLoadingGuest] = useState<boolean>(true);
 
-  const { auth, authLoading } = useAuth();
+  const { user, loadingUser } = useAuth();
   useEffect(() => {
-    if (!authLoading && auth) {
-      setUserResponse(auth);
+    if (!loadingUser && user) {
+      setUserResponse(user);
     }
-  }, [auth, authLoading]);
+  }, [user, loadingUser]);
 
   useEffect(() => {
     const getGuests = async () => {
@@ -43,50 +43,7 @@ const Page = () => {
 
   return (
     <div>
-      <Welcome user={userResponse} loading={authLoading} />
-      {/* <div className="mb-5 flex flex-col gap-4 lg:flex-row">
-        <HomeGuestCard
-          count={
-            loadingGuest ? (
-              <LineSkeleton width={15} height={28} className="bg-main-accent" />
-            ) : (
-              activeGuestsCount
-            )
-          }
-          subtitle={"Total de huéspedes."}
-          type={"total"}
-        />
-        <HomeGuestCard
-          count={
-            loadingGuest ? (
-              <LineSkeleton
-                width={15}
-                height={28}
-                className="bg-badge-bg-active-light dark:bg-badge-bg-active-dark"
-              />
-            ) : (
-              activeGuestsCount
-            )
-          }
-          subtitle={"Huéspedes activos."}
-          type={"active"}
-        />
-        <HomeGuestCard
-          count={
-            loadingGuest ? (
-              <LineSkeleton
-                width={15}
-                height={28}
-                className="bg-badge-bg-inactive-light dark:bg-badge-bg-inactive-dark"
-              />
-            ) : (
-              inactiveGuestsCount
-            )
-          }
-          subtitle={"Huéspedes inactivos."}
-          type={"inactive"}
-        />
-      </div> */}
+      <Welcome user={userResponse} loading={loadingUser} />
       <HomeGuestTable />
     </div>
   );

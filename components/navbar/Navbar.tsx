@@ -1,17 +1,18 @@
 "use client";
+import { useAuth } from "@/context/AuthProvider";
+import { HeartPulse, X } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
-import UserComponent from "./UserComponent";
 import { ModeToggle } from "../theme_toggle/ThemeToggle";
 import { Button } from "../ui/button";
-import { HeartPulse, X } from "lucide-react";
-import { Menu, HoveredLink, MenuItem, ProductItem } from "../ui/navbar-menu";
+import { Menu } from "../ui/navbar-menu";
 import NavbarMenuButton from "./NavbarMenuButton";
-import Image from "next/image";
+import UserComponent from "./UserComponent";
 
 const Navbar: React.FC = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
+  const { user } = useAuth();
 
   const handleToggleNavbar = () => {
     setIsNavbarOpen(!isNavbarOpen);
@@ -22,19 +23,19 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="z-10 relative">
-      <div className="flex justify-between items-center h-fit max-h-[10vh] px-4 sm:px-6 md:px-8 lg:px-10 py-2 bg-white dark:bg-main-bg-dark border-b border-main-border-light dark:border-main-border-dark">
+    <div className="relative z-10">
+      <div className="flex h-fit max-h-[10vh] items-center justify-between border-b border-main-border-light bg-white px-4 py-2 dark:border-main-border-dark dark:bg-main-bg-dark sm:px-6 md:px-8 lg:px-10">
         <div>
           <Link className="flex items-center justify-center" href="/inicio">
-            <HeartPulse className="h-6 w-6 text-primary" />
-            <span className="ml-2 text-2xl font-bold text-primary">
+            <HeartPulse className="text-primary h-6 w-6" />
+            <span className="text-primary ml-2 text-2xl font-bold">
               MediCloud
             </span>
           </Link>
         </div>
         <Menu setActive={setActive}>
           <div className="hidden lg:flex">
-            <ul className="flex gap-6 items-center">
+            <ul className="flex items-center gap-6">
               <li>
                 <Link href={"/inicio"}>Inicio</Link>
               </li>
@@ -47,9 +48,20 @@ const Navbar: React.FC = () => {
               <li>
                 <Link href={"/obras-sociales"}>Obras Sociales</Link>
               </li>
-              <li>
-                <Link href={"/admin"}>Admin</Link>
-              </li>
+              {user?.labels.includes("admin") ? (
+                <li>
+                  <Link href={"/admin"}>Admin</Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {user?.labels.includes("dev") ? (
+                <li>
+                  <Link href={"/dev/tickets"}>Devs</Link>
+                </li>
+              ) : (
+                ""
+              )}
               <li>
                 <ModeToggle />
               </li>
@@ -69,23 +81,24 @@ const Navbar: React.FC = () => {
 
       <div
         id="mobile-navbar"
-        className={`fixed lg:hidden top-0 left-0 w-full h-screen transition-transform duration-150 ease-in-out transform ${
+        className={`fixed left-0 top-0 h-screen w-full transform transition-transform duration-150 ease-in-out lg:hidden ${
           isNavbarOpen
             ? "translate-x-0 overflow-hidden"
             : "-translate-x-full overflow-auto"
         }`}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="mobile-navbar-title">
+        aria-labelledby="mobile-navbar-title"
+      >
         <div className="fixed inset-0 z-50"></div>
-        <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-main-bg-dark px-4 sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between min-h-[57px] h-fit max-h-[10vh] py-2 px-0 sm:px-2 md:px-4 lg:px-6">
+        <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-4 dark:bg-main-bg-dark sm:ring-1 sm:ring-gray-900/10">
+          <div className="flex h-fit max-h-[10vh] min-h-[57px] items-center justify-between px-0 py-2 sm:px-2 md:px-4 lg:px-6">
             <span className="-m-1.5 p-1.5">
               <span className="sr-only">MediCloud</span>
               <div>
                 <Link className="flex items-center justify-center" href="#">
-                  <HeartPulse className="h-6 w-6 text-primary" />
-                  <span className="ml-2 text-2xl font-bold text-primary">
+                  <HeartPulse className="text-primary h-6 w-6" />
+                  <span className="text-primary ml-2 text-2xl font-bold">
                     MediCloud
                   </span>
                 </Link>
@@ -95,7 +108,8 @@ const Navbar: React.FC = () => {
               id="close-mobile-navbar"
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-[var(--main-text-light)] dark:text-[var(--main-text-dark)]"
-              onClick={handleCloseNavbar}>
+              onClick={handleCloseNavbar}
+            >
               <span className="sr-only">Close menu</span>
               <X color="red" />
             </button>
@@ -103,7 +117,7 @@ const Navbar: React.FC = () => {
           <div className="mt-6 flow-root text-[var(--main-text-light)] dark:text-[var(--main-text-dark)]">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="flex flex-col">
-                <ul className="flex flex-col gap-6 items-left mb-6 text-2xl">
+                <ul className="items-left mb-6 flex flex-col gap-6 text-2xl">
                   <li>
                     <Link onClick={() => handleCloseNavbar()} href={"/inicio"}>
                       Inicio
@@ -112,21 +126,24 @@ const Navbar: React.FC = () => {
                   <li>
                     <Link
                       onClick={() => handleCloseNavbar()}
-                      href={"/huespedes"}>
+                      href={"/huespedes"}
+                    >
                       Huéspedes
                     </Link>
                   </li>
                   <li>
                     <Link
                       onClick={() => handleCloseNavbar()}
-                      href={"/medicamentos"}>
+                      href={"/medicamentos"}
+                    >
                       Medicamentos
                     </Link>
                   </li>
                   <li>
                     <Link
                       onClick={() => handleCloseNavbar()}
-                      href={"/obras-sociales"}>
+                      href={"/obras-sociales"}
+                    >
                       Obras Sociales
                     </Link>
                   </li>
