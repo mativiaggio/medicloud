@@ -1,8 +1,8 @@
-import { X, RefreshCcw } from "lucide-react";
-import React, { ReactElement, useState } from "react";
-import { Button } from "../ui/button";
+import api from "@/lib/appwrite";
 import { GuestMedications } from "@/types/appwrite.types";
-import api from "@/appwrite/appwrite";
+import { RefreshCcw, X } from "lucide-react";
+import { ReactElement, useState } from "react";
+import { Button } from "../ui/button";
 
 type OnSuccessCallback = () => void;
 interface MedsProps {
@@ -31,7 +31,7 @@ const MedCard = ({ data, icon, title, description, onSuccess }: MedsProps) => {
   };
 
   return (
-    <div className="w-full flex rounded-md border p-4">
+    <div className="flex w-full rounded-md border p-4">
       <div className="pr-4">{icon}</div>
       <div className="w-full">
         <h5 className="mb-1 font-medium leading-none tracking-tight">
@@ -42,11 +42,12 @@ const MedCard = ({ data, icon, title, description, onSuccess }: MedsProps) => {
       <div>
         <Button
           onClick={deleteMedication}
-          className={`rounded-full p-0 flex items-start h-fit ${
+          className={`flex h-fit items-start rounded-full p-0 ${
             pending
               ? "text-color-light"
               : "text-red-700 hover:bg-red-700 hover:text-white"
-          }`}>
+          }`}
+        >
           {pending ? (
             <RefreshCcw className="animate-spin" size={18} />
           ) : (

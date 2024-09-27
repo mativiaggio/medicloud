@@ -10,9 +10,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
+import api from "@/lib/appwrite";
 import { Medication } from "@/types/appwrite.types";
-import api from "@/appwrite/appwrite";
+import { Trash } from "lucide-react";
 
 type OnSuccessCallback = () => void;
 
@@ -41,11 +41,11 @@ export function DeleteMedication({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="flex items-center gap-2 text-red-700 hover:bg-red-700 hover:text-color-dark p-2 rounded-md transform transition-all cursor-pointer">
+        <Button className="flex transform cursor-pointer items-center gap-2 rounded-md p-2 text-red-700 transition-all hover:bg-red-700 hover:text-color-dark">
           <Trash size={18} /> Eliminar
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-white dark:bg-main-bg-dark text-color-light dark:text-color-dark rounded-lg">
+      <AlertDialogContent className="rounded-lg bg-white text-color-light dark:bg-main-bg-dark dark:text-color-dark">
         <AlertDialogHeader>
           <AlertDialogTitle>¡Cuidado!</AlertDialogTitle>
           <AlertDialogDescription>
@@ -54,12 +54,13 @@ export function DeleteMedication({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="bg-button-bg-dark dark:bg-button-bg-light text-color-dark dark:text-color-light">
+          <AlertDialogCancel className="bg-button-bg-dark text-color-dark dark:bg-button-bg-light dark:text-color-light">
             Cancelar
           </AlertDialogCancel>
           <AlertDialogAction
-            className="text-red-700 font-bold"
-            onClick={deleteMedication}>
+            className="font-bold text-red-700"
+            onClick={deleteMedication}
+          >
             Eliminar
           </AlertDialogAction>
         </AlertDialogFooter>

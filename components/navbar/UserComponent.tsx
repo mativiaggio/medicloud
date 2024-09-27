@@ -1,14 +1,19 @@
-import React from "react";
-import api from "@/appwrite/appwrite";
-import { useEffect, useState } from "react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import LogoutButton from "@/components/logout/LogoutButton";
-import { COLORS } from "@/lib/constants/account.colors";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { ProfileSkeleton } from "./ProfileSkeleton";
-import { useAuth } from "@/context/UserContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/context/AuthProvider";
+import { COLORS } from "@/lib/constants/account.colors";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface UserComponentProps {
   size?: string;
@@ -19,16 +24,16 @@ interface User {
 }
 
 const UserComponent = ({ size }: UserComponentProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<User | null>(null);
   const [initials, setInitials] = useState<string | "">("");
   const [accountColor, setAccountColor] = useState<string | "">("");
-  const { auth, authLoading } = useAuth();
+  const { user, loadingUser } = useAuth();
 
   //   useEffect(() => {
   //     const getUser = async () => {
   //       try {
   //         const user = ;
-  //         setUser(user);
+  //         setUserData(user);
   //       } catch (error) {
   //         console.error(error);
   //       }
@@ -38,17 +43,17 @@ const UserComponent = ({ size }: UserComponentProps) => {
   //   }, []);
 
   useEffect(() => {
-    if (!authLoading && auth) {
-      setUser(auth);
+    if (!loadingUser && user) {
+      setUserData(user);
     }
-  }, [auth, authLoading]);
+  }, [user, loadingUser]);
 
   useEffect(() => {
     const getUserInitials = () => {
       try {
-        if (user?.name) {
+        if (userData?.name) {
           const res: string =
-            user.name
+            userData.name
               .split(" ")
               .map((palabra) => palabra.charAt(0).toUpperCase())
               .join("") ?? "";
@@ -68,12 +73,17 @@ const UserComponent = ({ size }: UserComponentProps) => {
     };
 
     getUserInitials();
-  }, [user]);
+  }, [userData]);
 
   return (
     <>
-      <div className="flex justify-start lg:justify-center items-center">
-        <UserDropdown user={user} accountColor={accountColor} initials={initials} size={size} />
+      <div className="flex items-center justify-start lg:justify-center">
+        <UserDropdown
+          user={userData}
+          accountColor={accountColor}
+          initials={initials}
+          size={size}
+        />
       </div>
     </>
   );
@@ -90,11 +100,19 @@ const UserDropdown = ({ user, accountColor, initials, size }: UserDropdown) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="clean-shadcn" asChild>
-        <Button variant="outline" className="flex gap-2 mt-6 lg:mt-0 pl-0 lg:px-4 !pr-0">
-          <UserCard user={user} accountColor={accountColor} initials={initials} size={size} />
+        <Button
+          variant="outline"
+          className="mt-6 flex gap-2 !pr-0 pl-0 lg:mt-0 lg:px-4"
+        >
+          <UserCard
+            user={user}
+            accountColor={accountColor}
+            initials={initials}
+            size={size}
+          />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 bg-white dark:bg-main-bg-dark border-main-border-light dark:border-main-border-dark">
+      <DropdownMenuContent className="w-56 border-main-border-light bg-white dark:border-main-border-dark dark:bg-main-bg-dark">
         <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
         <DropdownMenuItem>
           <span className="text-xs">{user?.email}</span>
@@ -104,7 +122,9 @@ const UserDropdown = ({ user, accountColor, initials, size }: UserDropdown) => {
           <DropdownMenuItem className={"w-full"}>
             <LogoutButton />
           </DropdownMenuItem>
-          <DropdownMenuItem className={"w-full flex justify-center text-[11px] hover:underline"}>
+          <DropdownMenuItem
+            className={"flex w-full justify-center text-[11px] hover:underline"}
+          >
             <Link href={"/"}>Pagina principal</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -116,8 +136,13 @@ const UserDropdown = ({ user, accountColor, initials, size }: UserDropdown) => {
 const UserCard = ({ user, accountColor, initials, size }: UserDropdown) => {
   return (
     <>
-      <Avatar style={{ backgroundColor: accountColor }} className={`flex justify-center items-center ${size ? "p-6" : ""}`}>
-        <AvatarFallback className={`text-white ${size ? size : ""}`}>{initials}</AvatarFallback>
+      <Avatar
+        style={{ backgroundColor: accountColor }}
+        className={`flex items-center justify-center ${size ? "p-6" : ""}`}
+      >
+        <AvatarFallback className={`text-white ${size ? size : ""}`}>
+          {initials}
+        </AvatarFallback>
       </Avatar>
 
       {/* <span className={size ? size : ""}>{user?.name}</span> */}

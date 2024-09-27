@@ -1,15 +1,15 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import CustomFormField from "./CustomFormField";
+import { useAuth } from "@/context/AuthProvider";
+import api from "@/lib/appwrite";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-// import { login } from "@/lib/actions/user.actions";
-import api from "@/appwrite/appwrite";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import CustomFormField from "./CustomFormField";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -38,7 +38,7 @@ const UserFormValidation = z.object({
 
 const LoginForm = () => {
   const [submiting, setSubmiting] = useState<boolean | false>(false);
-
+  const { setUser } = useAuth();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof UserFormValidation>>({
@@ -52,10 +52,15 @@ const LoginForm = () => {
   async function onSubmit(data: z.infer<typeof UserFormValidation>) {
     try {
       setSubmiting(true);
-      const result = await api.createSession(data);
+      const result = await api.auth.createSession(data);
+      console.log("result: " + JSON.stringify(result));
       if (result) {
-        const user = await api.getAccount();
-        router.replace("/inicio");
+        const user = await api.auth.getCurrentSession();
+        console.log("user: " + JSON.stringify(user));
+        if (user) {
+          setUser(user);
+          router.push("/inicio");
+        }
       } else {
         console.error("Login failed");
       }
@@ -100,9 +105,10 @@ const LoginForm = () => {
           }
         />
         <Button
-          className="text-color-dark dark:text-color-light bg-button-bg-dark hover:bg-button-hover-dark dark:bg-button-bg-light hover:dark:bg-button-hover-light w-full mt-[30px]"
+          className="mt-[30px] w-full bg-button-bg-dark text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light hover:dark:bg-button-hover-light"
           type="submit"
-          disabled={submiting}>
+          disabled={submiting}
+        >
           {submiting ? "Cargando..." : "Iniciar sesión"}
         </Button>
       </form>

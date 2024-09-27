@@ -1,10 +1,7 @@
 "use client";
 import { Error } from "@/components/alerts/Error";
-import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import { useGuest } from "@/context/GuestContext";
 import React from "react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import Link from "next/link";
 import NameAndIcon from "@/components/guest/NameAndIcon";
 import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
 import GuestDashboard from "@/components/grids/guest/GuestDashboard";

@@ -1,20 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ChevronsDown, Plus } from "lucide-react";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import api from "@/appwrite/appwrite";
-import React, { useCallback, useEffect, useState } from "react";
-import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -23,18 +9,32 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import api from "@/lib/appwrite";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronsDown, Plus } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
+import { Form } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useMedication } from "@/context/MedicationsContext";
 import { Guest, GuestMedications, Medication } from "@/types/appwrite.types";
-import { Input } from "@/components/ui/input";
-import { Form } from "@/components/ui/form";
-import { AddNewMedication } from "../../dialogs/AddNewMedication";
-import { MoonLoader } from "react-spinners";
 import { Query } from "appwrite";
+import { MoonLoader } from "react-spinners";
+import { AddNewMedication } from "../../dialogs/AddNewMedication";
 
 // Esquema de validación utilizando Zod
 const medicationSchema = z.object({
@@ -75,7 +75,7 @@ export function AddNewGuestMedication({
   useEffect(() => {
     if (!allMedicationsLoading && allMedications) {
       const sortedMedications = allMedications.documents.sort((a, b) =>
-        a.name.localeCompare(b.name)
+        a.name.localeCompare(b.name),
       );
       setMedications(sortedMedications);
     }
@@ -115,15 +115,16 @@ export function AddNewGuestMedication({
           form.reset();
           setSelectedMedication("");
         }
-      }}>
+      }}
+    >
       <DialogTrigger asChild>
-        <div className="hover:rotate-180 transition duration-200 shadow-input clean-shadcn rounded-md bg-table-header-light dark:bg-table-header-dark flex items-center h-full">
+        <div className="shadow-input clean-shadcn flex h-full items-center rounded-md bg-table-header-light transition duration-200 hover:rotate-180 dark:bg-table-header-dark">
           <Button className="px-4">
             <Plus />
           </Button>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] shad-dialog rounded-xl">
+      <DialogContent className="shad-dialog rounded-xl sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-2xl">Nuevo medicamento</DialogTitle>
           <DialogDescription className="text-base">
@@ -137,16 +138,17 @@ export function AddNewGuestMedication({
                 variant="outline"
                 role="combobox"
                 aria-expanded={popoverOpen}
-                className="w-full justify-between text-base">
+                className="w-full justify-between text-base"
+              >
                 {selectedMedication
                   ? medications.find(
-                      (medication) => medication.name === selectedMedication
+                      (medication) => medication.name === selectedMedication,
                     )?.name
                   : "Selecciona un medicamento..."}
                 <ChevronsDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="min-w-[400px] w-full p-0 bg-white dark:bg-main-bg-dark">
+            <PopoverContent className="w-full min-w-[400px] bg-white p-0 dark:bg-main-bg-dark">
               <Command>
                 <CommandInput
                   placeholder="Buscar medicamento..."
@@ -165,7 +167,8 @@ export function AddNewGuestMedication({
                           setSelectedMedication(currentValue);
                           form.setValue("name", currentValue);
                           setPopoverOpen(false);
-                        }}>
+                        }}
+                      >
                         {medication.name}
                       </CommandItem>
                     ))}
@@ -189,13 +192,14 @@ export function AddNewGuestMedication({
                 {...form.register("description")}
               />
             </div>
-            <span className="flex justify-end items-center">
+            <span className="flex items-center justify-end">
               <div className="mr-1">
                 {submiting ? <MoonLoader size={20} color="#9ca3af" /> : ""}
               </div>
               <Button
                 type="submit"
-                className="bg-main-bg-dark text-color-dark dark:bg-white dark:text-color-light">
+                className="bg-main-bg-dark text-color-dark dark:bg-white dark:text-color-light"
+              >
                 Agregar
               </Button>
             </span>

@@ -2,20 +2,17 @@
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 import { useAuth } from "@/context/AuthProvider";
-import { GuestProvider } from "@/context/GuestContext";
-import { MainInsuranceProvider } from "@/context/InsuranceProvidersContext";
-import { MedicationProvider } from "@/context/MedicationsContext";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
+import { DevSidebar } from "./_components/navigation/DevSidebar";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const [user, setUser] = useState<any | null>(null);
   const [spinnerColor, setSpinnerColor] = useState<string | "">("");
   const router = useRouter();
   const theme = useTheme();
@@ -49,16 +46,9 @@ export default function RootLayout({
     } else {
       return (
         <>
-          <GuestProvider>
-            <MedicationProvider>
-              <MainInsuranceProvider>
-                <Navbar />
-                {children}
-
-                <Footer props={{ bg: "bg-white dark:bg-main-bg-dark" }} />
-              </MainInsuranceProvider>
-            </MedicationProvider>
-          </GuestProvider>
+          <Navbar />
+          <DevSidebar>{children}</DevSidebar>
+          <Footer props={{ bg: "bg-white dark:bg-main-bg-dark" }} />
         </>
       );
     }

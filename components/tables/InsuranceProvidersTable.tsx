@@ -1,5 +1,4 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,17 +7,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useCallback, useEffect, useState } from "react";
 
+import { useInsuranceProvider } from "@/context/InsuranceProvidersContext";
+import api from "@/lib/appwrite";
 import { InsuranceProviders } from "@/types/appwrite.types";
+import { Query } from "appwrite";
+import { useRouter } from "next/navigation";
+import { DeleteInsuranceProvider } from "../alert-dialogs/DeleteInsuranceProvider";
+import { AddNewInsurance } from "../dialogs/AddNewInsurance";
+import { EditInsuranceProvider } from "../dialogs/EditInsuranceProvider";
 import TableBodySkeleton from "../skeleton/home/TableBodySkeleton";
 import Searchbox from "./Searchbox";
-import { useInsuranceProvider } from "@/context/InsuranceProvidersContext";
-import { useRouter } from "next/navigation";
-import api from "@/appwrite/appwrite";
-import { Query } from "appwrite";
-import { AddNewInsurance } from "../dialogs/AddNewInsurance";
-import { DeleteInsuranceProvider } from "../alert-dialogs/DeleteInsuranceProvider";
-import { EditInsuranceProvider } from "../dialogs/EditInsuranceProvider";
 
 export function InsuranceProvidersTable() {
   const [insuranceProviders, setInsuranceProviders] = useState<

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -7,20 +6,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useEffect, useState } from "react";
 
 import { Guest } from "@/types/appwrite.types";
 
-import { calculateAge, formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { useGuest } from "@/context/GuestContext";
+import { calculateAge, formatDateTime } from "@/lib/utils";
+import { Calendar, Filter, Plus, RefreshCcw } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import CopyButton from "../buttons/CopyButton";
+import DinamicButton from "../buttons/DinamicButton";
 import TableBodySkeleton from "../skeleton/home/TableBodySkeleton";
-import { Calendar, Filter, RefreshCcw, Plus } from "lucide-react";
 import FilterDropdown from "./FilterDropdown";
 import Searchbox from "./Searchbox";
-import DinamicButton from "../buttons/DinamicButton";
-import Link from "next/link";
-import { useGuest } from "@/context/GuestContext";
-import { useRouter } from "next/navigation";
 
 export function HomeGuestTable() {
   const [guests, setGuests] = useState<Guest[]>([]);
@@ -39,7 +39,7 @@ export function HomeGuestTable() {
 
   useEffect(() => {
     const results = guests.filter((guest) =>
-      guest.full_name.toLowerCase().includes(searchTerm.toLowerCase())
+      guest.full_name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setFilteredGuests(results);
   }, [searchTerm, guests]);
@@ -91,7 +91,7 @@ export function HomeGuestTable() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="w-full flex gap-4 !text-base lg:!text-lg">
+      <div className="flex w-full gap-4 !text-base lg:!text-lg">
         <FilterDropdown
           title="Todos los huéspedes"
           icon={<Filter strokeWidth={2} />}
@@ -108,7 +108,7 @@ export function HomeGuestTable() {
           <DinamicButton icon={<Plus strokeWidth={2} />} />
         </Link>
       </div>
-      <Table className="text-nowrap !z-0 !text-sm lg:!text-base">
+      <Table className="!z-0 text-nowrap !text-sm lg:!text-base">
         <TableHeader>
           <TableRow>
             <TableHead>Huésped</TableHead>
@@ -125,11 +125,13 @@ export function HomeGuestTable() {
             {filteredGuests.map((guest) => (
               <TableRow
                 key={guest.$id}
-                onClick={() => router.push(`/huespedes/${guest.$id}`)}>
+                onDoubleClick={() => router.push(`/huespedes/${guest.$id}`)}
+              >
                 <TableCell>
                   <Link
                     className="hover:underline"
-                    href={`huespedes/${guest.$id}`}>
+                    href={`huespedes/${guest.$id}`}
+                  >
                     {guest.full_name}
                   </Link>
                 </TableCell>

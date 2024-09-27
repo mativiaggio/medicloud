@@ -1,6 +1,6 @@
 import { LoginInterface, RegisterInterface } from "@/interfaces/auth.interface";
-import { Account, Client as Appwrite, Databases, ID } from "appwrite";
 import { env } from "@/lib/env.config";
+import { Account, Client as Appwrite, Databases, ID } from "appwrite";
 
 let api: any = {
   sdk: null,
@@ -19,33 +19,55 @@ let api: any = {
   },
 
   // USER ACTIONS
-  createAccount: (registerBody: RegisterInterface) => {
-    return api
-      .provider()
-      .account.create(
-        ID.unique(),
-        registerBody.email,
-        registerBody.password,
-        registerBody.fullName
-      );
-  },
+  auth: {
+    createAccount: (registerBody: RegisterInterface) => {
+      return api
+        .provider()
+        .account.create(
+          ID.unique(),
+          registerBody.email,
+          registerBody.password,
+          registerBody.fullName,
+        );
+    },
 
-  getAccount: () => {
-    let account = api.provider().account;
-    return account.get();
-  },
+    getCurrentSession: () => {
+      let account = api.provider().account;
+      return account.get();
+    },
 
-  createSession: (loginBody: LoginInterface) => {
-    return api
-      .provider()
-      .account.createEmailPasswordSession(loginBody.email, loginBody.password);
-  },
+    createSession: (loginBody: LoginInterface) => {
+      return api
+        .provider()
+        .account.createEmailPasswordSession(
+          loginBody.email,
+          loginBody.password,
+        );
+    },
 
-  deleteCurrentSession: () => {
-    return api.provider().account.deleteSession("current");
+    deleteCurrentSession: () => {
+      return api.provider().account.deleteSession("current");
+    },
   },
 
   // DATABASE
+
+  // Developers
+  tickets: {
+    getAll: async (extraParams: string[]) => {
+      return api
+        .provider()
+        .database.listDocuments(env.databaseId, env.devTicketsId, extraParams);
+    },
+  },
+
+  // Client
+  users: {
+    findById: (id: string) => {
+      return api.provider().account.get(id);
+    },
+  },
+
   guest: {
     getAll: async (extraParams: string[]) => {
       return await api
@@ -53,7 +75,7 @@ let api: any = {
         .database.listDocuments(
           env.databaseId,
           env.guestCollectionId,
-          extraParams
+          extraParams,
         );
     },
 
@@ -70,7 +92,7 @@ let api: any = {
           env.databaseId,
           env.guestCollectionId,
           ID.unique(),
-          extraParams
+          extraParams,
         );
     },
 
@@ -81,7 +103,7 @@ let api: any = {
           env.databaseId,
           env.guestCollectionId,
           id,
-          extraParams
+          extraParams,
         );
     },
   },
@@ -94,7 +116,7 @@ let api: any = {
           env.databaseId,
           env.guestMedicationsCollectionId,
           ID.unique(),
-          extraParams
+          extraParams,
         );
     },
 
@@ -104,7 +126,7 @@ let api: any = {
         .database.deleteDocument(
           env.databaseId,
           env.guestMedicationsCollectionId,
-          id
+          id,
         );
     },
   },
@@ -116,7 +138,7 @@ let api: any = {
         .database.listDocuments(
           env.databaseId,
           env.medicationsCollectionId,
-          extraParams
+          extraParams,
         );
     },
 
@@ -126,7 +148,7 @@ let api: any = {
         .database.getDocument(
           env.databaseId,
           env.medicationsCollectionId,
-          medicationId
+          medicationId,
         );
     },
 
@@ -137,7 +159,7 @@ let api: any = {
           env.databaseId,
           env.medicationsCollectionId,
           ID.unique(),
-          extraParams
+          extraParams,
         );
     },
 
@@ -148,7 +170,7 @@ let api: any = {
           env.databaseId,
           env.medicationsCollectionId,
           id,
-          extraParams
+          extraParams,
         );
     },
 
@@ -158,7 +180,7 @@ let api: any = {
         .database.deleteDocument(
           env.databaseId,
           env.medicationsCollectionId,
-          id
+          id,
         );
     },
   },
@@ -170,7 +192,7 @@ let api: any = {
         .database.listDocuments(
           env.databaseId,
           env.insuranceCollectionId,
-          extraParams
+          extraParams,
         );
     },
 
@@ -187,7 +209,7 @@ let api: any = {
           env.databaseId,
           env.insuranceCollectionId,
           ID.unique(),
-          extraParams
+          extraParams,
         );
     },
 
@@ -198,7 +220,7 @@ let api: any = {
           env.databaseId,
           env.insuranceCollectionId,
           id,
-          extraParams
+          extraParams,
         );
     },
 

@@ -1,14 +1,13 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
-import api from "@/appwrite/appwrite";
+import api from "@/lib/appwrite";
 import { Medication } from "@/types/appwrite.types";
 import { useParams } from "next/navigation";
-import { Query } from "appwrite";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface MedicationResponse {
   total: number;
@@ -23,7 +22,7 @@ interface MedicationContextProps {
 }
 
 const MedicationContext = createContext<MedicationContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 export const MedicationProvider = ({ children }: { children: ReactNode }) => {
@@ -74,7 +73,8 @@ export const MedicationProvider = ({ children }: { children: ReactNode }) => {
         medicationLoading,
         allMedications,
         allMedicationsLoading,
-      }}>
+      }}
+    >
       {children}
     </MedicationContext.Provider>
   );

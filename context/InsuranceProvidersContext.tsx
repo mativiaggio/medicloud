@@ -1,14 +1,13 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
-import api from "@/appwrite/appwrite";
+import api from "@/lib/appwrite";
 import { InsuranceProviders } from "@/types/appwrite.types";
 import { useParams } from "next/navigation";
-import { Query } from "appwrite";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface InsuranceProvidersResponse {
   total: number;
@@ -46,9 +45,8 @@ export const MainInsuranceProvider = ({
   useEffect(() => {
     const getInsuranceProvider = async () => {
       try {
-        const response = await api.InsuranceProvider.findById(
-          insuranceProviderId
-        );
+        const response =
+          await api.InsuranceProvider.findById(insuranceProviderId);
         setInsuranceProvider(response);
       } catch (error) {
         console.error(error);
@@ -82,7 +80,8 @@ export const MainInsuranceProvider = ({
         InsuranceProviderLoading,
         allInsuranceProviders,
         allInsuranceProvidersLoading,
-      }}>
+      }}
+    >
       {children}
     </InsuranceProviderContext.Provider>
   );
@@ -92,7 +91,7 @@ export const useInsuranceProvider = () => {
   const context = useContext(InsuranceProviderContext);
   if (context === undefined) {
     throw new Error(
-      "useInsuranceProvider must be used within a MainInsuranceProvider"
+      "useInsuranceProvider must be used within a MainInsuranceProvider",
     );
   }
   return context;
