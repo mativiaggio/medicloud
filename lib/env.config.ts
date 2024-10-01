@@ -16,6 +16,9 @@ export const env = {
   guestMedicationsCollectionId:
     process.env.NEXT_PUBLIC_GUEST_MEDICATIONS_ID || "",
   devTicketsId: process.env.NEXT_PUBLIC_DEV_TICKETS || "",
+  dailyEvolutionId: process.env.NEXT_PUBLIC_DAILY_EVOLUTION_ID || "",
+  dailyEvolutionCommentsId:
+    process.env.NEXT_PUBLIC_DAILY_EVOLUTION_COMMENTS_ID || "",
 
   // Configuración del almacenamiento (buckets)
   bucketId: process.env.NEXT_PUBLIC_BUCKET_ID || "",

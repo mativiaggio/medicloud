@@ -1,30 +1,28 @@
 "use client";
-import React from "react";
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Control } from "react-hook-form";
-import Icon from "../icons/Icon";
-import DatePicker from "react-datepicker";
 import { E164Number } from "libphonenumber-js/core";
+import React from "react";
+import DatePicker from "react-datepicker";
+import { Control } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
+import Icon from "../icons/Icon";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { Textarea } from "../ui/textarea";
+import { Checkbox } from "../ui/checkbox";
 import {
   Select,
   SelectContent,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Checkbox } from "../ui/checkbox";
+import { Textarea } from "../ui/textarea";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -173,6 +171,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         </div>
       );
       break;
+
     case FormFieldType.SELECT:
       return (
         <div
@@ -202,6 +201,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
           </FormControl>
         </div>
       );
+
     case FormFieldType.CHECKBOX:
       return (
         <FormControl>

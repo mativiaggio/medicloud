@@ -77,6 +77,7 @@ const GuestFormValidation = z.object({
     .enum([
       "Totally, knows the diagnosis and prognosis",
       "Partially, knows the diagnosis but not the prognosis (doesn't know that it is incurable or that they might die)",
+      "null",
     ])
     .optional(),
   religion: z

@@ -43,6 +43,7 @@ export interface Guest extends Models.Document {
   status: Status;
   admission_date: Date;
   guestMedications: GuestMedications[];
+  daily_evolution: Daily_Evolution[];
 }
 
 export interface GuestMedications {
@@ -71,13 +72,25 @@ export interface Tickets extends Models.Document {
   responsable: string;
 }
 
-// export interface Appointment extends Models.Document {
-//   guest: Guest;
-//   schedule: Date;
-//   status: Status;
-//   primaryPhysician: string;
-//   reason: string;
-//   note: string;
-//   userId: string;
-//   cancellationReason: string | null;
-// }
+export interface Daily_Evolution extends Models.Document {
+  $id: string;
+  $createdAt: string;
+  $updatedAt: string;
+  user_id: string;
+  heart_rate: number;
+  respiratory_rate: number;
+  blood_pressure: string;
+  oximetry: number;
+  temperature: number;
+  content: string;
+  guest: Guest;
+  daily_evolution_comments: Daily_Evolution_Comments;
+}
+
+export interface Daily_Evolution_Comments extends Models.Document {
+  user_id: string;
+  comment: string;
+  $id: string;
+  $createdAt: string;
+  $updatedAt: string;
+}
