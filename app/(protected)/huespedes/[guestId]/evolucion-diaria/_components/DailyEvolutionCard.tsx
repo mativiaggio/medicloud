@@ -1,15 +1,8 @@
 import { format } from "date-fns";
-import {
-  Activity,
-  FileText,
-  Heart,
-  MessageSquare,
-  Thermometer,
-  Wind,
-} from "lucide-react";
+import { Activity, Heart, Thermometer, Wind } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import {
   Card,
   CardContent,
@@ -18,10 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import api from "@/lib/appwrite";
 import { dateStringFormat } from "@/lib/utils";
 import { Daily_Evolution } from "@/types/appwrite.types";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import DailyEvolutionSkeletonCard from "./DailyEvolutionSkeletonCard";
 
 interface User {
   name: string;
@@ -35,7 +30,9 @@ export default function DailyEvolutionCard({
 }) {
   const [showComments, setShowComments] = useState(false);
   const [responsable, setResponsable] = useState<User | null>(null);
-  const [responsableLoading, setResponsableLoading] = useState(false);
+  const [responsableLoading, setResponsableLoading] = useState(true);
+
+  const currentPath = usePathname();
 
   useEffect(() => {
     const fetchResponsable = async () => {
@@ -60,12 +57,20 @@ export default function DailyEvolutionCard({
     console.log(element);
   }
 
-  return (
+  return responsableLoading ? (
+    <DailyEvolutionSkeletonCard />
+  ) : (
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex w-full items-center justify-between">
           {dateStringFormat(dailyEvolution.$createdAt)}
-          <div>{responsable?.name ? responsable.name : ""}</div>
+          <div>
+            {responsable?.name ? (
+              responsable.name
+            ) : (
+              <LineSkeleton height={25} width={200} />
+            )}
+          </div>
         </CardTitle>
         <CardDescription>
           {format(new Date(dailyEvolution.$createdAt), "PPP")}
@@ -96,23 +101,9 @@ export default function DailyEvolutionCard({
             <span>Temperatura: {dailyEvolution.temperature}°C</span>
           </div>
         </div>
-        <Separator className="my-4" />
-        <div className="space-y-2">
-          <div className="flex items-center space-x-2">
-            <FileText className="h-5 w-5 text-gray-500" />
-            <span className="font-semibold">Contenido:</span>
-          </div>
-          <p className="text-sm text-gray-700">{dailyEvolution.content}</p>
-        </div>
       </CardContent>
       <CardFooter className="flex flex-col items-start">
-        <Button
-          variant="outline"
-          onClick={() => setShowComments(!showComments)}
-          className="mb-2"
-        >
-          <MessageSquare className="mr-2 h-4 w-4" />
-        </Button>
+        <Link href={`${currentPath}/${dailyEvolution.$id}`}>Ver más</Link>
       </CardFooter>
     </Card>
   );

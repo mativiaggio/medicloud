@@ -24,18 +24,20 @@ const Page = () => {
   }
 
   return (
-    <>
+    <div>
       <EDBreadcrumbs guest={guest} guestLoading={guestLoading} />
       <div className="flex w-full items-center justify-between">
         <NameAndIcon data={guest} />
         <SheetDemo />
       </div>
-      {guest.daily_evolution.length > 0
-        ? guest.daily_evolution.map((item) => (
-            <DailyEvolutionCard key={item.$id} dailyEvolution={item} />
-          ))
-        : "El huésped no tiene asociado ningún medicamento."}
-    </>
+      <div className="grid w-full grid-cols-2 gap-3">
+        {guest.daily_evolution.length > 0
+          ? guest.daily_evolution.map((item) => (
+              <DailyEvolutionCard key={item.$id} dailyEvolution={item} />
+            ))
+          : "El huésped no tiene asociado ningún medicamento."}
+      </div>
+    </div>
   );
 };
 export default Page;
