@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
   return (
     <div className="relative z-10">
       <div className="flex h-fit max-h-[10vh] items-center justify-between border-b border-main-border-light bg-white px-4 py-2 dark:border-main-border-dark dark:bg-main-bg-dark sm:px-6 md:px-8 lg:px-10">
-        <div>
+        <div className="flex w-1/6">
           <Link className="flex items-center justify-center" href="/inicio">
             <HeartPulse className="text-primary h-6 w-6" />
             <span className="text-primary ml-2 text-2xl font-bold">
@@ -34,8 +34,8 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
         <Menu setActive={setActive}>
-          <div className="hidden lg:flex">
-            <ul className="flex items-center gap-6">
+          <div className="hidden w-full lg:flex">
+            <ul className="flex items-center justify-between gap-6">
               <li>
                 <Link href={"/inicio"}>Inicio</Link>
               </li>
@@ -69,7 +69,7 @@ const Navbar: React.FC = () => {
           </div>
         </Menu>
 
-        <div className="hidden lg:block">
+        <div className="hidden w-1/6 lg:block">
           <UserComponent />
         </div>
         <div className="block lg:hidden">

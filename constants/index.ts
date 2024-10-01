@@ -37,6 +37,11 @@ export const InformedLevel = [
       "Partially, knows the diagnosis but not the prognosis (doesn't know that it is incurable or that they might die)",
     name: "Parcialmente, conoce el diagnóstico pero no el pronóstico (no sabe que es incurable o que podría morir).",
   },
+  {
+    id: 3,
+    value: "Uninformed",
+    name: "No informado",
+  },
 ];
 
 export const Religion = [

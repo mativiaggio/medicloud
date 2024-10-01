@@ -230,6 +230,34 @@ let api: any = {
         .database.deleteDocument(env.databaseId, env.insuranceCollectionId, id);
     },
   },
+
+  dailyEvolution: {
+    getAll: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.listDocuments(
+          env.databaseId,
+          env.dailyEvolutionId,
+          extraParams,
+        );
+    },
+
+    findById: async (id: string) => {
+      return await api
+        .provider()
+        .database.getDocument(env.databaseId, env.dailyEvolutionId, id);
+    },
+
+    findByGuestId: async (id: string) => {
+      return await api
+        .provider()
+        .database.listDocuments(env.databaseId, env.dailyEvolutionId, [
+          "guestId",
+          "==",
+          id,
+        ]);
+    },
+  },
 };
 
 export default api;

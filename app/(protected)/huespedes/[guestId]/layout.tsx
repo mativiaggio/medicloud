@@ -81,7 +81,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <div
         className={cn(
           "mx-auto flex w-full flex-1 flex-col overflow-hidden rounded-none md:flex-row",
-          "h-fit min-h-screen",
+          "h-fit min-h-screen bg-white dark:bg-main-workspace-dark",
         )}
       >
         <Sidebar open={open} setOpen={setOpen}>

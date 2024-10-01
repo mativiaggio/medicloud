@@ -77,7 +77,7 @@ const UserComponent = ({ size }: UserComponentProps) => {
 
   return (
     <>
-      <div className="flex items-center justify-start lg:justify-center">
+      <div className="flex items-center justify-end lg:justify-end">
         <UserDropdown
           user={userData}
           accountColor={accountColor}
