@@ -1,11 +1,10 @@
 "use client";
 import { Error } from "@/components/alerts/Error";
-import { useGuest } from "@/context/GuestContext";
-import React from "react";
+import ViewGuestForm from "@/components/forms/view-guest-form/ViewGuestForm";
 import NameAndIcon from "@/components/guest/NameAndIcon";
 import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
+import { useGuest } from "@/context/GuestContext";
 import PlanillaBreadcrumbs from "../_components/PlanillaBreadcrumbs copy";
-import ViewGuestForm from "@/components/forms/ViewGuestForm";
 
 // Dashboard
 const Page = () => {
