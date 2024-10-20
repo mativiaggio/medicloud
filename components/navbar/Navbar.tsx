@@ -152,6 +152,14 @@ const Navbar: React.FC = () => {
                       Admin
                     </Link>
                   </li>
+
+                  {user?.labels.includes("dev") ? (
+                    <li>
+                      <Link href={"/dev/tickets"}>Devs</Link>
+                    </li>
+                  ) : (
+                    ""
+                  )}
                   <li>
                     <ModeToggle
                       buttonClasses="justify-start"

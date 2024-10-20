@@ -127,3 +127,21 @@ export const Ecog = [
     name: "Paciente terminal",
   },
 ];
+
+export const Status = [
+  {
+    id: 1,
+    value: "active",
+    name: "Activo",
+  },
+  {
+    id: 2,
+    value: "pending",
+    name: "Pendiente",
+  },
+  {
+    id: 3,
+    value: "inactive",
+    name: "Inactivo",
+  },
+];
