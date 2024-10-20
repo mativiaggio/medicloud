@@ -81,8 +81,6 @@ const ViewGuestForm = () => {
     },
   });
 
-  console.log("guest informed level: " + guest?.informed_level);
-
   async function onSubmit(data: z.infer<typeof GuestFormValidation>) {
     setSubmiting(true);
     try {

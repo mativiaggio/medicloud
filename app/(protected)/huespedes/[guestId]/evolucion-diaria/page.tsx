@@ -4,7 +4,7 @@ import NameAndIcon from "@/components/guest/NameAndIcon";
 import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
 import { useGuest } from "@/context/GuestContext";
 import EDBreadcrumbs from "../_components/EDBreadcrumbs";
-import { SheetDemo } from "../_components/daily-evolution/DailyEvolutionInput";
+import { DailyEvolutionInput } from "../_components/daily-evolution/DailyEvolutionInput";
 import DailyEvolutionCard from "./_components/DailyEvolutionCard";
 
 // Dashboard
@@ -28,7 +28,7 @@ const Page = () => {
       <EDBreadcrumbs guest={guest} guestLoading={guestLoading} />
       <div className="flex w-full items-center justify-between">
         <NameAndIcon data={guest} />
-        <SheetDemo />
+        <DailyEvolutionInput />
       </div>
       <div className="grid w-full grid-cols-2 gap-3">
         {guest.daily_evolution.length > 0

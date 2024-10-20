@@ -1,6 +1,4 @@
 "use client";
-import React, { useState } from "react";
-import { Button } from "../ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -8,6 +6,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Check, Copy } from "lucide-react";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 interface Copy {
   data: string;
@@ -20,14 +20,13 @@ const CopyButton = ({ data }: Copy) => {
     navigator.clipboard.writeText(text).then(
       () => {
         setCopied(true);
-        console.log("Copied to clipboard:", text);
         setTimeout(() => {
           setCopied(false);
         }, 1000);
       },
       (err) => {
         console.error("Failed to copy:", err);
-      }
+      },
     );
   }
   return (
@@ -39,11 +38,12 @@ const CopyButton = ({ data }: Copy) => {
               className="ml-2 border-none"
               onClick={() => copyToClipboard(data)}
               variant="outline"
-              size="sm">
+              size="sm"
+            >
               {copied ? <Check size={16} /> : <Copy size={16} />}
             </Button>
           </TooltipTrigger>
-          <TooltipContent className="bg-white dark:bg-main-bg-dark text-color-light dark:text-color-dark border-main-border-light dark:border-main-border-dark">
+          <TooltipContent className="border-main-border-light bg-white text-color-light dark:border-main-border-dark dark:bg-main-bg-dark dark:text-color-dark">
             <p>Copiar al portapapeles</p>
           </TooltipContent>
         </Tooltip>

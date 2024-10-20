@@ -33,7 +33,6 @@ export default function RootLayout({
     getSpinnerColor();
   }, [theme]);
 
-  console.log("user " + JSON.stringify(user));
   if (loadingUser) {
     return (
       <main className="fixed flex h-screen w-screen items-center justify-center bg-white dark:bg-main-bg-dark">

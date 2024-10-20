@@ -1,54 +1,34 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import DailyEvolutionForm from "./DailyEvolutionForm";
 
-export function SheetDemo() {
+export function DailyEvolutionInput() {
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button
           variant="default"
-          className="hover:bg-col !w-fit !bg-main-bg-dark text-color-dark dark:bg-main-bg-light dark:text-color-light"
+          className="!w-fit bg-main-bg-dark text-color-dark hover:bg-color-dark dark:bg-main-bg-light dark:text-color-light dark:hover:bg-color-light"
         >
           Nuevo registro
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full bg-white md:w-2/3">
+      <SheetContent className="w-full bg-main-workspace-light dark:bg-main-workspace-dark md:w-2/3">
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Nuevo registro</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
+            Asegurate de completar todos los campos obligatorios. Recuerda, una
+            vez guardado el registro no podrá ser modificado.
           </SheetDescription>
         </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
-        </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
-          </SheetClose>
-        </SheetFooter>
+        <DailyEvolutionForm />
       </SheetContent>
     </Sheet>
   );

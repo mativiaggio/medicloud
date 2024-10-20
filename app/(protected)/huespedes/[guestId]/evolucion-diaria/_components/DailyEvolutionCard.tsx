@@ -54,7 +54,6 @@ export default function DailyEvolutionCard({
   const comments = dailyEvolution.daily_evolution_comments;
   for (let index = 0; index < comments.length; index++) {
     const element = comments[index];
-    console.log(element);
   }
 
   return responsableLoading ? (
