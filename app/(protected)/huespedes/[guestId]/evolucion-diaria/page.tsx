@@ -3,13 +3,30 @@ import api from "@/appwrite/appwrite";
 import { Error } from "@/components/alerts/Error";
 import NameAndIcon from "@/components/guest/NameAndIcon";
 import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useGuest } from "@/context/GuestContext";
 import { Daily_Evolution } from "@/types/appwrite.types";
 import { Query } from "appwrite";
+import {
+  Activity,
+  Calendar,
+  Heart,
+  Thermometer,
+  User2,
+  Wind,
+} from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import EDBreadcrumbs from "../_components/EDBreadcrumbs";
 import { DailyEvolutionInput } from "../_components/daily-evolution/DailyEvolutionInput";
-import DailyEvolutionCard from "./_components/DailyEvolutionCard";
+import DailyEvolutionDataTable from "./_components/DailyEvolutionDataTable";
 
 // Dashboard
 const Page = () => {
@@ -56,12 +73,65 @@ const Page = () => {
         <NameAndIcon data={guest} />
         <DailyEvolutionInput onSuccess={updateDailyEvolutions} />
       </div>
-      <div className="grid w-full grid-cols-2 gap-3">
-        {dailyEvolutions.length > 0
-          ? dailyEvolutions.map((item) => (
-              <DailyEvolutionCard key={item.$id} dailyEvolution={item} />
-            ))
-          : "El huésped no tiene asociado ninguna evolución diaria."}
+      <div className="grid w-full">
+        <Table>
+          <TableCaption>Todos los registros de evolutción diaria.</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>
+                <span className="flex items-center gap-2">
+                  <Calendar /> Fecha
+                </span>
+              </TableHead>
+              <TableHead>
+                <span className="flex items-center gap-2">
+                  <User2 /> Usuario
+                </span>
+              </TableHead>
+              <TableHead>
+                <span className="flex items-center gap-2">
+                  <Heart className="h-5 w-5 text-red-500" /> Frecuencia cardíaca
+                </span>
+              </TableHead>
+              <TableHead>
+                <span className="flex items-center gap-2">
+                  <Wind className="h-5 w-5 text-blue-500" /> Frecuencia
+                  respiratoria
+                </span>
+              </TableHead>
+              <TableHead>
+                <span className="flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-green-500" /> Tensión
+                  arterial
+                </span>
+              </TableHead>
+              <TableHead>
+                <span className="flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-purple-500" /> Oximetría
+                </span>
+              </TableHead>
+              <TableHead>
+                <span className="flex items-center gap-2">
+                  <Thermometer className="h-5 w-5 text-yellow-500" />{" "}
+                  Temperatura
+                </span>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {dailyEvolutions.length > 0 ? (
+              dailyEvolutions.map((item) => (
+                <DailyEvolutionDataTable key={item.$id} dailyEvolution={item} />
+              ))
+            ) : (
+              <TableRow>
+                <TableCell>
+                  El huésped no tiene asociado ninguna evolución diaria.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
