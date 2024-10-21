@@ -1,29 +1,22 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import api from "@/appwrite/appwrite";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl } from "@/components/ui/form";
-import CustomFormField, { FormFieldType } from "./CustomFormField";
-import { useCallback, useEffect, useState } from "react";
-import api from "@/appwrite/appwrite";
-import {
-  Ecog,
-  GenderOptions,
-  Informed,
-  InformedLevel,
-  Religion,
-  YesNo,
-} from "@/constants";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Label } from "../ui/label";
-import SectionTitle from "../SectionTitle";
-import { SelectItem } from "../ui/select";
-import { AddNewInsurance } from "../dialogs/AddNewInsurance";
-import { InsuranceProviders } from "@/types/appwrite.types";
-import { Query } from "appwrite";
+import { GenderOptions } from "@/constants";
 import { useGuest } from "@/context/GuestContext";
+import { InsuranceProviders } from "@/types/appwrite.types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Query } from "appwrite";
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { AddNewInsurance } from "../dialogs/AddNewInsurance";
+import SectionTitle from "../SectionTitle";
+import { Label } from "../ui/label";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { SelectItem } from "../ui/select";
+import CustomFormField, { FormFieldType } from "./CustomFormField";
 
 const GuestFormValidation = z.object({
   full_name: z.string().nonempty("El nombre completo es obligatorio"),
@@ -75,6 +68,7 @@ const GuestFormValidation = z.object({
     .optional(),
   informed_level: z
     .enum([
+      "Uninformed",
       "Totally, knows the diagnosis and prognosis",
       "Partially, knows the diagnosis but not the prognosis (doesn't know that it is incurable or that they might die)",
     ])
