@@ -1,6 +1,8 @@
 import { LoginInterface, RegisterInterface } from "@/interfaces/auth.interface";
 import { env } from "@/lib/env.config";
-import { Account, Client as Appwrite, Databases, ID } from "appwrite";
+import { Account, Client as Appwrite, Databases, ID, Query } from "appwrite";
+
+const manualSDK = require("node-appwrite");
 
 let api: any = {
   sdk: null,
@@ -20,14 +22,28 @@ let api: any = {
 
   // USER ACTIONS
   createAccount: (registerBody: RegisterInterface) => {
-    return api
+    const id = ID.unique();
+    const response = api
       .provider()
       .account.create(
-        ID.unique(),
+        id,
         registerBody.email,
         registerBody.password,
         registerBody.fullName,
       );
+
+    api
+      .provider()
+      .database.createDocument(
+        env.databaseId,
+        env.guestCollectionId,
+        ID.unique(),
+        {
+          user_id: id,
+          name: registerBody.fullName,
+        },
+      );
+    return response;
   },
 
   getAccount: () => {
@@ -43,6 +59,16 @@ let api: any = {
 
   deleteCurrentSession: () => {
     return api.provider().account.deleteSession("current");
+  },
+
+  user: {
+    findById: async (userId: string) => {
+      return await api
+        .provider()
+        .database.listDocuments(env.databaseId, env.usersCollectionId, [
+          Query.equal("user_id", userId),
+        ]);
+    },
   },
 
   // DATABASE
