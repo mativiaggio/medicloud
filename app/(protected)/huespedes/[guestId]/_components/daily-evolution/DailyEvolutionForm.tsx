@@ -1,57 +1,60 @@
+import api from "@/appwrite/appwrite";
 import CustomFormField, {
   FormFieldType,
 } from "@/components/forms/CustomFormField";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { SheetClose } from "@/components/ui/sheet"; // Importa SheetClose
+import { useAuth } from "@/context/AuthProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const DailyEvolutionFormValidation = z.object({
-  daily_evolution_comments: z.string().optional(),
   user_id: z.string().min(1, "El campo 'user_id' no puede ser vacío."),
-  heart_rate: z
-    .number()
-    .min(0, "La frecuencia cardíaca debe ser mayor a 0.")
-    .max(300, "La frecuencia cardíaca debe ser menor a 300."),
-  respiratory_rate: z
-    .number()
-    .min(0, "La frecuencia respiratoria debe ser mayor a 0.")
-    .max(100, "La frecuencia respiratoria debe ser menor a 100."),
+  heart_rate: z.string().min(1, "Este campo es obligatorio"),
+  respiratory_rate: z.string().min(1, "Este campo es obligatorio"),
   blood_pressure: z
     .string()
-    .max(8, "La tensión arterial no debe tener mas de 8 caracteres."),
-  oximetry: z
-    .number()
-    .min(0, "La oximetría debe ser mayor a 0")
-    .max(100, "La oximetría debe ser menor a 100."),
-  temperature: z
-    .number()
-    .min(0, "La temperatura debe ser mayor a 0")
-    .max(80, "La temperatura no debe ser mayor a 80."),
-  guest: z.string(),
-  content: z
-    .string()
-    .max(510, "El contenido no debe tener una lonitud mayor a 510 caracteres."),
+    .min(1, "Este campo es obligatorio")
+    .max(8, "Este campo es demasiado largo"),
+  oximetry: z.string().min(1, "Este campo es obligatorio"),
+  temperature: z.string().min(1, "Este campo es obligatorio"),
+  guest: z.string().min(1, "Este campo es obligatorio"),
+  content: z.string().max(510, "Este campo es obligatorio"),
 });
 
-const DailyEvolutionForm = () => {
-  const [submiting, setSubmiting] = useState<boolean | false>(false);
+type OnSuccessCallback = () => void;
 
+interface AddNewDailyEvolutionProps {
+  onSuccess?: OnSuccessCallback;
+}
+
+const DailyEvolutionForm = ({ onSuccess }: AddNewDailyEvolutionProps) => {
+  const [submiting, setSubmiting] = useState<boolean>(false);
+  const { guestId } = useParams();
+  const { user } = useAuth();
+
+  const guestIdString = Array.isArray(guestId) ? guestId[0] : guestId;
   const form = useForm<z.infer<typeof DailyEvolutionFormValidation>>({
     resolver: zodResolver(DailyEvolutionFormValidation),
     defaultValues: {
-      daily_evolution_comments: "",
-      user_id: "",
-      guest: "",
+      user_id: user?.$id || "",
+      guest: guestIdString || "",
+      heart_rate: "",
+      respiratory_rate: "",
+      blood_pressure: "",
+      oximetry: "",
+      temperature: "",
+      content: "",
     },
   });
 
   async function onSubmit(data: z.infer<typeof DailyEvolutionFormValidation>) {
     setSubmiting(true);
     try {
-      // Manually cast string inputs to numbers
       const formattedData = {
         ...data,
         heart_rate: Number(data.heart_rate),
@@ -60,6 +63,10 @@ const DailyEvolutionForm = () => {
         temperature: Number(data.temperature),
       };
 
+      await api.daily_evolution.new(formattedData);
+      if (onSuccess) {
+        onSuccess();
+      }
       console.log(JSON.stringify(formattedData));
     } catch (error) {
       console.error("Error durante el envío del formulario:", error);
@@ -71,13 +78,13 @@ const DailyEvolutionForm = () => {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-          <section>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full pt-8">
+          <span className="hidden">
             <CustomFormField
-              fieldType={FormFieldType.NUMBER}
-              name="heart_rate"
-              label="Frecuencia cardíaca"
-              placeholder="98"
+              fieldType={FormFieldType.INPUT}
+              name="user_id"
+              label="User ID"
+              placeholder=""
               control={form.control}
               fieldCustomClasses={
                 "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
@@ -86,7 +93,102 @@ const DailyEvolutionForm = () => {
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
               }
             />
-          </section>
+          </span>
+          <div className="grid grid-cols-2 gap-2">
+            <CustomFormField
+              fieldType={FormFieldType.NUMBER}
+              name="heart_rate"
+              label="Frecuencia cardíaca"
+              placeholder=""
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+            <CustomFormField
+              fieldType={FormFieldType.NUMBER}
+              name="respiratory_rate"
+              label="Frecuencia respiratoria"
+              placeholder=""
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              name="blood_pressure"
+              label="Tensión arterial"
+              placeholder=""
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+            <CustomFormField
+              fieldType={FormFieldType.NUMBER}
+              name="oximetry"
+              label="Oximetría"
+              placeholder=""
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+          </div>
+          <CustomFormField
+            fieldType={FormFieldType.NUMBER}
+            name="temperature"
+            label="Temperatura"
+            placeholder=""
+            control={form.control}
+            fieldCustomClasses={
+              "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+            }
+            inputCustomClasses={
+              "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+            }
+          />
+          <span className="hidden">
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              name="guest"
+              label="Huésped"
+              placeholder=""
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+          </span>
+          <CustomFormField
+            fieldType={FormFieldType.TEXTAREA}
+            name="content"
+            label="Contenido"
+            placeholder=""
+            control={form.control}
+            fieldCustomClasses={"bg-input-bg-light dark:bg-input-bg-dark"}
+            inputCustomClasses={
+              "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border border-main-2 !border-input-border-light dark:!border-input-border-dark"
+            }
+          />
           <Button
             className="mt-[30px] w-full bg-button-bg-dark text-color-dark hover:bg-button-hover-dark dark:bg-button-bg-light dark:text-color-light dark:hover:bg-button-hover-light"
             type="submit"
@@ -94,6 +196,10 @@ const DailyEvolutionForm = () => {
           >
             {submiting ? "Cargando..." : "Agregar"}
           </Button>
+          <SheetClose asChild>
+            <Button type="button" className="hidden" />
+          </SheetClose>{" "}
+          {/* Cierra el Sheet */}
         </form>
       </Form>
     </>

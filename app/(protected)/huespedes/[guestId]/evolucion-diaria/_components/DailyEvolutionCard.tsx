@@ -76,7 +76,7 @@ export default function DailyEvolutionCard({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="mb-4 grid grid-cols-2 gap-4">
+        <div className="mb-4 grid grid-cols-2 gap-4 !overflow-auto">
           <div className="flex items-center space-x-2">
             <Heart className="h-5 w-5 text-red-500" />
             <span>Frecuencia cardiaca: {dailyEvolution.heart_rate} bpm</span>
