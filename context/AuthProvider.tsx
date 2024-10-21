@@ -11,6 +11,7 @@ import {
 
 // Tipo de datos del usuario
 interface User {
+  $id: string;
   name: string;
   labels: string[];
 }

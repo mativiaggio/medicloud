@@ -1,5 +1,5 @@
 const page = () => {
-  return <div>Ticket</div>;
+  return <div>Daily evolution page</div>;
 };
 
 export default page;

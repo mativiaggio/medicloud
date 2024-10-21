@@ -26,6 +26,7 @@ import { Textarea } from "../ui/textarea";
 
 export enum FormFieldType {
   INPUT = "input",
+  NUMBER = "number",
   PASSWORD = "password",
   TEXTAREA = "textarea",
   RADIO = "radio",
@@ -98,6 +99,34 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
               {...field}
               type={fieldType}
               placeholder={placeholder}
+              className={`shad-input ${inputCustomClasses}`}
+            />
+          </FormControl>
+        </div>
+      );
+      break;
+
+    case FormFieldType.NUMBER:
+      return (
+        <div
+          className={`flex items-center ${
+            iconType ? "pl-2" : ""
+          } overflow-hidden rounded-md ${fieldCustomClasses}`}
+        >
+          ​
+          {iconType && (
+            <Icon
+              icon={iconType}
+              iconLightColor={iconLightColor ? iconLightColor : "currentColor"}
+              iconDarkColor={iconDarkColor ? iconDarkColor : "currentColor"}
+            />
+          )}
+          <FormControl>
+            <Input
+              {...field}
+              type={fieldType}
+              placeholder={placeholder}
+              valueasnumber="true"
               className={`shad-input ${inputCustomClasses}`}
             />
           </FormControl>

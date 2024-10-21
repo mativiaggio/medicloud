@@ -19,61 +19,33 @@ let api: any = {
   },
 
   // USER ACTIONS
-  auth: {
-    createAccount: (registerBody: RegisterInterface) => {
-      return api
-        .provider()
-        .account.create(
-          ID.unique(),
-          registerBody.email,
-          registerBody.password,
-          registerBody.fullName,
-        );
-    },
+  createAccount: (registerBody: RegisterInterface) => {
+    return api
+      .provider()
+      .account.create(
+        ID.unique(),
+        registerBody.email,
+        registerBody.password,
+        registerBody.fullName,
+      );
+  },
 
-    getCurrentSession: () => {
-      let account = api.provider().account;
-      return account.get();
-    },
+  getAccount: () => {
+    let account = api.provider().account;
+    return account.get();
+  },
 
-    createSession: (loginBody: LoginInterface) => {
-      return api
-        .provider()
-        .account.createEmailPasswordSession(
-          loginBody.email,
-          loginBody.password,
-        );
-    },
+  createSession: (loginBody: LoginInterface) => {
+    return api
+      .provider()
+      .account.createEmailPasswordSession(loginBody.email, loginBody.password);
+  },
 
-    deleteCurrentSession: () => {
-      return api.provider().account.deleteSession("current");
-    },
+  deleteCurrentSession: () => {
+    return api.provider().account.deleteSession("current");
   },
 
   // DATABASE
-
-  // Developers
-  tickets: {
-    getAll: async (extraParams: string[]) => {
-      return api
-        .provider()
-        .database.listDocuments(env.databaseId, env.devTicketsId, extraParams);
-    },
-
-    findById: async (guestId: string) => {
-      return await api
-        .provider()
-        .database.getDocument(env.databaseId, env.devTicketsId, guestId);
-    },
-  },
-
-  // Client
-  users: {
-    findById: (id: string) => {
-      return api.provider().account.get(id);
-    },
-  },
-
   guest: {
     getAll: async (extraParams: string[]) => {
       return await api
@@ -237,7 +209,7 @@ let api: any = {
     },
   },
 
-  dailyEvolution: {
+  daily_evolution: {
     getAll: async (extraParams: string[]) => {
       return await api
         .provider()
@@ -248,20 +220,42 @@ let api: any = {
         );
     },
 
-    findById: async (id: string) => {
+    findById: async (dailyEvolutionId: string) => {
       return await api
         .provider()
-        .database.getDocument(env.databaseId, env.dailyEvolutionId, id);
+        .database.getDocument(
+          env.databaseId,
+          env.dailyEvolutionId,
+          dailyEvolutionId,
+        );
     },
 
-    findByGuestId: async (id: string) => {
+    new: async (extraParams: string[]) => {
       return await api
         .provider()
-        .database.listDocuments(env.databaseId, env.dailyEvolutionId, [
-          "guestId",
-          "==",
+        .database.createDocument(
+          env.databaseId,
+          env.dailyEvolutionId,
+          ID.unique(),
+          extraParams,
+        );
+    },
+
+    update: async (id: string, extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.updateDocument(
+          env.databaseId,
+          env.dailyEvolutionId,
           id,
-        ]);
+          extraParams,
+        );
+    },
+
+    delete: async (id: string) => {
+      return await api
+        .provider()
+        .database.deleteDocument(env.databaseId, env.dailyEvolutionId, id);
     },
   },
 };

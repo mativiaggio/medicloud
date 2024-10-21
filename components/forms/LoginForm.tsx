@@ -53,10 +53,8 @@ const LoginForm = () => {
     try {
       setSubmiting(true);
       const result = await api.auth.createSession(data);
-      console.log("result: " + JSON.stringify(result));
       if (result) {
         const user = await api.auth.getCurrentSession();
-        console.log("user: " + JSON.stringify(user));
         if (user) {
           setUser(user);
           router.push("/inicio");

@@ -6,22 +6,21 @@
 
 import { ModeToggle } from "@/components/theme_toggle/ThemeToggle";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { HeartPulse, ShieldCheck, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Page() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="min-h-[57px] px-4 sm:px-6 md:px-8 lg:px-10 h-14 flex items-center justify-center border-b border-main-border-light dark:border-main-border-dark">
+    <div className="flex min-h-screen flex-col">
+      <header className="flex h-14 min-h-[57px] items-center justify-center border-b border-main-border-light px-4 dark:border-main-border-dark sm:px-6 md:px-8 lg:px-10">
         <Link className="flex items-center justify-center" href="#">
-          <HeartPulse className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-2xl font-bold text-primary">
+          <HeartPulse className="text-primary h-6 w-6" />
+          <span className="text-primary ml-2 text-2xl font-bold">
             MediCloud
           </span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
+        <nav className="ml-auto flex items-center gap-4 sm:gap-6">
           {/* <Link
             className="text-sm font-medium hover:underline underline-offset-4"
             href="#">
@@ -41,7 +40,7 @@ export default function Page() {
         </nav>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-main-workspace-light dark:bg-main-workspace-dark relative">
+        <section className="relative w-full bg-main-workspace-light py-12 dark:bg-main-workspace-dark md:py-24 lg:py-32 xl:py-48">
           <Image
             src={
               "https://hospicemadreteresa.org.ar/wp-content/uploads/2017/07/bg-frente-casa-hospice.jpg"
@@ -49,26 +48,25 @@ export default function Page() {
             alt="Landing Image"
             width={100000}
             height={100000}
-            className="absolute w-full h-full top-0 object-cover"
+            className="absolute top-0 h-full w-full object-cover"
           />
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
-                <h1 className="text-color-light text-4xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                <h1 className="text-4xl font-bold tracking-tighter text-color-light sm:text-4xl md:text-5xl lg:text-6xl/none">
                   Bienvenido a MediCloud
                 </h1>
-                <p className="text-color-light mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                <p className="text-muted-foreground mx-auto max-w-[700px] text-color-light md:text-xl">
                   Software de gestión médica segura, eficiente y compasiva por
                   Hospice Madre Teresa.
                 </p>
               </div>
               <div className="space-x-4">
                 <Link href={"/inicio"}>
-                  <Button className="bg-main-bg-dark text-color-dark  hover:bg-button-hover-dark dark:hover:bg-button-hover-light">
+                  <Button className="bg-main-bg-dark text-color-dark hover:bg-button-hover-dark">
                     Ingresar
                   </Button>
                 </Link>
-                {/* <Button variant="outline">Get Started</Button> */}
               </div>
             </div>
           </div>
@@ -77,10 +75,8 @@ export default function Page() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               <div className="flex flex-col items-center space-y-4 text-center">
-                <ShieldCheck className="h-12 w-12 text-primary" />
-                <h2 className="text-xl font-bold">
-                  Protección de Datos
-                </h2>
+                <ShieldCheck className="text-primary h-12 w-12" />
+                <h2 className="text-xl font-bold">Protección de Datos</h2>
                 <p className="text-muted-foreground">
                   MediCloud garantiza que los datos de los huéspedes estén
                   protegidos con cifrado avanzado y medidas de seguridad
@@ -88,7 +84,7 @@ export default function Page() {
                 </p>
               </div>
               <div className="flex flex-col items-center space-y-4 text-center">
-                <Users className="h-12 w-12 text-primary" />
+                <Users className="text-primary h-12 w-12" />
                 <h2 className="text-xl font-bold">
                   Especialización en el Cuidado
                 </h2>
@@ -98,7 +94,7 @@ export default function Page() {
                 </p>
               </div>
               <div className="flex flex-col items-center space-y-4 text-center">
-                <HeartPulse className="h-12 w-12 text-primary" />
+                <HeartPulse className="text-primary h-12 w-12" />
                 <h2 className="text-xl font-bold">Servicio Compasivo</h2>
                 <p className="text-muted-foreground">
                   Desarrollado para apoyar las necesidades únicas del cuidado
@@ -141,16 +137,16 @@ export default function Page() {
           </div>
         </section> */}
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-main-border-light dark:border-main-border-dark">
-        <p className="text-xs text-muted-foreground">
+      <footer className="flex w-full shrink-0 flex-col items-center gap-2 border-t border-main-border-light px-4 py-6 dark:border-main-border-dark sm:flex-row md:px-6">
+        <p className="text-muted-foreground text-xs">
           © 2024 MediCloud por Hospice Madre Teresa. Todos los derechos
           reservados.
         </p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
+        <nav className="flex gap-4 sm:ml-auto sm:gap-6">
+          <Link className="text-xs underline-offset-4 hover:underline" href="#">
             Terminos de servicio
           </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
+          <Link className="text-xs underline-offset-4 hover:underline" href="#">
             Privacidad
           </Link>
         </nav>

@@ -162,10 +162,6 @@ const AddGuestForm = () => {
     setSubmiting(true);
     try {
       const result = await api.guest.new(data);
-
-      if (result) {
-        console.log(JSON.stringify(result));
-      }
     } catch (error) {
       console.error("Error durante el envío del formulario:", error);
     } finally {
@@ -192,7 +188,6 @@ const AddGuestForm = () => {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-          {/* {console.log(form.formState.errors)} */}
           <SectionTitle title="Información personal" />
           <section id="personal-info">
             <CustomFormField

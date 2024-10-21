@@ -30,7 +30,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         const response = await api.guest.findById(guestId);
         setGuest(response);
         setGuestLoading(false);
-        console.log(response);
       } catch (error) {
         console.error(error);
       }

@@ -100,6 +100,8 @@ const config = {
           "tr-even-light": "#f2f4f6",
           "contact-light": "#ff9500",
           "contact-dark": "#FFC300",
+          "accent-light": "#ffffff",
+          "accent-dark": "#1e2124",
         },
         card: {
           total: "#2491d1",
