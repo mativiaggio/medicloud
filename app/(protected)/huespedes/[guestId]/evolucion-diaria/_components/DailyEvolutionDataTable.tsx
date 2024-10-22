@@ -29,17 +29,31 @@ const DailyEvolutionDataTable = ({
     getUser(dailyEvolution.user_id);
   }, [dailyEvolution.user_id]);
   return (
+
+    userName && (
     <TableRow onDoubleClick={() => router.push(`/huespedes/${guestId}/evolucion-diaria/${dailyEvolution.$id}`)}>
       <TableCell>{dateStringFormat(dailyEvolution.$createdAt)}</TableCell>
       <TableCell>
-        {userName || <LineSkeleton height={14} width={100} />}
+        {userName}
       </TableCell>
       <TableCell>{dailyEvolution.heart_rate} bpm</TableCell>
-      <TableCell>{dailyEvolution.respiratory_rate} bpm</TableCell>
+      <TableCell>{dailyEvolution.respiratory_rate} rpm</TableCell>
       <TableCell>{dailyEvolution.blood_pressure} mmHg</TableCell>
       <TableCell>{dailyEvolution.oximetry}%</TableCell>
       <TableCell>{dailyEvolution.temperature}°C</TableCell>
     </TableRow>
+    ) || (
+      <TableRow>
+        <TableCell><LineSkeleton height={14} width={100} /></TableCell>
+        <TableCell><LineSkeleton height={14} width={100} /></TableCell>
+        <TableCell><LineSkeleton height={14} width={100} /></TableCell>
+        <TableCell><LineSkeleton height={14} width={100} /></TableCell>
+        <TableCell><LineSkeleton height={14} width={100} /></TableCell>
+        <TableCell><LineSkeleton height={14} width={100} /></TableCell>
+        <TableCell><LineSkeleton height={14} width={100} /></TableCell>
+      </TableRow>
+    )
+
   );
 };
 

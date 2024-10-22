@@ -23,6 +23,7 @@ import {
   User2,
   Wind,
 } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import EDBreadcrumbs from "../_components/EDBreadcrumbs";
 import { DailyEvolutionInput } from "../_components/daily-evolution/DailyEvolutionInput";
@@ -32,17 +33,19 @@ import DailyEvolutionDataTable from "./_components/DailyEvolutionDataTable";
 const Page = () => {
   const { guest, guestLoading } = useGuest();
   const [dailyEvolutions, setDailyEvolutions] = useState<Daily_Evolution[]>([]);
+  const { guestId } = useParams();
 
   const updateDailyEvolutions = useCallback(async () => {
     try {
       const result = await api.daily_evolution.getAll([
         Query.orderDesc("$createdAt"),
+        Query.equal("guest_id", guestId),
       ]);
       setDailyEvolutions(result.documents);
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [guestId]);
 
   useEffect(() => {
     if (guest) {
@@ -125,7 +128,7 @@ const Page = () => {
               ))
             ) : (
               <TableRow>
-                <TableCell>
+                <TableCell colSpan={7}>
                   El huésped no tiene asociado ninguna evolución diaria.
                 </TableCell>
               </TableRow>
