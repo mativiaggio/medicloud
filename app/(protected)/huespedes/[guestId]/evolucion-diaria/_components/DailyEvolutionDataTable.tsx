@@ -1,6 +1,7 @@
-import api from "@/appwrite/appwrite";
+
 import LineSkeleton from "@/components/skeleton/LineSkeleton";
 import { TableCell, TableRow } from "@/components/ui/table";
+import api from "@/lib/appwrite";
 import { dateStringFormat } from "@/lib/utils";
 import { Daily_Evolution } from "@/types/appwrite.types";
 import { useParams, useRouter } from "next/navigation";
@@ -32,15 +33,15 @@ const DailyEvolutionDataTable = ({
 
     userName && (
     <TableRow onDoubleClick={() => router.push(`/huespedes/${guestId}/evolucion-diaria/${dailyEvolution.$id}`)}>
-      <TableCell>{dateStringFormat(dailyEvolution.$createdAt)}</TableCell>
-      <TableCell>
+      <TableCell className="whitespace-nowrap">{dateStringFormat(dailyEvolution.$createdAt)}</TableCell>
+      <TableCell className="whitespace-nowrap">
         {userName}
       </TableCell>
-      <TableCell>{dailyEvolution.heart_rate} bpm</TableCell>
-      <TableCell>{dailyEvolution.respiratory_rate} rpm</TableCell>
-      <TableCell>{dailyEvolution.blood_pressure} mmHg</TableCell>
-      <TableCell>{dailyEvolution.oximetry}%</TableCell>
-      <TableCell>{dailyEvolution.temperature}°C</TableCell>
+      <TableCell className="whitespace-nowrap">{dailyEvolution.heart_rate} bpm</TableCell>
+      <TableCell className="whitespace-nowrap">{dailyEvolution.respiratory_rate} rpm</TableCell>
+      <TableCell className="whitespace-nowrap">{dailyEvolution.blood_pressure} mmHg</TableCell>
+      <TableCell className="whitespace-nowrap">{dailyEvolution.oximetry}%</TableCell>
+      <TableCell className="whitespace-nowrap">{dailyEvolution.temperature}°C</TableCell>
     </TableRow>
     ) || (
       <TableRow>

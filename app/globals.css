@@ -259,7 +259,7 @@
 
   /* =====  REACT PHONE NUMBER INPUT OVERRIDES */
   .input-phone {
-    @apply mt-2 flex h-11 rounded-md border !border-input-border-light border-main-2 bg-input-bg-light pl-3 text-sm dark:!border-input-border-dark dark:bg-input-bg-dark !important;
+    @apply mt-2 flex h-11 rounded-md pl-3 text-sm border !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark !important;
   }
 
   .input-phone img {
@@ -275,7 +275,7 @@
   }
 
   .input-phone input {
-    @apply w-full bg-transparent text-color-light dark:text-color-dark;
+    @apply w-full bg-transparent text-color-light dark:text-color-dark focus:bg-transparent active:bg-transparent focus:outline-none;
   }
 
   /* =====  REACT DATE PICKER OVERRIDES */
@@ -393,11 +393,15 @@ thead {
 }
 
 th {
-  @apply !font-extrabold;
+  @apply !font-extrabold !px-2;
 }
 
 tr {
   @apply !border-b !border-main-border-light dark:!border-main-border-dark;
+}
+
+td {
+  @apply !p-2;
 }
 
 tbody tr:hover {

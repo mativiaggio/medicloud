@@ -29,19 +29,6 @@ const UserComponent = ({ size }: UserComponentProps) => {
   const [accountColor, setAccountColor] = useState<string | "">("");
   const { user, loadingUser } = useAuth();
 
-  //   useEffect(() => {
-  //     const getUser = async () => {
-  //       try {
-  //         const user = ;
-  //         setUserData(user);
-  //       } catch (error) {
-  //         console.error(error);
-  //       }
-  //     };
-
-  //     getUser();
-  //   }, []);
-
   useEffect(() => {
     if (!loadingUser && user) {
       setUserData(user);
@@ -77,7 +64,7 @@ const UserComponent = ({ size }: UserComponentProps) => {
 
   return (
     <>
-      <div className="flex items-center justify-end lg:justify-end">
+      <div className="flex items-center justify-start lg:justify-end">
         <UserDropdown
           user={userData}
           accountColor={accountColor}

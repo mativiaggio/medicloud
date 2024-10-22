@@ -1,10 +1,10 @@
 "use client";
 
-import api from "@/appwrite/appwrite";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl } from "@/components/ui/form";
 import { GenderOptions } from "@/constants";
 import { useGuest } from "@/context/GuestContext";
+import api from "@/lib/appwrite";
 import { InsuranceProviders } from "@/types/appwrite.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Query } from "appwrite";

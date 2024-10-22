@@ -1,12 +1,12 @@
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { dateStringFormat } from "@/lib/utils";
+import { Daily_Evolution, Daily_Evolution_Comments, Guest } from "@/types/appwrite.types";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Daily_Evolution, Guest } from "@/types/appwrite.types";
-import { Activity, Heart, Thermometer, Wind } from "lucide-react";
+  Activity,
+  Heart,
+  Thermometer,
+  Wind
+} from "lucide-react";
 
 interface InputProps {
   guest: Guest;
@@ -23,78 +23,82 @@ const DailyEvolutionInput = ({
 }: InputProps) => {
   return (
     <>
-      <div className="flex w-full items-center gap-2 pb-2">
-        <Card className="w-1/3 border-none bg-red-500">
-          <CardHeader className="!p-3">
-            <CardTitle className="flex justify-center gap-2 text-xl">
-              <Heart className="h-15 w-15 text-white" />
-              Frecuencia cardíaca
-            </CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
-          <CardContent className="!p-3">
-            <p className="text-center text-lg font-bold">
-              {dailyEvolution.heart_rate} bpm
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="w-1/3 border-none bg-blue-500">
-          <CardHeader className="!p-3">
-            <CardTitle className="flex justify-center gap-2 text-xl">
-              <Wind className="h-15 w-15 text-white" /> Frecuencia respiratoria
-            </CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
-          <CardContent className="!p-3">
-            <p className="text-center text-lg font-bold">
-              {dailyEvolution.respiratory_rate} rpm
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="w-1/3 border-none bg-green-500">
-          <CardHeader className="!p-3">
-            <CardTitle className="flex justify-center gap-2 text-xl">
-              <Activity className="h-5 w-5 text-white" /> Tensión arterial
-            </CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
-          <CardContent className="!p-3">
-            <p className="text-center text-lg font-bold">
-              {dailyEvolution.blood_pressure} mmHg
-            </p>
-          </CardContent>
-        </Card>
+      <Table>
+      <TableHeader>
+            <TableRow>
+              <TableHead colSpan={2}>
+                Ficha técnica
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              <div className="flex items-center gap-2">
+                <Heart className="h-5 w-5 text-red-500" />Frecuencia cardíaca
+              </div>
+            </TableCell>
+            <TableCell>{ dailyEvolution.heart_rate } bpm</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <div className="flex items-center gap-2">
+                <Wind className="h-5 w-5 text-blue-500" />Frecuencia respiratoria
+              </div>
+            </TableCell>
+            <TableCell>{ dailyEvolution.respiratory_rate } rpm</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <div className="flex items-center gap-2">
+                <Activity className="h-5 w-5 text-green-500" />Tensión arterial
+              </div>
+            </TableCell>
+            <TableCell>{ dailyEvolution.blood_pressure } mmHg</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <div className="flex items-center gap-2">
+                <Activity className="h-5 w-5 text-purple-500" />Oximetría
+              </div>
+            </TableCell>
+            <TableCell>{ dailyEvolution.oximetry } %</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <div className="flex items-center gap-2">
+                <Thermometer className="h-5 w-5 text-yellow-500" />Temperatura
+              </div>
+            </TableCell>
+            <TableCell>{ dailyEvolution.temperature } °C</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+      <div className="pt-4">
+        <h1 className="text-base font-bold">
+          Contenido escrito a mano
+        </h1>
+        <p>
+          { dailyEvolution.content}
+        </p>
       </div>
-      <div className="flex w-full items-center gap-2">
-        <Card className="w-1/2 border-none bg-purple-500">
-          <CardHeader className="!p-3">
-            <CardTitle className="flex justify-center gap-2 text-xl">
-              <Activity className="h-5 w-5 text-white" /> Oximetría
-            </CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
-          <CardContent className="!p-3">
-            <p className="text-center text-lg font-bold">
-              {dailyEvolution.oximetry}%
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="w-1/2 border-none bg-yellow-500">
-          <CardHeader className="!p-3">
-            <CardTitle className="flex justify-center gap-2 text-xl">
-              <Thermometer className="h-15 w-15 text-white" /> Temperatura
-            </CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
-          <CardContent className="!p-3">
-            <p className="text-center text-lg font-bold">
-              {dailyEvolution.temperature} °C
-            </p>
-          </CardContent>
-        </Card>
+      <div className="pt-4">
+        <h1 className="text-base font-bold">
+          Comentarios
+        </h1>
+        <p>
+          {dailyEvolution.daily_evolution_comments.map((comment: Daily_Evolution_Comments) => { 
+            return (
+              <div key={comment.id} className="p-2 rounded-md bg-main-bg-light dark:bg-main-bg-dark">
+                <div className="flex items-center gap-2 text-sm text-main-subtitle-light">
+                  <span>Matías Viaggio</span>
+                  <span>{dateStringFormat(comment.$createdAt)}</span>
+                </div>
+                <p>{comment.comment}</p>
+              </div>
+            );
+          })}
+        </p>
       </div>
     </>
   );

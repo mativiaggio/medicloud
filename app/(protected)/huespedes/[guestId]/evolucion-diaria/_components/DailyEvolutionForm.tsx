@@ -1,4 +1,4 @@
-import api from "@/appwrite/appwrite";
+
 import CustomFormField, {
   FormFieldType,
 } from "@/components/forms/CustomFormField";
@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { SheetClose } from "@/components/ui/sheet"; // Importa SheetClose
 import { useAuth } from "@/context/AuthProvider";
+import api from "@/lib/appwrite";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -65,7 +66,7 @@ const DailyEvolutionForm = ({ onSuccess }: AddNewDailyEvolutionProps) => {
         temperature: Number(data.temperature),
       };
 
-      await api.daily_evolution.new(formattedData);
+      await api.dailyEvolution.new(formattedData);
       if (onSuccess) {
         onSuccess();
       }

@@ -1,6 +1,6 @@
 import { LoginInterface, RegisterInterface } from "@/interfaces/auth.interface";
 import { env } from "@/lib/env.config";
-import { Account, Client as Appwrite, Databases, ID } from "appwrite";
+import { Account, Client as Appwrite, Databases, ID, Query } from "appwrite";
 
 let api: any = {
   sdk: null,
@@ -67,13 +67,17 @@ let api: any = {
     },
   },
 
-  // Client
-  users: {
-    findById: (id: string) => {
-      return api.provider().account.get(id);
+  user: {
+    findById: async (userId: string) => {
+      return await api
+        .provider()
+        .database.listDocuments(env.databaseId, env.usersCollectionId, [
+          Query.equal("user_id", userId),
+        ]);
     },
   },
 
+  // DATABASE
   guest: {
     getAll: async (extraParams: string[]) => {
       return await api
@@ -248,20 +252,52 @@ let api: any = {
         );
     },
 
-    findById: async (id: string) => {
+    findById: async (dailyEvolutionId: string) => {
       return await api
         .provider()
-        .database.getDocument(env.databaseId, env.dailyEvolutionId, id);
+        .database.getDocument(
+          env.databaseId,
+          env.dailyEvolutionId,
+          dailyEvolutionId,
+        );
     },
 
-    findByGuestId: async (id: string) => {
+    findByGuestId: async (guestId: string, extraParams1: {}, extraParams2: {}) => {
       return await api
         .provider()
         .database.listDocuments(env.databaseId, env.dailyEvolutionId, [
-          "guestId",
-          "==",
-          id,
+          Query.equal("guest_id", guestId),
+          extraParams1,
+          extraParams2
         ]);
+    },
+
+    new: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.createDocument(
+          env.databaseId,
+          env.dailyEvolutionId,
+          ID.unique(),
+          extraParams,
+        );
+    },
+
+    update: async (id: string, extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.updateDocument(
+          env.databaseId,
+          env.dailyEvolutionId,
+          id,
+          extraParams,
+        );
+    },
+
+    delete: async (id: string) => {
+      return await api
+        .provider()
+        .database.deleteDocument(env.databaseId, env.dailyEvolutionId, id);
     },
   },
 };

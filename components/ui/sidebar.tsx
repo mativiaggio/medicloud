@@ -159,13 +159,24 @@ export const MobileSidebar = ({
 export const SidebarLink = ({
   link,
   className,
+  labelClassName,
   ...props
 }: {
   link: Links;
   className?: string;
+  labelClassName?: string;
   props?: LinkProps;
 }) => {
-  const { open, animate } = useSidebar();
+  const { open, setOpen, animate } = useSidebar();
+
+  const handleClick = () => {
+    // Cerrar el sidebar solo si está en versión móvil
+    if (window.innerWidth < 768) {
+      setOpen(false); // Cerrar la barra lateral
+    }
+  };
+
+
   return (
     <Link
       href={link.href}
@@ -174,6 +185,7 @@ export const SidebarLink = ({
         className,
       )}
       {...props}
+      onClick={handleClick}
     >
       {link.icon}
 
@@ -182,7 +194,10 @@ export const SidebarLink = ({
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="!m-0 inline-block whitespace-pre !p-0 text-base text-neutral-700 transition duration-150 group-hover/sidebar:translate-x-1 dark:text-neutral-200"
+        className={cn(
+          "!m-0 inline-block whitespace-pre !p-0 text-base text-neutral-700 transition duration-150 group-hover/sidebar:translate-x-1 dark:text-neutral-200",
+          labelClassName,
+        )}
       >
         {link.label}
       </motion.span>

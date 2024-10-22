@@ -1,10 +1,9 @@
 "use client";
+import GuestDashboard from "@/app/(protected)/huespedes/[guestId]/_components/GuestDashboard";
 import { Error } from "@/components/alerts/Error";
-import { useGuest } from "@/context/GuestContext";
-import React from "react";
 import NameAndIcon from "@/components/guest/NameAndIcon";
 import DashboardSkeleton from "@/components/skeleton/guest/DashboardSkeleton";
-import GuestDashboard from "@/components/grids/guest/GuestDashboard";
+import { useGuest } from "@/context/GuestContext";
 import DashboardBreadcrumbs from "./_components/DashboardBreadcrumbs";
 
 // Dashboard
@@ -25,9 +24,11 @@ const Page = () => {
 
   return (
     <>
+      <div className="min-h-screen">
       <DashboardBreadcrumbs guest={guest} guestLoading={guestLoading} />
       <NameAndIcon data={guest} />
-      <GuestDashboard />
+        <GuestDashboard />
+        </div>
     </>
   );
 };
