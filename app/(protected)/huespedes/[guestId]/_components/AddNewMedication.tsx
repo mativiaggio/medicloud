@@ -34,7 +34,7 @@ import { useMedication } from "@/context/MedicationsContext";
 import { Guest, GuestMedications, Medication } from "@/types/appwrite.types";
 import { Query } from "appwrite";
 import { MoonLoader } from "react-spinners";
-import { AddNewMedication } from "../../dialogs/AddNewMedication";
+import { AddNewMedication } from "../../../../../components/dialogs/AddNewMedication";
 
 // Esquema de validación utilizando Zod
 const medicationSchema = z.object({

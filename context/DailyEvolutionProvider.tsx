@@ -34,13 +34,13 @@ export const DailyEvolutionProvider = ({
   const [loadingDailyEvolution, setLoadingDailyEvolution] =
     useState<boolean>(true);
 
-  const { guestId } = useParams();
+  const { dailyEvolutionId } = useParams();
 
   useEffect(() => {
     const fetchDailyEvolution = async () => {
       try {
         const guestDailyEvolution =
-          await api.dailyEvolution.findByGuestId(guestId);
+          await api.dailyEvolution.findById(dailyEvolutionId);
         setDailyEvolution(guestDailyEvolution);
       } catch (error) {
         setDailyEvolution(null);
@@ -49,7 +49,7 @@ export const DailyEvolutionProvider = ({
       }
     };
     fetchDailyEvolution();
-  }, [guestId]);
+  }, [dailyEvolutionId]);
 
   return (
     <DailyEvolutionContext.Provider

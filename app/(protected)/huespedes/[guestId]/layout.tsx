@@ -88,7 +88,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
               <div className="flex flex-col gap-2">
                 {links.map((link, idx) => (
-                  <SidebarLink key={idx} link={link} />
+                  <SidebarLink key={idx} link={link} labelClassName="text-xl lg:text-base" />
                 ))}
               </div>
             </div>

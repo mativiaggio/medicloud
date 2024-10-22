@@ -19,6 +19,7 @@ export const env = {
   dailyEvolutionId: process.env.NEXT_PUBLIC_DAILY_EVOLUTION_ID || "",
   dailyEvolutionCommentsId:
     process.env.NEXT_PUBLIC_DAILY_EVOLUTION_COMMENTS_ID || "",
+  usersCollectionId: process.env.NEXT_PUBLIC_USERS_ID || "",
 
   // Configuración del almacenamiento (buckets)
   bucketId: process.env.NEXT_PUBLIC_BUCKET_ID || "",

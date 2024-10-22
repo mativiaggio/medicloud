@@ -1,4 +1,4 @@
-import api from "@/appwrite/appwrite";
+
 import CustomFormField, {
   FormFieldType,
 } from "@/components/forms/CustomFormField";
@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { SheetClose } from "@/components/ui/sheet"; // Importa SheetClose
 import { useAuth } from "@/context/AuthProvider";
+import api from "@/lib/appwrite";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -14,6 +15,7 @@ import { z } from "zod";
 
 const DailyEvolutionFormValidation = z.object({
   user_id: z.string().min(1, "El campo 'user_id' no puede ser vacío."),
+  guest_id: z.string().min(1, "El campo 'guest_id' no puede ser vacío."),
   heart_rate: z.string().min(1, "Este campo es obligatorio"),
   respiratory_rate: z.string().min(1, "Este campo es obligatorio"),
   blood_pressure: z
@@ -42,6 +44,7 @@ const DailyEvolutionForm = ({ onSuccess }: AddNewDailyEvolutionProps) => {
     resolver: zodResolver(DailyEvolutionFormValidation),
     defaultValues: {
       user_id: user?.$id || "",
+      guest_id: guestIdString || "",
       guest: guestIdString || "",
       heart_rate: "",
       respiratory_rate: "",
@@ -63,7 +66,7 @@ const DailyEvolutionForm = ({ onSuccess }: AddNewDailyEvolutionProps) => {
         temperature: Number(data.temperature),
       };
 
-      await api.daily_evolution.new(formattedData);
+      await api.dailyEvolution.new(formattedData);
       if (onSuccess) {
         onSuccess();
       }
@@ -168,6 +171,19 @@ const DailyEvolutionForm = ({ onSuccess }: AddNewDailyEvolutionProps) => {
               fieldType={FormFieldType.INPUT}
               name="guest"
               label="Huésped"
+              placeholder=""
+              control={form.control}
+              fieldCustomClasses={
+                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+              }
+              inputCustomClasses={
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+              }
+            />
+            <CustomFormField
+              fieldType={FormFieldType.INPUT}
+              name="guest_id"
+              label="ID del Huésped"
               placeholder=""
               control={form.control}
               fieldCustomClasses={

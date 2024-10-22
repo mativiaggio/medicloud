@@ -127,7 +127,7 @@ const ViewGuestForm = () => {
               placeholder="John Doe"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -144,7 +144,7 @@ const ViewGuestForm = () => {
               placeholder="Estado"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -166,7 +166,7 @@ const ViewGuestForm = () => {
                 placeholder="Av. Falsa 123, Lújan, Buenos Aires"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -178,6 +178,12 @@ const ViewGuestForm = () => {
                 control={form.control}
                 name="phone_number"
                 placeholder="+54 9 2323 121212"
+                fieldCustomClasses={
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                }
+                inputCustomClasses={
+                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+                }
               />
             </div>
             <div className="flex flex-col gap-6 xl:flex-row">
@@ -192,7 +198,7 @@ const ViewGuestForm = () => {
                 iconDarkColor={"#b0b6bf"}
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -205,7 +211,7 @@ const ViewGuestForm = () => {
                 placeholder=""
                 control={form.control}
                 fieldCustomClasses={
-                  "w-full border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "w-full border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -246,7 +252,7 @@ const ViewGuestForm = () => {
               placeholder="Jane Doe"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -264,7 +270,7 @@ const ViewGuestForm = () => {
                 iconDarkColor={"#b0b6bf"}
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -276,6 +282,12 @@ const ViewGuestForm = () => {
                 control={form.control}
                 name="contact_phone_number"
                 placeholder="+54 9 2323 121212"
+                fieldCustomClasses={
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                }
+                inputCustomClasses={
+                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
+                }
               />
             </div>
             <CustomFormField
@@ -285,7 +297,7 @@ const ViewGuestForm = () => {
               placeholder="ej: Hija"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -299,7 +311,7 @@ const ViewGuestForm = () => {
               control={form.control}
               fieldCustomClasses={"bg-input-bg-light dark:bg-input-bg-dark"}
               inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border border-main-2 !border-input-border-light dark:!border-input-border-dark"
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border!border-input-border-light dark:!border-input-border-dark"
               }
             />
           </section>
@@ -312,7 +324,7 @@ const ViewGuestForm = () => {
               placeholder="ej: Cáncer de prostata"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -325,7 +337,7 @@ const ViewGuestForm = () => {
               placeholder="ej: Parkinson"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -338,7 +350,7 @@ const ViewGuestForm = () => {
               placeholder="ej: Dra. María Mónica López"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -351,7 +363,7 @@ const ViewGuestForm = () => {
               placeholder="ej: Dra. María Mónica López"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -370,7 +382,7 @@ const ViewGuestForm = () => {
                   placeholder="Seleccione la obra social"
                   control={form.control}
                   fieldCustomClasses={
-                    "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                    "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                   }
                   inputCustomClasses={
                     "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -396,7 +408,7 @@ const ViewGuestForm = () => {
                 placeholder="ej: 0000897652 / 1"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -412,7 +424,7 @@ const ViewGuestForm = () => {
                 control={form.control}
                 fieldCustomClasses={"bg-input-bg-light dark:bg-input-bg-dark"}
                 inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border border-main-2 !border-input-border-light dark:!border-input-border-dark"
+                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border!border-input-border-light dark:!border-input-border-dark"
                 }
               />
               <CustomFormField
@@ -423,7 +435,7 @@ const ViewGuestForm = () => {
                 control={form.control}
                 fieldCustomClasses={"bg-input-bg-light dark:bg-input-bg-dark"}
                 inputCustomClasses={
-                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border border-main-2 !border-input-border-light dark:!border-input-border-dark"
+                  "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border!border-input-border-light dark:!border-input-border-dark"
                 }
               />
             </div>
@@ -435,7 +447,7 @@ const ViewGuestForm = () => {
               control={form.control}
               fieldCustomClasses={"bg-input-bg-light dark:bg-input-bg-dark"}
               inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border border-main-2 !border-input-border-light dark:!border-input-border-dark"
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border!border-input-border-light dark:!border-input-border-dark"
               }
             />
           </section>
@@ -453,7 +465,7 @@ const ViewGuestForm = () => {
                 placeholder="¿El huésped está informado?"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -478,7 +490,7 @@ const ViewGuestForm = () => {
                 placeholder="¿Cuánto sabe?"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -505,7 +517,7 @@ const ViewGuestForm = () => {
                 placeholder="¿El huésped tiene religión?"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -530,7 +542,7 @@ const ViewGuestForm = () => {
                 placeholder="¿El huésped tiene servicio funerario?"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -557,7 +569,7 @@ const ViewGuestForm = () => {
                 placeholder="ej: Tumor en la cabeza"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -574,7 +586,7 @@ const ViewGuestForm = () => {
                 iconDarkColor={"#b0b6bf"}
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -593,7 +605,7 @@ const ViewGuestForm = () => {
                 placeholder="¿El túmor hizo metástasis?"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -614,7 +626,7 @@ const ViewGuestForm = () => {
                 placeholder="ej: Cerebro"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -632,7 +644,7 @@ const ViewGuestForm = () => {
               placeholder="Estado de salud del huésped"
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -657,7 +669,7 @@ const ViewGuestForm = () => {
               iconDarkColor={"#b0b6bf"}
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -674,7 +686,7 @@ const ViewGuestForm = () => {
               iconDarkColor={"#b0b6bf"}
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -691,7 +703,7 @@ const ViewGuestForm = () => {
               iconDarkColor={"#b0b6bf"}
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -708,7 +720,7 @@ const ViewGuestForm = () => {
               iconDarkColor={"#b0b6bf"}
               control={form.control}
               fieldCustomClasses={
-                "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
               }
               inputCustomClasses={
                 "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -726,7 +738,7 @@ const ViewGuestForm = () => {
                 placeholder="¿Está recibiendo tratamiento con opioides?"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -747,7 +759,7 @@ const ViewGuestForm = () => {
                 placeholder="ej: Morfina"
                 control={form.control}
                 fieldCustomClasses={
-                  "border border-main-2 !border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
+                  "border!border-input-border-light dark:!border-input-border-dark bg-input-bg-light dark:bg-input-bg-dark"
                 }
                 inputCustomClasses={
                   "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none ml-2 focus:bg-transparent active:bg-transparent"
@@ -762,7 +774,7 @@ const ViewGuestForm = () => {
               control={form.control}
               fieldCustomClasses={"bg-input-bg-light dark:bg-input-bg-dark"}
               inputCustomClasses={
-                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border border-main-2 !border-input-border-light dark:!border-input-border-dark"
+                "text-color-light dark:text-color-dark placeholder:text-!placeholder-input-placeholder-light !rounded-none focus:bg-transparent active:!bg-transparent !bg-transparent border!border-input-border-light dark:!border-input-border-dark"
               }
             />
           </section>

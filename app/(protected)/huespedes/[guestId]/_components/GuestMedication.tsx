@@ -1,7 +1,7 @@
 import MedCard from "@/components/cards/MedCard";
 import { Guest, GuestMedications } from "@/types/appwrite.types";
 import { PillBottle } from "lucide-react";
-import React, { useCallback, useState } from "react";
+import { useState } from "react";
 import { AddNewGuestMedication } from "./AddNewMedication";
 
 interface GuestProp {

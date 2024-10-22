@@ -77,6 +77,7 @@ export interface Daily_Evolution extends Models.Document {
   $createdAt: string;
   $updatedAt: string;
   user_id: string;
+  guest_id: string;
   heart_rate: number;
   respiratory_rate: number;
   blood_pressure: string;
