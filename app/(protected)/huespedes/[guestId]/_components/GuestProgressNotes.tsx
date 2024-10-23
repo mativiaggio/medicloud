@@ -60,7 +60,7 @@ const GuestProgressNotes = ({ data }: GuestProp) => {
           </h1>
         </div>
 
-        <Table className="bg-main-workspace-light">
+        <Table className="bg-main-workspace-light dark:bg-main-workspace-dark">
           <TableHeader>
             <TableRow>
               <TableHead>

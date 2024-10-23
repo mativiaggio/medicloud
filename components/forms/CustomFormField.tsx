@@ -14,6 +14,7 @@ import { Control } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
 import Icon from "../icons/Icon";
 
+import { FocusEvent } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "../ui/checkbox";
 import {
@@ -43,6 +44,8 @@ interface CustomProps {
   name: string;
   label?: string;
   placeholder?: string;
+  onFocus?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   formItemCustomClasses?: string;
   iconType?: string;
   iconAlt?: string;
@@ -57,6 +60,7 @@ interface CustomProps {
   iconLightColor?: string;
   iconDarkColor?: string;
   renderSkeleton?: (field: any) => React.ReactNode;
+  value?: string;
 }
 
 const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
@@ -66,6 +70,8 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
     name,
     label,
     placeholder,
+    onFocus,
+    onBlur,
     iconAlt,
     fieldCustomClasses,
     inputCustomClasses,
@@ -76,6 +82,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
     showTimeSelect,
     dateFormat,
     renderSkeleton,
+    value,
   } = props;
   switch (fieldType) {
     case FormFieldType.PASSWORD:
@@ -99,6 +106,9 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
               {...field}
               type={fieldType}
               placeholder={placeholder}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              value={value}
               className={`shad-input ${inputCustomClasses}`}
             />
           </FormControl>
@@ -259,7 +269,7 @@ const CustomFormField = (props: CustomProps) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={`${formItemCustomClasses} !mb-[30px] w-full`}>
+        <FormItem className={`!mb-[30px] w-full ${formItemCustomClasses}`}>
           {props.fieldType !== FormFieldType.CHECKBOX && label && (
             <FormLabel
               className={`${labelCustomClasses} text-color-light dark:text-color-dark`}
