@@ -262,13 +262,17 @@ let api: any = {
         );
     },
 
-    findByGuestId: async (guestId: string, extraParams1: {}, extraParams2: {}) => {
+    findByGuestId: async (
+      guestId: string,
+      extraParams1: {},
+      extraParams2: {},
+    ) => {
       return await api
         .provider()
         .database.listDocuments(env.databaseId, env.dailyEvolutionId, [
           Query.equal("guest_id", guestId),
           extraParams1,
-          extraParams2
+          extraParams2,
         ]);
     },
 
@@ -298,6 +302,70 @@ let api: any = {
       return await api
         .provider()
         .database.deleteDocument(env.databaseId, env.dailyEvolutionId, id);
+    },
+  },
+
+  dailyEvolutionComments: {
+    getAll: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.listDocuments(
+          env.databaseId,
+          env.dailyEvolutionCommentsId,
+          extraParams,
+        );
+    },
+
+    findById: async (id: string) => {
+      return await api
+        .provider()
+        .database.getDocument(env.databaseId, env.dailyEvolutionCommentsId, id);
+    },
+
+    findByGuestId: async (
+      guestId: string,
+      extraParams1: {},
+      extraParams2: {},
+    ) => {
+      return await api
+        .provider()
+        .database.listDocuments(env.databaseId, env.dailyEvolutionCommentsId, [
+          Query.equal("guest_id", guestId),
+          extraParams1,
+          extraParams2,
+        ]);
+    },
+
+    new: async (extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.createDocument(
+          env.databaseId,
+          env.dailyEvolutionCommentsId,
+          ID.unique(),
+          extraParams,
+        );
+    },
+
+    update: async (id: string, extraParams: string[]) => {
+      return await api
+        .provider()
+        .database.updateDocument(
+          env.databaseId,
+          env.dailyEvolutionCommentsId,
+          id,
+          extraParams,
+        );
+    },
+
+    delete: async (id: string) => {
+      return await api
+        .provider()
+        .database.deleteDocument(
+          env.databaseId,
+          env.dailyEvolutionCommentsId,
+          id,
+        );
     },
   },
 };
